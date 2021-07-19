@@ -1,0 +1,12 @@
+- class_name: 友情链接
+  class_desc: 友情连接
+  link_list:
+    - name: 工具箱的深度学习记事簿
+      link: https://ml.akasaki.space/
+      avatar: /img/visualdust.png
+      descr: 工具箱的深度学习记事簿
+    - name: 工具箱的Github
+      link: https://github.com/VisualDust
+      avatar: /img/visualdust.png
+      descr: 工具箱的Github
+
