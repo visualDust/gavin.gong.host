@@ -37,7 +37,7 @@ w(x_i,x_j) = \sigma(q_i^Tk_j) = \frac{exp(q_i^Tk_j)}{\sum_{t\in\Omega}exp(q_i^Tk
 $$
 其中$q_i=W_qx_i$，$k_i=W_kx_i$，分别表示$x_i$的查询值（query）和键（key）（如有疑惑请查阅[注意力机制](../ch3pw/[4]attention.md)中有关键值注意力的部分），$\sigma(\cdot)$表示$softmax$函数。
 
-第一眼看上去，该公式建立了一种成对（pairwise）的关系，即每个像素都会和其他像素建立一对一的关系。但是，作者同是发现该公式会同时编码像素的显著性信息。考虑如下特殊情况：当整张图片上的所有像素使用同个常量作为其query值时，每个像素的key就会对其他所有像素的位置上的输出产生影响（原文为`Considering a special case where the query vector is a constant over all image pixels, a key pixel will have global impact on all query pixels.`）。在{% post_link GCNet-Non-local-Networks-Meet-Squeeze-Excitation-Networks-and-Beyond GCNet %}中，作者通过一系列实验展现了在一些视觉任务中，Non-Local块常常退化为一种仅包含一元项（unary term）的注意力：
+第一眼看上去，该公式建立了一种成对（pairwise）的关系，即每个像素都会和其他像素建立一对一的关系。但是，作者同是发现该公式会同时编码像素的显著性信息。考虑如下特殊情况：当整张图片上的所有像素使用同个常量作为其query值时，每个像素的key就会对其他所有像素的位置上的输出产生影响（原文为`Considering a special case where the query vector is a constant over all image pixels, a key pixel will have global impact on all query pixels.`）。在{% post_link Non-local-Networks-Meet-Squeeze-Excitation-Networks-and-Beyond GCNet %}中，作者通过一系列实验展现了在一些视觉任务中，Non-Local块常常退化为一种仅包含一元项（unary term）的注意力：
 
 ![](/img/posts/Disentangled-Non-Local-Neural-Networks/image-20210712213203846.png)
 
