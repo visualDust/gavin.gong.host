@@ -16,8 +16,7 @@ tags:
 
 > The non-local block is a popular module for strengthening the context modeling ability of a regular convolutional neural network. This paper first studies the non-local block in depth, where we find that its attention computation can be split into two terms, a whitened pairwise term accounting for the relationship between two pixels and a unary term representing the saliency of every pixel. We also observe that the two terms trained alone tend to model different visual clues, e.g. the whitened pairwise term learns within-region relationships while the unary term learns salient boundaries. However, the two terms are tightly coupled in the non-local block, which hinders the learning of each. Based on these findings, we present the disentangled non-local block, where the two terms are decoupled to facilitate learning for both terms. We demonstrate the effectiveness of the decoupled design on various tasks, such as semantic segmentation on Cityscapes, ADE20K and PASCAL Context, object detection on COCO, and action recognition on Kinetics.
 
-从论文名称上来看，这篇论文分析了{% post_link Non-local-Neural-Networks Non-local Neural Networks %}
-中的Non-Local模块中所存在的注意力机制，并对其设计进行了解耦。解耦后该注意力分为两部分：成对项（pairwise term）用于表示像素之间的关系，一元项（unary term）用于表示像素自身的某种显著性。这两项在Non-Local块中是紧密耦合的。这篇论文发现当着两部分被分开训练后，会分别对不同的视觉线索进行建模，并达到不错的效果。
+从论文名称上来看，这篇论文分析了{% post_link Non-local-Neural-Networks Non-local Neural Networks %}中的Non-Local模块中所存在的注意力机制，并对其设计进行了解耦。解耦后该注意力分为两部分：成对项（pairwise term）用于表示像素之间的关系，一元项（unary term）用于表示像素自身的某种显著性。这两项在Non-Local块中是紧密耦合的。这篇论文发现当着两部分被分开训练后，会分别对不同的视觉线索进行建模，并达到不错的效果。
 
 整篇论文从对Non-Local分析到新的方法提出都非常地有调理。有时间请阅读原论文[Disentangled Non-Local Neural Networks](https://arxiv.org/abs/2006.06668)。
 
@@ -32,8 +31,7 @@ Non-Local块用于在单层内建立像素之间的长距离依赖关系，是�
 $$
 y_i = \sum_{j\in\Omega}w(x_i,x_j)g(x_j)
 $$
-其中$y_i$表示在位置$i$上的输出，$\Omega$表示所有像素对应的特征的集合，$g(\cdot)$是一个emedding函数，$w(x_i,x_j)$是在嵌套（Embedded）空间内计算$x_i,x_j$相关性的函数（忘记了这个公式的话可以复习一下{% post_link Non-local-Neural-Networks Non-local-Neural-Networks %}
-）。当$w(x_i,x_j)$是Embedded Gaussian时，$w(x_i,x_j)$可以展开为：
+其中$y_i$表示在位置$i$上的输出，$\Omega$表示所有像素对应的特征的集合，$g(\cdot)$是一个emedding函数，$w(x_i,x_j)$是在嵌套（Embedded）空间内计算$x_i,x_j$相关性的函数（忘记了这个公式的话可以复习一下{% post_link Non-local-Neural-Networks Non-local-Neural-Networks %}）。当$w(x_i,x_j)$是Embedded Gaussian时，$w(x_i,x_j)$可以展开为：
 $$
 w(x_i,x_j) = \sigma(q_i^Tk_j) = \frac{exp(q_i^Tk_j)}{\sum_{t\in\Omega}exp(q_i^Tk_t)}
 $$
