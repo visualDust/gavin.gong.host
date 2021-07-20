@@ -1,9 +1,10 @@
 ---
-title: unlimited-paper-works
+title: Unlimited Paper Works
 top_img: /img/background.jpg
 cover: /img/background.jpg
 date: 2021-07-19 20:26:47
-tags: paper
+tags: 
+  - paper
 ---
 
 # 欢迎来到魔法部日志
@@ -168,6 +169,15 @@ So we know that reading a paper in the proper order, making full understand of t
 
 你可以通过一些工具来规范你的写作。
 
+### Abstract的写作技巧
+
+以下内容摘抄自网络：
+
+> 套路一般是，先说大环境下本领域的发展，分类，极其对其他领域的作用。进而转到其中某某模块(你针对的模块)对整体的性能至关重要。该模块已被多个其他领域应用，如U,V,W(列出参考文献)。针对该模块，大家都使用的方法是Z，近十年来一直如此。后续针对传统方法Z的不足，近几年有学者提出了D方法(ECCV2017)，用以改善XXXX。接着针对D方法的不足，又有人提出了E，解决了D的问题，比如提高D的速度，或者D的稳定性，或者是D的推广版本。E是相当经典的，这么多年以来成为了主导，可谓人尽皆知。最新的研究进展中，有学者还提出了F, H等变体，分别考虑了XXXX，有的还应用在其他领域中。但是(关键来了)，上述这些方法，都仅仅考虑了XXXX层面，因素。However, we observed that......，they may suffer from……，they face the problem of……这个地方最好需要你用一句神来之笔的观点说出这些方法的问题，从而让人眼前一亮，让人恍悟好像这些方法确实是这么一回事，甚至让人恍悟原来E方法能有提升是出于背后这么个原因。总之你若能总结到类似于这样的深刻道理，那基本上审稿人对你论文的看法就是very novel。加之你的提升有1.5个点这么多，那么审稿人对你实验结果的看法也将是significant或very convincing。
+
+- 为了流畅地书写Abstract，你需要有足够的文献储备，这样才能做到信手拈来。
+- 注意语言表达要客观，要尊重，还要犀利。
+
 ### 论文的投稿流程
 
 - Have an idea （你有一个想法）
@@ -245,37 +255,11 @@ So we know that reading a paper in the proper order, making full understand of t
 
 
 
-# 修改原稿
+## 修改原稿
 
 Submit the original manuscript showing clearly all textual changes using track changes. Just highlighting textual changes in yellow (or other color) is not acceptable. This includes all edits related to reviewer(s) comments and the Editorial points. Do also submit the clean revised version of the manuscript.
 
 请使用修订模式修改原稿，或使用其他颜色标注修改的部分。也请提交一份干净的完全修改版。
-
-
-
----
-
-## Q&A
-
-1. Q：为什么每篇笔记后面首先会跟一个笔记作者的信息的三级标题？
-
-   A：为了建立静态索引。这样你在搜索框里就能直接通过搜索笔记作者的名称来找到他/她写下的全部笔记。这样做只是临时的，新的办法还没有找到。
-
-2. Q：为什么笔记的格式不统一？
-
-   A：因为本部分是又很多人一起写下的笔记。大家写笔记的风格都不一样。
-
-   Q：那怎样读到适合自己的笔记格式？
-
-   A：如果你更倾向于阅读某位笔记作者的笔记，可以在网页右上方的搜索框搜索其名称。
-
-3. Q：这些笔记的排列有什么顺序吗？
-
-   A：有，时间顺序。越新的笔记越靠下。将来unlimited-paper-works将会从ml.akasaki.space迁移出去，到时候会使用更合理的排列顺序。
-
-4. Q：读了这些笔记就一定懂了这些论文吗？
-
-   A：并不。有机会请阅读原论文。这些笔记并不保证完善，甚至可能出现错误。
 
 ---
 
