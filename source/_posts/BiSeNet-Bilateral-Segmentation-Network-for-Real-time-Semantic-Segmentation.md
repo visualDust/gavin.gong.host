@@ -93,7 +93,7 @@ BiSeNet的目标是更快速的实时语义分割。在语义分割任务中，�
 
 ![image-20210704150819590](/img/posts/BiSeNet-Bilateral-Segmentation-Network-for-Real-time-Semantic-Segmentation/image-20210704150819590.png)
 
-在特征的不同层级给定的情况下，本文首先连接 Spatial Path 和 Context Path 的输出特征；接着，通过批归一化平衡特征的尺度。下一步，像[SENet](./[23]Squeeze-and-Excitation-Networks.md)一样，把相连接的特征池化为一个特征向量，并计算一个权重向量。这一权重向量可以重新加权特征，起到特征选择和结合的作用。上图展示了这一设计的细节。
+在特征的不同层级给定的情况下，本文首先连接 Spatial Path 和 Context Path 的输出特征；接着，通过批归一化平衡特征的尺度。下一步，像{% post_link Squeeze-and-Excitation-Networks SENet %}一样，把相连接的特征池化为一个特征向量，并计算一个权重向量。这一权重向量可以重新加权特征，起到特征选择和结合的作用。上图展示了这一设计的细节。
 
 ## 实验
 

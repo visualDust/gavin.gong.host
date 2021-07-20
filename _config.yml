@@ -102,7 +102,9 @@ theme: butterfly
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  repo: https://github.yuuza.net/VisualDust/research.akasaki.space.git
+  branch: web
 
 markdown:
   plugins:
