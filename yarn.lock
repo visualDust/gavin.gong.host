@@ -17,17 +17,17 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
-"@neilsustc/markdown-it-katex@^0.13.5":
-  version "0.13.5"
-  resolved "https://registry.yarnpkg.com/@neilsustc/markdown-it-katex/-/markdown-it-katex-0.13.5.tgz#c0e1a272ca08696df4d88db16f9adceaa4129032"
-  dependencies:
-    katex "^0.13.5"
-
 "@neilsustc/markdown-it-katex@^0.4.0":
   version "0.4.0"
   resolved "https://registry.nlark.com/@neilsustc/markdown-it-katex/download/@neilsustc/markdown-it-katex-0.4.0.tgz"
   dependencies:
     katex "^0.10.2"
+
+"@neilsustc/markdown-it-katex@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@neilsustc/markdown-it-katex/-/markdown-it-katex-1.0.0.tgz#a7997b8382c455217a76c10feb5f89b0337acfa2"
+  dependencies:
+    katex "*"
 
 "@upupming/hexo-renderer-markdown-it-plus@^2.0.2":
   version "2.0.2"
@@ -141,7 +141,7 @@ binary-extensions@^2.0.0:
   version "2.2.0"
   resolved "https://registry.npm.taobao.org/binary-extensions/download/binary-extensions-2.2.0.tgz?cache=0&sync_timestamp=1610299268308&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fbinary-extensions%2Fdownload%2Fbinary-extensions-2.2.0.tgz"
 
-bluebird@^3.2.2, bluebird@^3.5.1, bluebird@^3.5.2, bluebird@^3.5.5:
+bluebird@^3.2.2, bluebird@^3.5.0, bluebird@^3.5.1, bluebird@^3.5.2, bluebird@^3.5.5:
   version "3.7.2"
   resolved "https://registry.npm.taobao.org/bluebird/download/bluebird-3.7.2.tgz"
 
@@ -513,6 +513,17 @@ hexo-cli@^4.0.0:
     resolve "^1.11.0"
     tildify "^2.0.0"
 
+hexo-deployer-git@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/hexo-deployer-git/-/hexo-deployer-git-3.0.0.tgz#da82f7a3445df2b213926dc8d030ba5499b68cf3"
+  dependencies:
+    bluebird "^3.5.0"
+    chalk "^4.0.0"
+    hexo-fs "^3.0.1"
+    hexo-util "^2.1.0"
+    moment "^2.18.0"
+    nunjucks "^3.2.1"
+
 hexo-front-matter@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/hexo-front-matter/download/hexo-front-matter-2.0.0.tgz"
@@ -790,17 +801,17 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
+katex@*:
+  version "0.13.11"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.13.11.tgz#66138ebf173f25ef130cd3a3ea3ea1d12a3f1362"
+  dependencies:
+    commander "^6.0.0"
+
 katex@^0.10.2:
   version "0.10.2"
   resolved "https://registry.nlark.com/katex/download/katex-0.10.2.tgz"
   dependencies:
     commander "^2.19.0"
-
-katex@^0.13.5:
-  version "0.13.11"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.13.11.tgz#66138ebf173f25ef130cd3a3ea3ea1d12a3f1362"
-  dependencies:
-    commander "^6.0.0"
 
 linkify-it@^2.0.0:
   version "2.2.0"
@@ -953,7 +964,7 @@ moment-timezone@^0.5.21:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.22.2:
+"moment@>= 2.9.0", moment@^2.18.0, moment@^2.22.2:
   version "2.29.1"
   resolved "https://registry.npm.taobao.org/moment/download/moment-2.29.1.tgz?cache=0&sync_timestamp=1601983320283&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmoment%2Fdownload%2Fmoment-2.29.1.tgz"
 
