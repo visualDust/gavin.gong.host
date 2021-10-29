@@ -4,52 +4,65 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React from 'react';
-import clsx from 'clsx';
-import styles from './HomepageFeatures.module.css';
+import React from "react";
+import clsx from "clsx";
+import styles from "./HomepageFeatures.module.css";
 
 type FeatureItem = {
   title: string;
   image: string;
   description: JSX.Element;
+  buttonLink?: string;
+  buttonText?: string;
 };
 
 const FeatureList: FeatureItem[] = [
   {
-    title: 'Easy to Use',
-    image: '/img/undraw_docusaurus_mountain.svg',
+    title: "Me as CVer",
+    image: "/img/undraw_docusaurus_react.svg",
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        Focusing on Deep learning technique for Computer Vision. Also know me as a poor Latex speaker.
       </>
     ),
+    buttonLink: "any",//todo
+    buttonText: "See my notes",
   },
   {
-    title: 'Focus on What Matters',
-    image: '/img/undraw_docusaurus_tree.svg',
+    title: "Me as Programmer",
+    image: "/img/undraw_docusaurus_tree.svg",
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Using Java, Python & C++, Learning .NETcore, TypeScripts and
+        ComputerGraphics.
       </>
     ),
+    buttonLink: "any",//todo
+    buttonText: "aba aba",
   },
   {
-    title: 'Powered by React',
-    image: '/img/undraw_docusaurus_react.svg',
+    title: "Me",
+    image: "/img/undraw_docusaurus_mountain.svg",
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        An rubbish undergraduate. Coffee and Customize keyboards makes me
+        intrested.
       </>
     ),
+    buttonLink: "any",//todo
+    buttonText: "Something fun",
   },
 ];
 
-function Feature({title, image, description}: FeatureItem) {
+function Feature({
+  title,
+  image,
+  description,
+  buttonLink,
+  buttonText,
+}: FeatureItem) {
   return (
-    <div className={clsx('col col--4')}>
+    <div className={clsx("col col--4")} style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
       <div className="text--center">
         <img className={styles.featureSvg} alt={title} src={image} />
       </div>
@@ -57,6 +70,16 @@ function Feature({title, image, description}: FeatureItem) {
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
+      {buttonLink ? (
+        <div style={{ textAlign: "center", }}>
+          <a
+            href={buttonLink}
+            className="button button--primary button--outline"
+          >
+            {buttonText}
+          </a>
+        </div>
+      ) : null}
     </div>
   );
 }
