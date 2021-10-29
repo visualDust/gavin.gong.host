@@ -54,12 +54,17 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Docs',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/blog', label: 'Blogs', position: 'left'},
           {
             href: 'https://ml.akasaki.space',
             label: 'Mechine Learning Part',
+            position: 'right',
+          },
+          {
+            href: 'https://github.com/neet-cv',
+            label: 'NEET-CV',
             position: 'right',
           },
           {
@@ -76,7 +81,7 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Documents',
                 to: '/docs/intro',
               },
             ],
