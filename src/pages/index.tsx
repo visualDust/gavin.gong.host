@@ -6,7 +6,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
 import HomepageFeatures from "../components/HomepageFeatures";
 import Typical from "react-typical";
-import * as config from "./index.config";
+import * as config from "./_index.config";
 
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
