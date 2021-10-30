@@ -19,7 +19,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: "Me as CVer",
-    image: "/img/undraw_docusaurus_react.svg",
+    image: "/img/illustrations/researching.svg",
     description: (
       <>
         Focusing on Deep learning technique for Computer Vision. Also know me as a poor Latex speaker.
@@ -30,7 +30,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: "Me as Programmer",
-    image: "/img/undraw_docusaurus_tree.svg",
+    image: "/img/illustrations/teaching.svg",
     description: (
       <>
         Using Java, Python & C++, Learning .NETcore, TypeScripts and
@@ -42,7 +42,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     title: "Me",
-    image: "/img/undraw_docusaurus_mountain.svg",
+    image: "/img/illustrations/startup_life.svg",
     description: (
       <>
         An rubbish undergraduate. Coffee and Customize keyboards makes me

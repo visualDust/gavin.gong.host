@@ -15,12 +15,19 @@ function HomepageBackground() {
       <div className="container">
         <div className="row">
           <div
-            className="col col--8"
+            className={"col col--" + config.title_width}
             style={{ alignSelf: "center", marginBottom: "50px" }}
           >
             <h1 className="hero__title">{siteConfig.title}</h1>
             <p className="hero__subtitle">
-              <Typical steps={config.subtitles_and_delays.flatMap(x => [x.text, x.delay])} loop={Infinity} wrapper="span" />
+              <Typical
+                steps={config.subtitles_and_delays.flatMap((x) => [
+                  x.text,
+                  x.delay,
+                ])}
+                loop={Infinity}
+                wrapper="span"
+              />
             </p>
             <div>
               <a className="button button--outline" href="/docs">
@@ -28,8 +35,15 @@ function HomepageBackground() {
               </a>
             </div>
           </div>
-          <div className="col col--4">
-            <img src="/img/programmer.svg" alt="Programmer" />
+          <div className={"col col--" + (12 - config.title_width)}>
+            <img
+              src={
+                config.illustrations[
+                  Math.floor(Math.random() * config.illustrations.length)
+                ]
+              }
+              alt="Programmer"
+            />
           </div>
         </div>
       </div>
