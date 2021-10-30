@@ -2,6 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
 import HomepageFeatures from "../components/AkasakFeatures";
@@ -10,12 +11,9 @@ import * as config from "./_index.config";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { useMediaQuery } from "react-responsive";
-import useIsBrowser from "@docusaurus/useIsBrowser";
 
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
-  const isBrowser = useIsBrowser();
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 }) && isBrowser;
 
   return (
     <header className={clsx("hero hero--primary", styles.heroBanner)}>
@@ -54,25 +52,34 @@ function HomepageBackground() {
               }
               alt="Programmer"
             /> */}
-            <Carousel
-              axis={isTabletOrMobile ? "horizontal" : "vertical"}
-              autoPlay
-              infiniteLoop
-              showArrows={false}
-              showIndicators={false}
-              showStatus={false}
-              showThumbs={false}
-              swipeable={false}
-            >
-              {config.illustrations.map((item) => (
-                <img src={item} style={{ height: '100%' }} />
-              ))}
-            </Carousel>
+            <BrowserOnly>
+              {carousel}
+            </BrowserOnly>
           </div>
         </div>
       </div>
     </header>
   );
+}
+
+function carousel() {
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+  return (
+    <Carousel
+      axis={isTabletOrMobile ? "horizontal" : "vertical"}
+      autoPlay
+      infiniteLoop
+      showArrows={false}
+      showIndicators={false}
+      showStatus={false}
+      showThumbs={false}
+      swipeable={false}
+    >
+      {config.illustrations.map((item) => (
+        <img src={item} style={{ height: '100%' }} />
+      ))}
+    </Carousel>
+  )
 }
 
 export default function Home(): JSX.Element {
