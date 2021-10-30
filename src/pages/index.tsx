@@ -20,8 +20,8 @@ function HomepageBackground() {
       <div className="container">
         <div className="row">
           <div
-            className={"col col--" + config.title_width}
-            style={{ alignSelf: "center", marginBottom: "50px", minHeight: "20em", justifyContent: "center", display: 'flex', flexDirection: 'column' }}
+            className={clsx("col", "col--" + config.title_width, styles.centerChild)}
+            style={{ alignSelf: "center", marginBottom: "50px", minHeight: "20em" }}
           >
             <h1 className="hero__title">{siteConfig.title}</h1>
             <p className="hero__subtitle">
@@ -43,7 +43,7 @@ function HomepageBackground() {
               </a>
             </div>
           </div>
-          <div className={"col col--" + (12 - config.title_width)}>
+          <div className={clsx("col", "col--" + (12 - config.title_width), styles.centerChild)}>
             {/* <img
               src={
                 config.illustrations[
@@ -63,7 +63,7 @@ function HomepageBackground() {
 }
 
 function carousel() {
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 997 });
   return (
     <Carousel
       axis={isTabletOrMobile ? "horizontal" : "vertical"}
@@ -76,7 +76,7 @@ function carousel() {
       swipeable={false}
     >
       {config.illustrations.map((item) => (
-        <img src={item} style={{ height: '100%' }} />
+        <img src={item} />
       ))}
     </Carousel>
   )

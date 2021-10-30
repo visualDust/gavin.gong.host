@@ -28,10 +28,6 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 .carousel .slide img {
-  aspect-ratio: 16/9;
-  margin: 10px;
-}
-
-.carousel {
-  min-height: 200px;
+  aspect-ratio: 4/3;
+  height: 300px;
 }
