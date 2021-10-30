@@ -31,3 +31,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   aspect-ratio: 16/9;
   margin: 10px;
 }
+
+.carousel {
+  min-height: 200px;
+}
