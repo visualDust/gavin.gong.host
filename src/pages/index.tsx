@@ -10,10 +10,13 @@ import * as config from "./_index.config";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { useMediaQuery } from "react-responsive";
+import useIsBrowser from "@docusaurus/useIsBrowser";
 
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 })
+  const isBrowser = useIsBrowser();
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 }) && isBrowser;
+
   return (
     <header className={clsx("hero hero--primary", styles.heroBanner)}>
       <div className="container">
