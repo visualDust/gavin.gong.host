@@ -1145,6 +1145,11 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
+"@camwiegert/typical@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.nlark.com/@camwiegert/typical/download/@camwiegert/typical-0.1.1.tgz#c75d3b658e2f542d113c3e266389794c7dc45d6d"
+  integrity sha1-x107ZY4vVC0RPD4mY4l5TH3EXW0=
+
 "@docsearch/css@3.0.0-alpha.41":
   version "3.0.0-alpha.41"
   resolved "https://registry.npmmirror.com/@docsearch/css/download/@docsearch/css-3.0.0-alpha.41.tgz?cache=0&sync_timestamp=1634549004938&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40docsearch%2Fcss%2Fdownload%2F%40docsearch%2Fcss-3.0.0-alpha.41.tgz#c5c8e803541bd157ad86e764c2c1e9f1b5a68592"
@@ -7084,6 +7089,13 @@ react-textarea-autosize@^8.3.2:
     "@babel/runtime" "^7.10.2"
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
+
+react-typical@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.npmmirror.com/react-typical/download/react-typical-0.1.3.tgz#c56e607a8e435b6f8a23eb5eaaf00768e35be06d"
+  integrity sha1-xW5geo5DW2+KI+teqvAHaONb4G0=
+  dependencies:
+    "@camwiegert/typical" "^0.1.1"
 
 react@^17.0.1:
   version "17.0.2"
