@@ -14,7 +14,6 @@ export const subtitles_and_delays: TypicalText[] = [
 export const title_width: number = 7;
 
 export const illustrations: string[] = [
-  "/img/illustrations/by_the_road.svg",
   "/img/illustrations/coding.svg",
   "/img/illustrations/developer_activity.svg",
   "/img/illustrations/exploring.svg",
