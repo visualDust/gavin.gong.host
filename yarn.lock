@@ -1599,6 +1599,154 @@
   resolved "https://registry.nlark.com/@mdx-js/util/download/@mdx-js/util-1.6.22.tgz#219dfd89ae5b97a8801f015323ffa4b62f45718b"
   integrity sha1-IZ39ia5bl6iAHwFTI/+kti9FcYs=
 
+"@nivo/annotations@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/annotations/download/@nivo/annotations-0.74.0.tgz#f4a3474fdf8812c3812c30e08d3277e209bec0f6"
+  integrity sha1-9KNHT9+IEsOBLDDgjTJ34gm+wPY=
+  dependencies:
+    "@nivo/colors" "0.74.0"
+    "@react-spring/web" "9.2.6"
+    lodash "^4.17.21"
+
+"@nivo/arcs@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/arcs/download/@nivo/arcs-0.74.0.tgz#102084e878545c02032ff87593f3595a5822668a"
+  integrity sha1-ECCE6HhUXAIDL/h1k/NZWlgiZoo=
+  dependencies:
+    "@nivo/colors" "0.74.0"
+    "@react-spring/web" "9.2.6"
+    d3-shape "^1.3.5"
+
+"@nivo/axes@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/axes/download/@nivo/axes-0.74.0.tgz#cf7cf2277b7aca5449a040ddf3e0cf9891971199"
+  integrity sha1-z3zyJ3t6ylRJoEDd8+DPmJGXEZk=
+  dependencies:
+    "@nivo/scales" "0.74.0"
+    "@react-spring/web" "9.2.6"
+    d3-format "^1.4.4"
+    d3-time-format "^3.0.0"
+
+"@nivo/bar@^0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/bar/download/@nivo/bar-0.74.0.tgz#26d1b4e5cb6cd09910afa390f9cc202fd1579d70"
+  integrity sha1-JtG05cts0JkQr6OQ+cwgL9FXnXA=
+  dependencies:
+    "@nivo/annotations" "0.74.0"
+    "@nivo/axes" "0.74.0"
+    "@nivo/colors" "0.74.0"
+    "@nivo/legends" "0.74.0"
+    "@nivo/scales" "0.74.0"
+    "@nivo/tooltip" "0.74.0"
+    "@react-spring/web" "9.2.6"
+    d3-scale "^3.2.3"
+    d3-shape "^1.2.2"
+    lodash "^4.17.21"
+
+"@nivo/calendar@^0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/calendar/download/@nivo/calendar-0.74.0.tgz#133f8a98fc49b991eccea43762f17535872735fc"
+  integrity sha1-Ez+KmPxJuZHszqQ3YvF1NYcnNfw=
+  dependencies:
+    "@nivo/legends" "0.74.0"
+    "@nivo/tooltip" "0.74.0"
+    d3-scale "^3.2.3"
+    d3-time "^1.0.10"
+    d3-time-format "^3.0.0"
+    lodash "^4.17.21"
+
+"@nivo/colors@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/colors/download/@nivo/colors-0.74.0.tgz#29d1e7c6f3bcab4e872a168651b3a90cfba03a4f"
+  integrity sha1-KdHnxvO8q06HKhaGUbOpDPugOk8=
+  dependencies:
+    d3-color "^2.0.0"
+    d3-scale "^3.2.3"
+    d3-scale-chromatic "^2.0.0"
+    lodash "^4.17.21"
+    react-motion "^0.5.2"
+
+"@nivo/core@^0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/core/download/@nivo/core-0.74.0.tgz#7634c78a36a8bd50a0c04c6b6f12b779a88ec2f4"
+  integrity sha1-djTHijaovVCgwExrbxK3eaiOwvQ=
+  dependencies:
+    "@nivo/recompose" "0.74.0"
+    "@react-spring/web" "9.2.6"
+    d3-color "^2.0.0"
+    d3-format "^1.4.4"
+    d3-hierarchy "^1.1.8"
+    d3-interpolate "^2.0.1"
+    d3-scale "^3.2.3"
+    d3-scale-chromatic "^2.0.0"
+    d3-shape "^1.3.5"
+    d3-time-format "^3.0.0"
+    lodash "^4.17.21"
+    resize-observer-polyfill "^1.5.1"
+
+"@nivo/legends@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/legends/download/@nivo/legends-0.74.0.tgz#8e5e04b2a3f980c2073a394d94c4d89fa8bc8724"
+  integrity sha1-jl4EsqP5gMIHOjlNlMTYn6i8hyQ=
+
+"@nivo/line@^0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/line/download/@nivo/line-0.74.0.tgz#f1f430d64a81d2fe1a5fd49e5cfaa61242066927"
+  integrity sha1-8fQw1kqB0v4aX9SeXPqmEkIGaSc=
+  dependencies:
+    "@nivo/annotations" "0.74.0"
+    "@nivo/axes" "0.74.0"
+    "@nivo/colors" "0.74.0"
+    "@nivo/legends" "0.74.0"
+    "@nivo/scales" "0.74.0"
+    "@nivo/tooltip" "0.74.0"
+    "@nivo/voronoi" "0.74.0"
+    "@react-spring/web" "9.2.6"
+    d3-shape "^1.3.5"
+
+"@nivo/pie@^0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/pie/download/@nivo/pie-0.74.0.tgz#8e6e1722329d7bafaade6b29b0fcfdd057b7cd98"
+  integrity sha1-jm4XIjKde6+q3mspsPz90Fe3zZg=
+  dependencies:
+    "@nivo/arcs" "0.74.0"
+    "@nivo/colors" "0.74.0"
+    "@nivo/legends" "0.74.0"
+    "@nivo/tooltip" "0.74.0"
+    d3-shape "^1.3.5"
+
+"@nivo/recompose@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/recompose/download/@nivo/recompose-0.74.0.tgz#057e8e1154073d7f4cb01aa8d165c3914b8bdb54"
+  integrity sha1-BX6OEVQHPX9MsBqo0WXDkUuL21Q=
+  dependencies:
+    react-lifecycles-compat "^3.0.4"
+
+"@nivo/scales@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/scales/download/@nivo/scales-0.74.0.tgz#ede12b899da9e3aee7921ebce40f227e670a430d"
+  integrity sha1-7eEriZ2p467nkh685A8ifmcKQw0=
+  dependencies:
+    d3-scale "^3.2.3"
+    d3-time "^1.0.11"
+    d3-time-format "^3.0.0"
+    lodash "^4.17.21"
+
+"@nivo/tooltip@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/tooltip/download/@nivo/tooltip-0.74.0.tgz#60d94b0fecc2fc179ada3efa380e7e456982b4a5"
+  integrity sha1-YNlLD+zC/Bea2j76OA5+RWmCtKU=
+  dependencies:
+    "@react-spring/web" "9.2.6"
+
+"@nivo/voronoi@0.74.0":
+  version "0.74.0"
+  resolved "https://registry.npmmirror.com/@nivo/voronoi/download/@nivo/voronoi-0.74.0.tgz#4b427955ddabd86934a2bbb95a62ff53ee97c575"
+  integrity sha1-S0J5Vd2r2Gk0oru5WmL/U+6XxXU=
+  dependencies:
+    d3-delaunay "^5.3.0"
+    d3-scale "^3.2.3"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.nlark.com/@nodelib/fs.scandir/download/@nodelib/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -1624,6 +1772,51 @@
   version "1.0.0-next.21"
   resolved "https://registry.npmmirror.com/@polka/url/download/@polka/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
   integrity sha1-XeWiOFo1MJQn9gEZkrVEUU1VmqE=
+
+"@react-spring/animated@~9.2.6-beta.0":
+  version "9.2.6"
+  resolved "https://registry.npmmirror.com/@react-spring/animated/download/@react-spring/animated-9.2.6.tgz#58f30fb75d8bfb7ccbc156cfd6b974a8f3dfd54e"
+  integrity sha1-WPMPt12L+3zLwVbP1rl0qPPf1U4=
+  dependencies:
+    "@react-spring/shared" "~9.2.6-beta.0"
+    "@react-spring/types" "~9.2.6-beta.0"
+
+"@react-spring/core@~9.2.6-beta.0":
+  version "9.2.6"
+  resolved "https://registry.npmmirror.com/@react-spring/core/download/@react-spring/core-9.2.6.tgz#ae22338fe55d070caf03abb4293b5519ba620d93"
+  integrity sha1-riIzj+VdBwyvA6u0KTtVGbpiDZM=
+  dependencies:
+    "@react-spring/animated" "~9.2.6-beta.0"
+    "@react-spring/shared" "~9.2.6-beta.0"
+    "@react-spring/types" "~9.2.6-beta.0"
+
+"@react-spring/rafz@~9.2.6-beta.0":
+  version "9.2.6"
+  resolved "https://registry.npmmirror.com/@react-spring/rafz/download/@react-spring/rafz-9.2.6.tgz#d97484003875bf5fb5e6ec22dee97cc208363e48"
+  integrity sha1-2XSEADh1v1+15uwi3ul8wgg2Pkg=
+
+"@react-spring/shared@~9.2.6-beta.0":
+  version "9.2.6"
+  resolved "https://registry.npmmirror.com/@react-spring/shared/download/@react-spring/shared-9.2.6.tgz#2c84e62cc0cfbbbbeb5546acd46c1f4b248bc562"
+  integrity sha1-LITmLMDPu7vrVUas1GwfSySLxWI=
+  dependencies:
+    "@react-spring/rafz" "~9.2.6-beta.0"
+    "@react-spring/types" "~9.2.6-beta.0"
+
+"@react-spring/types@~9.2.6-beta.0":
+  version "9.2.6"
+  resolved "https://registry.npmmirror.com/@react-spring/types/download/@react-spring/types-9.2.6.tgz#f60722fcf9f8492ae16d0bdc47f0ea3c2a16d2cf"
+  integrity sha1-9gci/Pn4SSrhbQvcR/DqPCoW0s8=
+
+"@react-spring/web@9.2.6":
+  version "9.2.6"
+  resolved "https://registry.npmmirror.com/@react-spring/web/download/@react-spring/web-9.2.6.tgz#c4fba69e1b1b43bd1d6a62346530cfb07f2be09b"
+  integrity sha1-xPumnhsbQ70damI0ZTDPsH8r4Js=
+  dependencies:
+    "@react-spring/animated" "~9.2.6-beta.0"
+    "@react-spring/core" "~9.2.6-beta.0"
+    "@react-spring/shared" "~9.2.6-beta.0"
+    "@react-spring/types" "~9.2.6-beta.0"
 
 "@sideway/address@^4.1.0":
   version "4.1.2"
@@ -3356,6 +3549,97 @@ csstype@^3.0.2:
   resolved "https://registry.nlark.com/csstype/download/csstype-3.0.9.tgz?cache=0&sync_timestamp=1631540708034&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcsstype%2Fdownload%2Fcsstype-3.0.9.tgz#6410af31b26bd0520933d02cbc64fce9ce3fbf0b"
   integrity sha1-ZBCvMbJr0FIJM9AsvGT86c4/vws=
 
+d3-array@2, d3-array@^2.3.0:
+  version "2.12.1"
+  resolved "https://registry.npmmirror.com/d3-array/download/d3-array-2.12.1.tgz?cache=0&sync_timestamp=1633231525138&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fd3-array%2Fdownload%2Fd3-array-2.12.1.tgz#e20b41aafcdffdf5d50928004ececf815a465e81"
+  integrity sha1-4gtBqvzf/fXVCSgATs7PgVpGXoE=
+  dependencies:
+    internmap "^1.0.0"
+
+"d3-color@1 - 2", d3-color@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.nlark.com/d3-color/download/d3-color-2.0.0.tgz?cache=0&sync_timestamp=1622917832534&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fd3-color%2Fdownload%2Fd3-color-2.0.0.tgz#8d625cab42ed9b8f601a1760a389f7ea9189d62e"
+  integrity sha1-jWJcq0Ltm49gGhdgo4n36pGJ1i4=
+
+d3-delaunay@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.nlark.com/d3-delaunay/download/d3-delaunay-5.3.0.tgz#b47f05c38f854a4e7b3cea80e0bb12e57398772d"
+  integrity sha1-tH8Fw4+FSk57POqA4LsS5XOYdy0=
+  dependencies:
+    delaunator "4"
+
+"d3-format@1 - 2":
+  version "2.0.0"
+  resolved "https://registry.nlark.com/d3-format/download/d3-format-2.0.0.tgz?cache=0&sync_timestamp=1622918263829&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fd3-format%2Fdownload%2Fd3-format-2.0.0.tgz#a10bcc0f986c372b729ba447382413aabf5b0767"
+  integrity sha1-oQvMD5hsNytym6RHOCQTqr9bB2c=
+
+d3-format@^1.4.4:
+  version "1.4.5"
+  resolved "https://registry.nlark.com/d3-format/download/d3-format-1.4.5.tgz?cache=0&sync_timestamp=1622918263829&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fd3-format%2Fdownload%2Fd3-format-1.4.5.tgz#374f2ba1320e3717eb74a9356c67daee17a7edb4"
+  integrity sha1-N08roTIONxfrdKk1bGfa7hen7bQ=
+
+d3-hierarchy@^1.1.8:
+  version "1.1.9"
+  resolved "https://registry.nlark.com/d3-hierarchy/download/d3-hierarchy-1.1.9.tgz?cache=0&sync_timestamp=1622918264427&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fd3-hierarchy%2Fdownload%2Fd3-hierarchy-1.1.9.tgz#2f6bee24caaea43f8dc37545fa01628559647a83"
+  integrity sha1-L2vuJMqupD+Nw3VF+gFihVlkeoM=
+
+"d3-interpolate@1 - 2", "d3-interpolate@1.2.0 - 2", d3-interpolate@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.nlark.com/d3-interpolate/download/d3-interpolate-2.0.1.tgz#98be499cfb8a3b94d4ff616900501a64abc91163"
+  integrity sha1-mL5JnPuKO5TU/2FpAFAaZKvJEWM=
+  dependencies:
+    d3-color "1 - 2"
+
+d3-path@1:
+  version "1.0.9"
+  resolved "https://registry.nlark.com/d3-path/download/d3-path-1.0.9.tgz?cache=0&sync_timestamp=1622917833000&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fd3-path%2Fdownload%2Fd3-path-1.0.9.tgz#48c050bb1fe8c262493a8caf5524e3e9591701cf"
+  integrity sha1-SMBQux/owmJJOoyvVSTj6VkXAc8=
+
+d3-scale-chromatic@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.nlark.com/d3-scale-chromatic/download/d3-scale-chromatic-2.0.0.tgz#c13f3af86685ff91323dc2f0ebd2dabbd72d8bab"
+  integrity sha1-wT86+GaF/5EyPcLw69Lau9cti6s=
+  dependencies:
+    d3-color "1 - 2"
+    d3-interpolate "1 - 2"
+
+d3-scale@^3.2.3:
+  version "3.3.0"
+  resolved "https://registry.npmmirror.com/d3-scale/download/d3-scale-3.3.0.tgz?cache=0&sync_timestamp=1632505941617&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fd3-scale%2Fdownload%2Fd3-scale-3.3.0.tgz#28c600b29f47e5b9cd2df9749c206727966203f3"
+  integrity sha1-KMYAsp9H5bnNLfl0nCBnJ5ZiA/M=
+  dependencies:
+    d3-array "^2.3.0"
+    d3-format "1 - 2"
+    d3-interpolate "1.2.0 - 2"
+    d3-time "^2.1.1"
+    d3-time-format "2 - 3"
+
+d3-shape@^1.2.2, d3-shape@^1.3.5:
+  version "1.3.7"
+  resolved "https://registry.nlark.com/d3-shape/download/d3-shape-1.3.7.tgz?cache=0&sync_timestamp=1622917833478&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fd3-shape%2Fdownload%2Fd3-shape-1.3.7.tgz#df63801be07bc986bc54f63789b4fe502992b5d7"
+  integrity sha1-32OAG+B7yYa8VPY3ibT+UCmStdc=
+  dependencies:
+    d3-path "1"
+
+"d3-time-format@2 - 3", d3-time-format@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.nlark.com/d3-time-format/download/d3-time-format-3.0.0.tgz#df8056c83659e01f20ac5da5fdeae7c08d5f1bb6"
+  integrity sha1-34BWyDZZ4B8grF2l/ernwI1fG7Y=
+  dependencies:
+    d3-time "1 - 2"
+
+"d3-time@1 - 2", d3-time@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.nlark.com/d3-time/download/d3-time-2.1.1.tgz?cache=0&sync_timestamp=1622916838153&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fd3-time%2Fdownload%2Fd3-time-2.1.1.tgz#e9d8a8a88691f4548e68ca085e5ff956724a6682"
+  integrity sha1-6dioqIaR9FSOaMoIXl/5VnJKZoI=
+  dependencies:
+    d3-array "2"
+
+d3-time@^1.0.10, d3-time@^1.0.11:
+  version "1.1.0"
+  resolved "https://registry.nlark.com/d3-time/download/d3-time-1.1.0.tgz?cache=0&sync_timestamp=1622916838153&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fd3-time%2Fdownload%2Fd3-time-1.1.0.tgz#b1e19d307dae9c900b7e5b25ffc5dcc249a8a0f1"
+  integrity sha1-seGdMH2unJALflsl/8XcwkmooPE=
+
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0:
   version "2.6.9"
   resolved "https://registry.nlark.com/debug/download/debug-2.6.9.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fdebug%2Fdownload%2Fdebug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -3484,6 +3768,11 @@ del@^6.0.0:
     p-map "^4.0.0"
     rimraf "^3.0.2"
     slash "^3.0.0"
+
+delaunator@4:
+  version "4.0.1"
+  resolved "https://registry.npm.taobao.org/delaunator/download/delaunator-4.0.1.tgz#3d779687f57919a7a418f8ab947d3bddb6846957"
+  integrity sha1-PXeWh/V5GaekGPirlH073baEaVc=
 
 depd@~1.1.2:
   version "1.1.2"
@@ -4883,6 +5172,11 @@ internal-slot@^1.0.3:
     get-intrinsic "^1.1.0"
     has "^1.0.3"
     side-channel "^1.0.4"
+
+internmap@^1.0.0:
+  version "1.0.1"
+  resolved "https://registry.nlark.com/internmap/download/internmap-1.0.1.tgz#0017cc8a3b99605f0302f2b198d272e015e5df95"
+  integrity sha1-ABfMijuZYF8DAvKxmNJy4BXl35U=
 
 interpret@^1.0.0:
   version "1.4.0"
@@ -6426,6 +6720,16 @@ path-type@^4.0.0:
   resolved "https://registry.nlark.com/path-type/download/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha1-hO0BwKe6OAr+CdkKjBgNzZ0DBDs=
 
+performance-now@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/performance-now/download/performance-now-0.2.0.tgz#33ef30c5c77d4ea21c5a53869d91b56d8f2555e5"
+  integrity sha1-M+8wxcd9TqIcWlOGnZG1bY8lVeU=
+
+performance-now@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npm.taobao.org/performance-now/download/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+  integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmmirror.com/picocolors/download/picocolors-1.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpicocolors%2Fdownload%2Fpicocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"
@@ -6939,6 +7243,13 @@ queue-microtask@^1.2.2:
   resolved "https://registry.nlark.com/queue-microtask/download/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha1-SSkii7xyTfrEPg77BYyve2z7YkM=
 
+raf@^3.1.0:
+  version "3.4.1"
+  resolved "https://registry.npm.taobao.org/raf/download/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
+  integrity sha1-B0LpmkplUvRF1z4+4DKK8P8e3jk=
+  dependencies:
+    performance-now "^2.1.0"
+
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.nlark.com/randombytes/download/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -7085,6 +7396,15 @@ react-loadable@^5.5.0:
   integrity sha1-WCJRZ509qGwyquLI5onFnxGW2MQ=
   dependencies:
     prop-types "^15.5.0"
+
+react-motion@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.nlark.com/react-motion/download/react-motion-0.5.2.tgz#0dd3a69e411316567927917c6626551ba0607316"
+  integrity sha1-DdOmnkETFlZ5J5F8ZiZVG6BgcxY=
+  dependencies:
+    performance-now "^0.2.0"
+    prop-types "^15.5.8"
+    raf "^3.1.0"
 
 react-responsive-carousel@^3.2.22:
   version "3.2.22"
@@ -7444,6 +7764,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.nlark.com/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npm.taobao.org/resize-observer-polyfill/download/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha1-DpAg3T0hAkRY1OvSfiPkAmmBBGQ=
 
 resolve-cwd@^2.0.0:
   version "2.0.0"

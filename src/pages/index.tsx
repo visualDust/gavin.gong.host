@@ -5,12 +5,13 @@ import Link from "@docusaurus/Link";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
-import HomepageFeatures from "../components/AkasakFeatures";
+import AkasakiFeatures from "../components/AkasakFeatures";
 import Typical from "react-typical";
 import * as config from "./_index.config";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { useMediaQuery } from "react-responsive";
+import { WakatimeFeatures } from "../components/WakatimeFeatures";
 
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
@@ -91,7 +92,8 @@ export default function Home(): JSX.Element {
     >
       <HomepageBackground />
       <main>
-        <HomepageFeatures />
+        <AkasakiFeatures />
+        <WakatimeFeatures />
       </main>
     </Layout>
   );
