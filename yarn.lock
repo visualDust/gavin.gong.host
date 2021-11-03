@@ -8737,6 +8737,11 @@ wait-on@^6.0.0:
     minimist "^1.2.5"
     rxjs "^7.1.0"
 
+wakatime-client@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.npmmirror.com/wakatime-client/download/wakatime-client-2.7.0.tgz#a95f0999376c8eddb89ede99e685c2e62b007868"
+  integrity sha1-qV8JmTdsjt24nt6Z5oXC5isAeGg=
+
 watchpack@^2.2.0:
   version "2.2.0"
   resolved "https://registry.nlark.com/watchpack/download/watchpack-2.2.0.tgz#47d78f5415fe550ecd740f99fe2882323a58b1ce"
