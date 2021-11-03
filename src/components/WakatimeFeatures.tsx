@@ -30,17 +30,24 @@ export function WakatimeFeatures(): JSX.Element {
     return (
         <section>
             <div className="container" style={{ height: '300px' }}>
-                <div style={{ display: 'inline-block', height: '100%', width: '50%' }}><MyResponsivePie data={languages} /></div>
-                <div style={{ display: 'inline-block', height: '100%', width: '50%' }}><MyResponsiveBar data={editors} /></div>
+                <div style={{ display: 'inline-block', height: '100%', width: '50%' }}><WakaLangPieChart data={languages} /></div>
+                <div style={{ display: 'inline-block', height: '100%', width: '50%' }}><WakaEdtrBarChart data={editors} /></div>
             </div>
         </section>
     )
 }
 
 
-const MyResponsivePie = ({ data /* see data tab */ }) => (
+const WakaLangPieChart = ({ data /* see data tab */ }) => (
     <ResponsivePie
         data={data}
+        theme={{
+            tooltip: {
+                basic: {
+                    color: '#999999'
+                }
+            }
+        }}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
         innerRadius={0.35}
         padAngle={1}
@@ -131,11 +138,16 @@ const MyResponsivePie = ({ data /* see data tab */ }) => (
     />
 )
 
-const MyResponsiveBar = ({ data /* see data tab */}) => (
+const WakaEdtrBarChart = ({ data /* see data tab */}) => (
     <ResponsiveBar
         data={data}
         theme={{
-            textColor: '#999999'
+            textColor: '#999999',
+            tooltip: {
+                basic: {
+                    color: '#999999'
+                }
+            }
         }}
         keys={[ 'value' ]}
         indexBy="name"
