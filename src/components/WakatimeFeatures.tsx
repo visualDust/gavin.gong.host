@@ -29,9 +29,11 @@ export function WakatimeFeatures(): JSX.Element {
 
     return (
         <section>
-            <div className="container" style={{ height: '300px' }}>
-                <div style={{ display: 'inline-block', height: '100%', width: '50%' }}><WakaLangPieChart data={languages} /></div>
-                <div style={{ display: 'inline-block', height: '100%', width: '50%' }}><WakaEdtrBarChart data={editors} /></div>
+            <div className="container">
+                <div className="row">
+                    <div className="col col--6" style={{ height: '300px' }}><WakaLangPieChart data={languages} /></div>
+                    <div className="col col--6" style={{ height: '300px' }}><WakaEdtrBarChart data={editors} /></div>
+                </div>
             </div>
         </section>
     )
@@ -44,7 +46,7 @@ const WakaLangPieChart = ({ data /* see data tab */ }) => (
         theme={{
             tooltip: {
                 basic: {
-                    color: '#999999'
+                    color: '#000000'
                 }
             }
         }}
@@ -145,7 +147,7 @@ const WakaEdtrBarChart = ({ data /* see data tab */}) => (
             textColor: '#999999',
             tooltip: {
                 basic: {
-                    color: '#999999'
+                    color: '#000000'
                 }
             }
         }}
