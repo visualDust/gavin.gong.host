@@ -5,13 +5,18 @@ import Link from "@docusaurus/Link";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
-import AkasakiFeatures from "../components/AkasakFeatures";
+import { AkasakiFeatures, Feature, FeatureList } from "../components/AkasakFeatures";
 import Typical from "react-typical";
 import * as config from "./_index.config";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { useMediaQuery } from "react-responsive";
-import { WakatimeFeatures } from "../components/WakatimeFeatures";
+import { WakatimeEditors, WakatimeFeatures, WakatimeLanguages } from "../components/WakatimeFeatures";
+import { GithubFeatures } from "../components/GithubFeatures";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { EffectCoverflow } from 'swiper';
+import { useWakatimeData } from "../hooks/useWakatimeData";
 
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
@@ -82,7 +87,6 @@ function carousel() {
     <Carousel
       axis={isTabletOrMobile ? "horizontal" : "vertical"}
       autoPlay
-      infiniteLoop
       showArrows={false}
       showIndicators={false}
       showStatus={false}
@@ -100,26 +104,55 @@ export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={`${siteConfig.title}`}
+      description="Akasaki Focusing is where Gavin Gong (aka VisualDust) enjoys coding life"
     >
       <HomepageBackground />
       <main>
-        <AkasakiFeatures />
-        <div
-          className="container"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
-          }}
-        >
-          <div className="text--center">
-            <img src="https://ghchart.rshah.org/409ba5/visualdust" alt="" />
-          </div>
-        </div>
-        <WakatimeFeatures />
+        <BrowserOnly>
+          {MySwiper}
+        </BrowserOnly>
       </main>
     </Layout>
   );
+}
+
+function MySwiper(): JSX.Element {
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 997 });
+  const waka = useWakatimeData();
+  return (
+    <Swiper
+      spaceBetween={50}
+      slidesPerView={1}
+      autoplay={{ delay: 3000 }}
+      modules={[EffectCoverflow]}
+      effect="coverflow"
+      autoHeight={true}
+    >
+      {
+        isTabletOrMobile ? (
+          <>
+            {FeatureList.map((props, idx) => (
+              <SwiperSlide style={{ padding: '20px' }}>
+                <Feature key={idx} {...props} />
+              </SwiperSlide>
+            ))}
+            <SwiperSlide style={{ padding: '20px' }}>
+              <WakatimeLanguages data={waka} />
+            </SwiperSlide>
+            <SwiperSlide style={{ padding: '20px' }}>
+              <WakatimeEditors data={waka} />
+            </SwiperSlide>
+            <SwiperSlide style={{padding:'100px 20px'}}><GithubFeatures /></SwiperSlide>
+          </>
+        ) : (
+          <>
+            <SwiperSlide><AkasakiFeatures /></SwiperSlide>
+            <SwiperSlide><WakatimeFeatures data={waka} /></SwiperSlide>
+            <SwiperSlide><GithubFeatures /></SwiperSlide>
+          </>
+        )
+      }
+    </Swiper>
+  )
 }

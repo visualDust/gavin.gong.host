@@ -6,15 +6,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Akasaki Research',
+  title: 'Akasaki Focusing',
   tagline: 'Empoered learning life',
-  url: 'https://research.akasaki.space',
+  url: 'https://focus.akasaki.space',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
   organizationName: 'visualDust', // Usually your GitHub org/user name.
-  projectName: 'research.akasaki.space', // Usually your repo name.
+  projectName: 'focus.akasaki.space', // Usually your repo name.
 
   presets: [
     [

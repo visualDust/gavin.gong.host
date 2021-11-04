@@ -3871,6 +3871,13 @@ dom-serializer@~0.1.0:
     domelementtype "^1.3.0"
     entities "^1.1.1"
 
+dom7@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmmirror.com/dom7/download/dom7-4.0.1.tgz#821209df1bfdf97dd82b5156e50f7cb66b3f166c"
+  integrity sha1-ghIJ3xv9+X3YK1FW5Q98tms/Fmw=
+  dependencies:
+    ssr-window "^4.0.0"
+
 domelementtype@1, domelementtype@^1.3.0, domelementtype@^1.3.1:
   version "1.3.1"
   resolved "https://registry.nlark.com/domelementtype/download/domelementtype-1.3.1.tgz#d048c44b37b0d10a7f2a3d5fee3f4333d790481f"
@@ -8318,6 +8325,11 @@ sprintf-js@~1.0.2:
   resolved "https://registry.nlark.com/sprintf-js/download/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
+ssr-window@^4.0.0, ssr-window@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.npmmirror.com/ssr-window/download/ssr-window-4.0.1.tgz?cache=0&sync_timestamp=1635331916644&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fssr-window%2Fdownload%2Fssr-window-4.0.1.tgz#514bf2ca81952f63fe88e8b0c623a23f90f7feb3"
+  integrity sha1-UUvyyoGVL2P+iOiwxiOiP5D3/rM=
+
 stable@^0.1.8:
   version "0.1.8"
   resolved "https://registry.nlark.com/stable/download/stable-0.1.8.tgz#836eb3c8382fe2936feaf544631017ce7d47a3cf"
@@ -8537,6 +8549,14 @@ svgo@^2.3.0:
     csso "^4.2.0"
     nanocolors "^0.1.12"
     stable "^0.1.8"
+
+swiper@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.npmmirror.com/swiper/download/swiper-7.2.0.tgz#aae2bb7632798467abd5c1ab3e2441598a70dbd7"
+  integrity sha1-quK7djJ5hGer1cGrPiRBWYpw29c=
+  dependencies:
+    dom7 "^4.0.1"
+    ssr-window "^4.0.1"
 
 tapable@^1.0.0:
   version "1.1.3"

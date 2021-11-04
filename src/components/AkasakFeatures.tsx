@@ -16,7 +16,7 @@ type FeatureItem = {
   buttonText?: string;
 };
 
-const FeatureList: FeatureItem[] = [
+export const FeatureList: FeatureItem[] = [
   {
     title: "Me as CVer",
     image: "/img/illustrations/researching.svg",
@@ -54,7 +54,7 @@ const FeatureList: FeatureItem[] = [
   },
 ];
 
-function Feature({
+export function Feature({
   title,
   image,
   description,
@@ -84,9 +84,9 @@ function Feature({
   );
 }
 
-export default function AkasakiFeatures(): JSX.Element {
+export function AkasakiFeatures(): JSX.Element {
   return (
-    <section className={styles.features}>
+    <section className={styles.features} style={{background:'#ffffff'}}>
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (
