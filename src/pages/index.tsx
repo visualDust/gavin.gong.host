@@ -21,8 +21,16 @@ function HomepageBackground() {
       <div className="container">
         <div className="row">
           <div
-            className={clsx("col", "col--" + config.title_width, styles.centerChild)}
-            style={{ alignSelf: "center", marginBottom: "50px", minHeight: "20em" }}
+            className={clsx(
+              "col",
+              "col--" + config.title_width,
+              styles.centerChild
+            )}
+            style={{
+              alignSelf: "center",
+              marginBottom: "50px",
+              minHeight: "20em",
+            }}
           >
             <h1 className="hero__title">{siteConfig.title}</h1>
             <p className="hero__subtitle">
@@ -36,15 +44,22 @@ function HomepageBackground() {
               />
             </p>
             <div>
-              <a className="button button--outline"
-                style={{ border: 'solid 1px' }}
+              <a
+                className="button button--outline"
+                style={{ border: "solid 1px" }}
                 href="/docs"
               >
                 Blogs
               </a>
             </div>
           </div>
-          <div className={clsx("col", "col--" + (12 - config.title_width), styles.centerChild)}>
+          <div
+            className={clsx(
+              "col",
+              "col--" + (12 - config.title_width),
+              styles.centerChild
+            )}
+          >
             {/* <img
               src={
                 config.illustrations[
@@ -53,9 +68,7 @@ function HomepageBackground() {
               }
               alt="Programmer"
             /> */}
-            <BrowserOnly>
-              {carousel}
-            </BrowserOnly>
+            <BrowserOnly>{carousel}</BrowserOnly>
           </div>
         </div>
       </div>
@@ -80,7 +93,7 @@ function carousel() {
         <img src={item} />
       ))}
     </Carousel>
-  )
+  );
 }
 
 export default function Home(): JSX.Element {
@@ -93,6 +106,18 @@ export default function Home(): JSX.Element {
       <HomepageBackground />
       <main>
         <AkasakiFeatures />
+        <div
+          className="container"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          <div className="text--center">
+            <img src="https://ghchart.rshah.org/409ba5/visualdust" alt="" />
+          </div>
+        </div>
         <WakatimeFeatures />
       </main>
     </Layout>
