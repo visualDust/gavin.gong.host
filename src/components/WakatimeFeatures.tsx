@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ResponsivePie } from '@nivo/pie';
 import { ResponsiveBar } from "@nivo/bar";
 import { WakatimeData, useWakatimeData } from "../hooks/useWakatimeData";
+import clsx from 'clsx'
 
 interface Props {
     data: WakatimeData
@@ -9,8 +10,8 @@ interface Props {
 
 export function WakatimeFeatures(props: Props): JSX.Element {
     return (
-        <section style={{ background: '#ffffff' }}>
-            <div className="container">
+        <section style={{}}>
+            <div className={clsx("container","hero")}>
                 <div className="row">
                     <div className="col col--6" style={{ height: '400px' }}><WakaLangPieChart data={props.data.languages} /></div>
                     <div className="col col--6" style={{ height: '400px' }}><WakaEdtrBarChart data={props.data.editors} /></div>

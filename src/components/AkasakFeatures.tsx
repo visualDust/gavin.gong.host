@@ -86,7 +86,7 @@ export function Feature({
 
 export function AkasakiFeatures(): JSX.Element {
   return (
-    <section className={styles.features} style={{background:'#ffffff'}}>
+    <section className={clsx(styles.features,"hero")}>
       <div className="container">
         <div className="row">
           {FeatureList.map((props, idx) => (
