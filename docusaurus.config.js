@@ -25,13 +25,13 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           //todo
-          editUrl: 'https://github.com/visualDust/research.akasaki.space/edit/main/',
+          editUrl: 'https://github.com/visualDust/focus.akasaki.space/edit/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            'https://github.com/visualDust/research.akasaki.space/edit/main/website/blog/',
+            'https://github.com/visualDust/focus.akasaki.space/edit/main/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -44,7 +44,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Akasaki Research',
+        title: 'Akasaki Focusing',
         logo: {
           alt: 'Logo',
           src: 'img/logo.svg',
@@ -117,7 +117,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} VisualDust. Built with Docusaurus.`,
+        copyright: `Copyright @${new Date().getFullYear()} VisualDust. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,

@@ -27,3 +27,14 @@
   flex-direction: column;
   justify-content: center;
 }
+
+
+@keyframes focusin {
+  from {
+    filter: blur(10px);
+  }
+
+  to {
+    filter: blur(0px);
+  }
+}

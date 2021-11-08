@@ -66,7 +66,13 @@ function HomepageBackground() {
               minHeight: "20em",
             }}
           >
-            <h1 className="hero__title">{siteConfig.title}</h1>
+            <p className="hero__title" style={{
+              textShadow:'4px 4px var(--ifm-color-primary-darkest)',
+              animationName:'focusin',
+              animationDuration:'3s',
+              animationIterationCount:'infinite',
+              animationDirection:'alternate-reverse'
+            }}>{siteConfig.title}</p>
             <p className="hero__subtitle">
               <Typical
                 steps={config.subtitles_and_delays.flatMap((x) => [
