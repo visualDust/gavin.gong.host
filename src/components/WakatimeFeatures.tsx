@@ -10,11 +10,11 @@ interface Props {
 
 export function WakatimeFeatures(props: Props): JSX.Element {
     return (
-        <section style={{}}>
+        <section>
             <div className={clsx("container","hero")}>
-                <div className="row">
-                    <div className="col col--6" style={{ height: '400px' }}><WakaLangPieChart data={props.data.languages} /></div>
-                    <div className="col col--6" style={{ height: '400px' }}><WakaEdtrBarChart data={props.data.editors} /></div>
+                <div className="row" style={{width:'inherit'}}>
+                    <div className="col" style={{ height: '400px' }}><WakaLangPieChart data={props.data.languages} /></div>
+                    <div className="col" style={{ height: '400px' }}><WakaEdtrBarChart data={props.data.editors} /></div>
                 </div>
             </div>
         </section>
