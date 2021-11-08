@@ -67,7 +67,7 @@ function HomepageBackground() {
             }}
           >
             <p className="hero__title" style={{
-              textShadow:'4px 4px var(--ifm-color-primary-darkest)',
+              textShadow:'4px 4px var(--ifm-color-primary-darker)',
               animationName:'focusin',
               animationDuration:'3s',
               animationIterationCount:'infinite',
