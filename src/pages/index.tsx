@@ -9,6 +9,7 @@ import {
   Feature,
   FeatureList,
 } from "../components/AkasakFeatures";
+import { ResponsiveBar } from "@nivo/bar";
 import Typical from "react-typical";
 import * as config from "./_index.config";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -44,8 +45,7 @@ SwiperCore.use([
   EffectCreative,
 ]);
 
-import "./index.css"
-
+import "./index.css";
 
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
@@ -66,13 +66,18 @@ function HomepageBackground() {
               minHeight: "20em",
             }}
           >
-            <p className="hero__title" style={{
-              textShadow:'4px 4px var(--ifm-color-primary-darker)',
-              animationName:'focusin',
-              animationDuration:'3s',
-              animationIterationCount:'infinite',
-              animationDirection:'alternate-reverse'
-            }}>{siteConfig.title}</p>
+            <p
+              className="hero__title"
+              style={{
+                textShadow: "4px 4px var(--ifm-color-primary-darker)",
+                animationName: "focusin",
+                animationDuration: "3s",
+                animationIterationCount: "infinite",
+                animationDirection: "alternate-reverse",
+              }}
+            >
+              {siteConfig.title}
+            </p>
             <p className="hero__subtitle">
               <Typical
                 steps={config.subtitles_and_delays.flatMap((x) => [
@@ -156,7 +161,7 @@ function FeatureSwiper(): JSX.Element {
   return (
     <Swiper
       className={clsx("hero")}
-      style={{display: "flex", alignContent: "center"}}
+      style={{ display: "flex", alignContent: "center" }}
       spaceBetween={50}
       slidesPerView={1}
       autoplay={{ delay: 3000 }}
@@ -195,7 +200,7 @@ function FeatureSwiper(): JSX.Element {
           <SwiperSlide>
             <WakatimeFeatures data={waka} />
           </SwiperSlide>
-          <SwiperSlide >
+          <SwiperSlide>
             <GithubFeatures />
           </SwiperSlide>
         </>

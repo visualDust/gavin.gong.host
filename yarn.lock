@@ -7413,6 +7413,11 @@ react-motion@^0.5.2:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
+react-parallax@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.npmmirror.com/react-parallax/download/react-parallax-3.3.0.tgz#79f7a33451e7a419d0052f795c5d3655aa1e20b4"
+  integrity sha1-efejNFHnpBnQBS95XF02VaoeILQ=
+
 react-responsive-carousel@^3.2.22:
   version "3.2.22"
   resolved "https://registry.npmmirror.com/react-responsive-carousel/download/react-responsive-carousel-3.2.22.tgz#6281603daa33656940d01e207f511b83c0093c70"
