@@ -4,6 +4,7 @@ import Layout from "@theme/Layout";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
+import { Parallax, Background } from 'react-parallax';
 import {
   AkasakiFeatures,
   Feature,
@@ -150,6 +151,11 @@ export default function Home(): JSX.Element {
       <HomepageBackground />
       <main>
         <BrowserOnly>{FeatureSwiper}</BrowserOnly>
+        <Parallax bgImage={"https://images.unsplash.com/photo-1498092651296-641e88c3b057?auto=format&fit=crop&w=1778&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"} strength={500}>
+        <div style={{ height: 500 }}>
+          <GithubFeatures></GithubFeatures>
+        </div>
+      </Parallax>
       </main>
     </Layout>
   );
