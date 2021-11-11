@@ -52,8 +52,13 @@ function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className={clsx("hero hero--primary", styles.heroBanner)}>
-      <div className="container">
+    <header className={clsx("hero hero--primary themedHead", styles.heroBanner)} style={{
+      // backgroundImage: `url(${bgimg})`,
+      // backgroundPosition: 'bottom',
+      // backgroundSize: 'cover',
+      // backgroundRepeat: 'no-repeat'
+    }}>
+      <div className="container" >
         <div className="row">
           <div
             className={clsx(
@@ -64,7 +69,7 @@ function HomepageBackground() {
             style={{
               alignSelf: "center",
               marginBottom: "50px",
-              minHeight: "20em",
+              minHeight: "30em",
             }}
           >
             <p
@@ -141,6 +146,28 @@ function carousel() {
   );
 }
 
+function WhereAndWhat(){
+  return (
+    <div className={clsx("container","hero")} style={{
+      height:"500px",
+    }}>
+         <div className="row" style={{width:'inherit'}}>
+           <div className="col col--7">
+             <img src="/img/illustrations/worldmap.svg" alt="where am i" />
+             <div style={{textAlign:'center'}}>
+               <Typical
+               loop={Infinity}
+               wrapper="span"
+               steps={["Where am I",1000,"CHINA!",1000]}
+               ></Typical>
+             </div>
+           </div>
+           
+         </div>
+    </div>
+  )
+}
+
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -151,11 +178,12 @@ export default function Home(): JSX.Element {
       <HomepageBackground />
       <main>
         <BrowserOnly>{FeatureSwiper}</BrowserOnly>
-        <Parallax bgImage={"https://images.unsplash.com/photo-1498092651296-641e88c3b057?auto=format&fit=crop&w=1778&q=60&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"} strength={500}>
-        <div style={{ height: 500 }}>
-          <GithubFeatures></GithubFeatures>
-        </div>
-      </Parallax>
+        {/* <Parallax bgImage={bgimg} strength={500}>
+          <div style={{ height: 500 }}>
+            <GithubFeatures></GithubFeatures>
+          </div>
+        </Parallax> */}
+        <WhereAndWhat />
       </main>
     </Layout>
   );
