@@ -59,8 +59,8 @@ const config = {
           {to: '/blog', label: 'Blogs', position: 'left'},
           {
             href: 'https://ml.akasaki.space',
-            label: 'Mechine Learning Part',
-            position: 'right',
+            label: 'MechineLearning Part',
+            position: 'left',
           },
           {
             href: 'https://github.com/neet-cv',
@@ -117,7 +117,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright @${new Date().getFullYear()} VisualDust. Built with Docusaurus.`,
+        copyright: `${new Date().getFullYear()}  @VisualDust (aka ${()=>{return "Miya Akasaki"}} aka ${()=>{return "Gavin Gong"}}).`,
       },
       prism: {
         theme: lightCodeTheme,
