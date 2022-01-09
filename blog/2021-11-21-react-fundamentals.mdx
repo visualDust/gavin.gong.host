@@ -1,0 +1,115 @@
+---
+title: ReactFundamentals 20211121
+authors: [visualdust]
+tags: [frontend, react]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# 续上集
+
+上次看到使用JSX。在JSX中，可以使用大括号传递变量：
+
+
+<Tabs groupId="form0">
+  <TabItem value="使用大括号传递值" default>
+
+  ```js
+    const children = 'Hello World'
+    const className = 'container'
+    const props = {className, children}
+    const element = <div className={props.className}>{props.children}</div>
+  ```
+
+  </TabItem>
+  <TabItem value="等效代码">
+
+  ```js
+  const element = <div className="container">Hello World</div>
+  ```
+
+  </TabItem>
+</Tabs>
+
+当你想传递的`props`比较长的时候，把它们挨个写上可不是什么方便的做法。所以，你可以这样写：
+
+```js
+const children = 'Hello World'
+const className = 'container'
+const props = {className, children}
+const element = React.createElement('div',{props})
+```
+
+上述代码中的`React.createElement`也可以替换为JSX语法：
+
+```js
+const children = 'Hello World'
+const className = 'container'
+const props = {className, children}
+const element = <div {...props}/>
+```
+
+:::warning
+```js
+上述代码
+const element = <div {...props}/>
+```
+中的`...`不可以省略。
+:::
+
+除此之外，你可以将props当作一个“扩充”：
+
+<Tabs groupId="form1">
+  <TabItem value="使用JSX" default>
+
+    ```js
+    const children = 'Hello World'
+    const className = 'container'
+    const props = {className, children}
+    const element = <div {id:'my-id',...props} />
+    ```
+
+  </TabItem>
+  <TabItem value="不使用JSX">
+
+    ```js
+    const children = 'Hello World'
+    const className = 'container'
+    const props = {className, children}
+    const element = React.createElement('div',{id:'my-id',...props})
+    ```
+
+  </TabItem>
+</Tabs>
+
+注意，这里的先后顺序影响谁会生效。例如，下面的两种顺序会导致`className`不一样：
+
+<Tabs groupId="form2">
+  <TabItem value="第一种顺序" default>
+
+  ```js
+    const children = 'Hello World'
+    const className = 'container'
+    const props = {className, children}
+    const element = React.createElement('div',{id:'my-id',className:'whatever',...props})
+    // 最终生效的 className 会是 container
+  ```
+
+  </TabItem>
+  <TabItem value="第二种顺序">
+
+  ```js
+    const children = 'Hello World'
+    const className = 'container'
+    const props = {className, children}
+    const element = React.createElement('div',{id:'my-id',...props, className:'whatever'})
+    // 最终生效的 className 会是 whatever
+  ```
+
+  </TabItem>
+</Tabs>
+
+可以看出，相同的属性，顺序在后面的会生效。
+
+## Creating custom components
