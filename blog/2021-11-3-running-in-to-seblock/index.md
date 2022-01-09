@@ -10,7 +10,6 @@ hide_table_of_contents: false
 ```python
 from paddle.nn import *
 
-
 class SELayer(Layer):
     def __init__(self, channel, reduction=16):
         super(SELayer, self).__init__()

@@ -1,0 +1,120 @@
+---
+title: 尝试使用Cityscape（以PaddleSeg中的脚本为例）
+authors: [visualdust]
+tags: [cv, dataset, paddle, segmentation]
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+[Cityscapes](https://www.cityscapes-dataset.com/)是常用的多任务数据集（主要用于分割）。其中包括大量不同城市的行车记录画面和标注。这段时间正好在用，想看看别人是怎么读它的。所以翻了一下[PaddleSeg](https://github.com/PaddlePaddle/PaddleSeg)中读取CityScapes数据集的相关脚本。  
+
+## 文件结构
+
+这个数据集包含很多部分，可以用于许多视觉任务，每个文件夹名称对应一个部分。因为做分割用，所以我主要用原图像（包`leftImg8bit`）和细标注（包`gtFine`）。以下是这两个部分的文件结构：
+
+<Tabs groupId="Cityscapes-type">
+  <TabItem value="原图像（leftImg8bit）" default>
+  这一部分是原图像。可以看出，这些图像是用城拍摄的城市进行分类的。
+
+  ```
+  leftImg8bit
+  ├───test
+  │   ├───berlin
+  │   ├───bielefeld
+  │   ├───bonn
+  │   ├───leverkusen
+  │   ├───mainz
+  │   └───munich
+  ├───train
+  │   ├───aachen
+  │   ├───bochum
+  │   ├───bremen
+  │   ├───cologne
+  │   ├───darmstadt
+  │   ├───dusseldorf
+  │   ├───erfurt
+  │   ├───hamburg
+  │   ├───hanover
+  │   ├───jena
+  │   ├───krefeld
+  │   ├───monchengladbach
+  │   ├───strasbourg
+  │   ├───stuttgart
+  │   ├───tubingen
+  │   ├───ulm
+  │   ├───weimar
+  │   └───zurich
+  └───val
+      ├───frankfurt
+      ├───lindau
+      └───munster
+  ```
+  
+  </TabItem>
+  <TabItem value="细标注（gtFine）">
+  这一部分是细标注，能看出文件夹和`leftImg8bit`中的文件夹一一对应。
+
+  ```text
+  gtFine
+  ├───test
+  │   ├───berlin
+  │   ├───bielefeld
+  │   ├───bonn
+  │   ├───leverkusen
+  │   ├───mainz
+  │   └───munich
+  ├───train
+  │   ├───aachen
+  │   ├───bochum
+  │   ├───bremen
+  │   ├───cologne
+  │   ├───darmstadt
+  │   ├───dusseldorf
+  │   ├───erfurt
+  │   ├───hamburg
+  │   ├───hanover
+  │   ├───jena
+  │   ├───krefeld
+  │   ├───monchengladbac
+  │   ├───strasbourg
+  │   ├───stuttgart
+  │   ├───tubingen
+  │   ├───ulm
+  │   ├───weimar
+  │   └───zurich
+  └───val
+      ├───frankfurt
+      ├───lindau
+      └───munster
+  ```
+
+  </TabItem>
+</Tabs>
+
+此外，还有`disparity`（depth maps using SGM）、`gtFinePanopticParts`（Panoptic parts annotations）、`gtBbox3d`（3D bounding box annotations of vehicles）等多种标注可用于不同任务。
+
+## 路径名和文件名的含义
+
+通过观察，可以将Cityscapes数据集的结构描述为：
+
+```
+{rootFolder}/{type}/{split}/{city}/{city}_{seq:0>6}_{frame:0>6}_{type}{ext}
+```
+
+其中，路径部分使用如下表示：
+
+- rootFolder 表示数据集所在的目录。
+- type 表示类型。例如，type可以是`leftImg8bit`、`gtFine`、`gtBbox3d`或是任何可能的类型。
+- split 可能是`train`、`test`、`val`、`train_extra`、`demoVideo`等。
+- city 是拍摄这部分图像所在的城市名称。
+
+文件名部分使用如下表示：
+
+- city 是拍摄这部分图像所在的城市名称。
+- seq 是使用六位数字表示的序列编号。
+- frame 是用六位数字表示的帧号。
+- type 表示类型。例如，type可以是`leftImg8bit`、`gtFine`、`gtBbox3d`或是任何可能的类型。
+- ext 是可选的后缀，用于表述该文件的用途。例如，`labelIds`表示使用id标注的掩码（看上去似乎全是黑色），而`color`表示使用不同颜色标注的掩码（能用肉眼很好地看到）。
+
+[cityscapesScripts](https://github.com/mcordts/cityscapesScripts)
