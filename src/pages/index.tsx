@@ -183,7 +183,7 @@ export default function Home(): JSX.Element {
             <GithubFeatures></GithubFeatures>
           </div>
         </Parallax> */}
-        <WhereAndWhat />
+        {/* <WhereAndWhat /> */}
       </main>
     </Layout>
   );
@@ -242,3 +242,4 @@ function FeatureSwiper(): JSX.Element {
     </Swiper>
   );
 }
+

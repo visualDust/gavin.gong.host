@@ -8,4 +8,36 @@
     2. There are useEffect hooks for data fetching and useState hooks to maintain component state like loading, error or resulting data.
     3. If the data is needed throughout the app, we tend to use state management libraries. Although most of the state management libraries are good for working with client states, they are not great for working with asynchronus or server states. (server states are very different to client states)
 
- 
+:::info
+**differences between client state and server state**  
+
+> client state:  
+
+- Presisted in your app memory and the accessing or updating procedure is synchronous.
+
+> server state:  
+
+- Presisted remotely and requeires asynchronus APIs for fetching and updating.
+- Server state has shared ownership. Data can be updated by someone else without your acknowledge. So UI data may not be in sync with the remote data.
+- Challenging when you have to deal with caching, deduping multiple requests for the same data, updating stale data in the background, and performance optimizations etc..
+:::
+
+Data fetching libraries makes things handy. These are basic important methods:
+
+| Data fetching | Updating |
+|:-----:|:-----:|
+| Basic queries | Update data use mutations |
+| Poll data | Incalidate queries |
+| Reusable query hooks  | Optimistic updates |
+| Query by id | |
+| Parallel queries | |
+| Dynamic queries | |
+| Dependent queries | |
+| Infinite & paginated queries | |
+
+:::warning
+Please make sure that you have already achieved these pre-requests:  
+- React fundamentals 
+- React Hooks
+:::
+

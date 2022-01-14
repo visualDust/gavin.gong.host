@@ -25,7 +25,7 @@ export const FeatureList: FeatureItem[] = [
         Focusing on Deep learning technique for Computer Vision. Also know me as a poor Latex speaker.
       </>
     ),
-    buttonLink: "any",//todo
+    buttonLink: "https://ml.akasaki.space/",//todo
     buttonText: "See my notes",
   },
   {

@@ -1,0 +1,61 @@
+# React Hooks
+
+:::warning
+**There are some important things to konw about React Hooks before using them**
+
+- You can only use React Hooks in function components, in a `React.Component` ypu cannot use Hooks here because classes already have their own way to do the same things as React Hooks. 
+- Every time your function runs, React Hooks must be called in the exact same order. You must put your hooks at the top level of your function. You cannot call hooks conditionally (e.g. put it into an `if` statement, `for` loop etc.), or you get errors.
+:::
+
+## `useState` Hook
+
+:::warning
+**The can be an incorrect way to update: **
+
+```ts
+function what(){
+    const [which, abaaba] = useState(100)
+    function a(){
+        abaaba(which - 1);
+        abaaba(which - 1);
+    }
+
+    return{
+        <>
+            <button onClick=abaaba>
+            </button>
+            <span>
+                which
+            </span>
+        </>
+    }
+}
+```
+
+The rerender procedure would be proceed after the whole click function ended. after click on the button the value of `which` will only decrease by 1.
+
+Javascript enroles a single thread event loop. There is no way to rerender UI during the click event to be handle. Your first click in the function `a` looks like:
+
+```ts
+function a(){
+    abaaba(100 - 1);
+    abaaba(100 - 1);
+}
+// Update or rerender UI
+```
+
+And there is no way for:
+
+```ts
+function a(){
+    abaaba(100 - 1);
+    // Update or rerender UI
+    abaaba(100 - 1);
+}
+```
+:::
+
+
+
+## `useEffect` Hook
+
