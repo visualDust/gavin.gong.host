@@ -63,7 +63,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 .friend-card-outer {
-  position: 'relative';
+  position: relative;
   max-width: 350px;
 }
 
@@ -95,7 +95,6 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 .friend-card.fadeout {
   position: absolute;
-  width: 100%;
   animation: friend-card-fadeout .3s;
   opacity: 0;
   pointer-events: none;
