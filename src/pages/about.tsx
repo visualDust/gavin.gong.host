@@ -35,7 +35,7 @@ var friendsData: FriendData[] = [
   {
     pic: githubPic("papercube"),
     name: "PaperCube",
-    intro: "我是废物",
+    intro: "一个正在学习原理内容的软件开发者，睡大觉能手和前•算法竞赛生",
     url: "https://github.com/papercube",
     note: "我的初中高中同学，我在玩泥巴的时候他就在写java了；语言学砖家（各种意义上的）。我们常打MC。",
   },
