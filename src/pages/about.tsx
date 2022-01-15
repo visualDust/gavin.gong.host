@@ -82,7 +82,7 @@ function getFriendsData(): FriendData[] {
   return arrayShuffle(data);
 }
 
-const friendsData = getFriendsData();
+var friendsData = getFriendsData();
 
 function Friends() {
   const [current, setCurrent] = useState(0);
