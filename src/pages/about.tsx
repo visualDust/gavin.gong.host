@@ -56,7 +56,7 @@ var friendsData: FriendData[] = [
   {
     pic: githubPic("Therainisme"),
     name: "Therainisme",
-    intro: "赶紧学习",
+    intro: "寄忆犹新",
     url: "https://notebook.therainisme.com/",
     note: "雨神，一出门就下雨。我大学期间的同事，任我社2019级多媒体部部长。网站开发运维专家。",
   },
