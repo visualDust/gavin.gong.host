@@ -63,8 +63,8 @@ const config = {
             position: 'left',
           },
           {
-            href: 'https://github.com/neet-cv',
-            label: 'NEET-CV',
+            href: '/about',
+            label: 'About & Links',
             position: 'right',
           },
           {
