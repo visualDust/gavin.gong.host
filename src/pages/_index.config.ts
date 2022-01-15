@@ -7,7 +7,7 @@ export const subtitles_and_delays: TypicalText[] = [
   { text: "Rubbish CVer", delay: 1000 },
   { text: "Poor LaTex speaker", delay: 1000 },
   { text: "Half stack developer", delay: 1000 },
-  { text: "VusualDust", delay: 1000 },
+  { text: "VisualDust", delay: 1000 },
 ];
 
 //should be in [0,12]
