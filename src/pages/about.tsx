@@ -79,7 +79,7 @@ var friendsData: FriendData[] = [
     name: "PommesPeter",
     intro: "I want to be strong. But it seems so hard.",
     url: "https://blog.pommespeter.com/",
-    note: "科协F4的成员。我大学期间的同事，任我社2019级软件部部长。主攻方向是神经网络攻击。他找女朋友之前我们常一起吃饭。",
+    note: "科协F4的成员。我大学期间的同事，任我社2019级软件部副部长。主攻方向是基于深度学习技术的图像低照度增强。他找女朋友之前我们常一起吃饭。",
   },
 ];
 
