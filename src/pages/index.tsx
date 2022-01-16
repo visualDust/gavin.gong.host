@@ -4,7 +4,7 @@ import Layout from "@theme/Layout";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import styles from "./index.module.css";
-import { Parallax, Background } from 'react-parallax';
+import { Parallax, Background } from "react-parallax";
 import {
   AkasakiFeatures,
   Feature,
@@ -52,13 +52,18 @@ function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <header className={clsx("hero hero--primary themedHead", styles.heroBanner)} style={{
-      // backgroundImage: `url(${bgimg})`,
-      // backgroundPosition: 'bottom',
-      // backgroundSize: 'cover',
-      // backgroundRepeat: 'no-repeat'
-    }}>
-      <div className="container" >
+    <header
+      className={clsx("hero hero--primary themedHead", styles.heroBanner)}
+      style={
+        {
+          // backgroundImage: `url(${bgimg})`,
+          // backgroundPosition: 'bottom',
+          // backgroundSize: 'cover',
+          // backgroundRepeat: 'no-repeat'
+        }
+      }
+    >
+      <div className="container">
         <div className="row">
           <div
             className={clsx(
@@ -98,9 +103,21 @@ function HomepageBackground() {
               <a
                 className="button button--outline"
                 style={{ border: "solid 1px" }}
-                href="/docs"
+                href="#functionals"
+                // onClick={
+                //   (e)=>{
+                //     e.preventDefault();
+                //     const target=e.target.getAttribute('href');
+                //     const yLocation = document.querySelector(target).offsetTop;
+                //     // console.log(element)
+                //     window.scrollTo({
+                //       left:0,
+                //       top:yLocation
+                //     })
+                //   }
+                // }
               >
-                Blogs
+                Things Fun
               </a>
             </div>
           </div>
@@ -146,26 +163,28 @@ function carousel() {
   );
 }
 
-function WhereAndWhat(){
+function WhereAndWhat() {
   return (
-    <div className={clsx("container","hero")} style={{
-      height:"500px",
-    }}>
-         <div className="row" style={{width:'inherit'}}>
-           <div className="col col--7">
-             <img src="/img/illustrations/worldmap.svg" alt="where am i" />
-             <div style={{textAlign:'center'}}>
-               <Typical
-               loop={Infinity}
-               wrapper="span"
-               steps={["Where am I",1000,"CHINA!",1000]}
-               ></Typical>
-             </div>
-           </div>
-           
-         </div>
+    <div
+      className={clsx("container", "hero")}
+      style={{
+        height: "500px",
+      }}
+    >
+      <div className="row" style={{ width: "inherit" }}>
+        <div className="col col--7">
+          <img src="/img/illustrations/worldmap.svg" alt="where am i" />
+          <div style={{ textAlign: "center" }}>
+            <Typical
+              loop={Infinity}
+              wrapper="span"
+              steps={["Where am I", 1000, "CHINA!", 1000]}
+            ></Typical>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
 export default function Home(): JSX.Element {
@@ -176,7 +195,7 @@ export default function Home(): JSX.Element {
       description="Akasaki Focusing is where Gavin Gong (aka VisualDust) enjoys coding life"
     >
       <HomepageBackground />
-      <main>
+      <main id="functionals">
         <BrowserOnly>{FeatureSwiper}</BrowserOnly>
         {/* <Parallax bgImage={bgimg} strength={500}>
           <div style={{ height: 500 }}>
@@ -242,4 +261,3 @@ function FeatureSwiper(): JSX.Element {
     </Swiper>
   );
 }
-

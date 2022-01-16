@@ -25,7 +25,7 @@ export const FeatureList: FeatureItem[] = [
         Focusing on Deep learning technique for Computer Vision. Also know me as a poor Latex speaker.
       </>
     ),
-    buttonLink: "https://ml.akasaki.space/",//todo
+    buttonLink: "https://ml.akasaki.space/",
     buttonText: "See my notes",
   },
   {
@@ -34,11 +34,11 @@ export const FeatureList: FeatureItem[] = [
     description: (
       <>
         Using Java, Python & C++, Learning .NETcore, TypeScripts and
-        ComputerGraphics.
+        React.
       </>
     ),
-    buttonLink: "any",//todo
-    buttonText: "aba aba",
+    buttonLink: "/docs",
+    buttonText: "useless articals",
   },
   {
     title: "Me",
@@ -49,8 +49,8 @@ export const FeatureList: FeatureItem[] = [
         intrested.
       </>
     ),
-    buttonLink: "any",//todo
-    buttonText: "Something fun",
+    buttonLink: "/blog/tags",
+    buttonText: "blogs",
   },
 ];
 
