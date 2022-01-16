@@ -1,7 +1,7 @@
 ---
 title: 对着SEBlock的代码啊吧啊吧
 authors: [visualdust]
-tags: [deep-learning, cv]
+tags: [deep learning, computer vision]
 description: Running into an issue when implementing SENet.
 image: https://ml.akasaki.space/assets/img/image-20210703225313459.efd76d2a.png
 hide_table_of_contents: false

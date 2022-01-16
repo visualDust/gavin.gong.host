@@ -40,6 +40,16 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      require.resolve("@cmfcmf/docusaurus-search-local"),
+      {
+        language: ["en","zh"],
+        style: "none",
+      },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -56,7 +66,7 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
-          {to: '/blog', label: 'Blogs', position: 'left'},
+          {to: '/blog/tags', label: 'Blogs', position: 'left'},
           {
             href: 'https://ml.akasaki.space',
             label: 'MechineLearning Part',
