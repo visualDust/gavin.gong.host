@@ -81,6 +81,13 @@ var friendsData: FriendData[] = [
     url: "https://blog.pommespeter.com/",
     note: "科协F4的成员。我大学期间的同事，任我社2019级软件部副部长。主攻方向是基于深度学习技术的图像低照度增强。他找女朋友之前我们常一起吃饭。",
   },
+  {
+    pic: githubPic("breezeshane"),
+    name: "Breeze Shane",
+    intro: "一个专注理论但学不懂学不会的锈钢废物，但是他很擅长产出Bug，可能是因为他体表有源石结晶分布，但也可能仅仅是因为他是Bug本体。",
+    url: "https://breezeshane.github.io/",
+    note: "一代传奇，手撸GAN的老单。",
+  },
 ];
 
 function Friends() {
