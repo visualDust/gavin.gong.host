@@ -88,6 +88,13 @@ var friendsData: FriendData[] = [
     url: "https://breezeshane.github.io/",
     note: "一代传奇，手撸GAN的老单。",
   },
+  {
+    pic: githubPic("AndPuQing"),
+    name: "PuQing",
+    intro: "intro * new",
+    url: "https://github.com/AndPuQing",
+    note: "啊对对对",
+  },
 ];
 
 function Friends() {
