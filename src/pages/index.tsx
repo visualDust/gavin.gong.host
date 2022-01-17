@@ -55,12 +55,12 @@ function HomepageBackground() {
     <header
       className={clsx("hero hero--primary themedHead", styles.heroBanner)}
       style={{
-          height: "calc(100vh - var(--ifm-navbar-height))",
-          // backgroundImage: `url(${bgimg})`,
-          // backgroundPosition: 'bottom',
-          // backgroundSize: 'cover',
-          // backgroundRepeat: 'no-repeat'
-        }}
+        minHeight: "calc(100vh - var(--ifm-navbar-height))",
+        // backgroundImage: `url(${bgimg})`,
+        // backgroundPosition: 'bottom',
+        // backgroundSize: 'cover',
+        // backgroundRepeat: 'no-repeat'
+      }}
     >
       <div className="container">
         <div className="row">
@@ -108,14 +108,14 @@ function HomepageBackground() {
                 style={{ border: "solid 1px" }}
                 href="#functionals"
                 onClick={
-                  (e)=>{
+                  (e) => {
                     e.preventDefault();
-                    const target=e.target.getAttribute('href');
-                    const yLocation = document.querySelector(target).offsetTop;
+                    const target = (e.target as HTMLElement).getAttribute('href');
+                    const yLocation = (document.querySelector(target) as HTMLElement).offsetTop;
                     // console.log(element)
                     window.scrollTo({
-                      left:0,
-                      top:yLocation - 60
+                      left: 0,
+                      top: yLocation - 60
                     })
                   }
                 }
@@ -199,11 +199,10 @@ export default function Home(): JSX.Element {
     >
       <HomepageBackground />
       <main id="functionals"
-      style={{
-        display: "flex",
-        alignContent:"center",
-        height: "calc(100vh - var(--ifm-navbar-height))",
-      }}>
+        style={{
+          display: "flex",
+          minHeight: "calc(100vh - var(--ifm-navbar-height))",
+        }}>
         <BrowserOnly>{FeatureSwiper}</BrowserOnly>
         {/* <Parallax bgImage={bgimg} strength={500}>
           <div style={{ height: 500 }}>
@@ -225,6 +224,7 @@ function FeatureSwiper(): JSX.Element {
       style={{ display: "flex", alignContent: "center" }}
       spaceBetween={50}
       slidesPerView={1}
+      autoHeight
       autoplay={{ delay: 3000 }}
       // autoHeight={true}
       pagination={{
