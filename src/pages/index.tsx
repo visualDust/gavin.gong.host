@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import clsx from "clsx";
 import Layout from "@theme/Layout";
 import BrowserOnly from "@docusaurus/BrowserOnly";
@@ -48,11 +48,6 @@ SwiperCore.use([
 
 import "./index.css";
 
-const subtitle_steps = config.subtitles_and_delays.flatMap((x) => [
-  x.text,
-  x.delay,
-]);
-
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
 
@@ -61,6 +56,7 @@ function HomepageBackground() {
       className={clsx("hero hero--primary themedHead", styles.heroBanner)}
       style={
         {
+          height: "calc(100vh - var(--ifm-navbar-height))",
           // backgroundImage: `url(${bgimg})`,
           // backgroundPosition: 'bottom',
           // backgroundSize: 'cover',
@@ -95,7 +91,18 @@ function HomepageBackground() {
               {siteConfig.title}
             </p>
             <p className="hero__subtitle">
-              <Typical steps={subtitle_steps} loop={Infinity} wrapper="span" />
+              <Typical
+                steps={useMemo(
+                  () =>
+                    config.subtitles_and_delays.flatMap((x) => [
+                      x.text,
+                      x.delay,
+                    ]),
+                  []
+                )}
+                loop={Infinity}
+                wrapper="span"
+              />
             </p>
             <div>
               <a
