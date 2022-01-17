@@ -48,6 +48,11 @@ SwiperCore.use([
 
 import "./index.css";
 
+const subtitle_steps = config.subtitles_and_delays.flatMap((x) => [
+  x.text,
+  x.delay,
+]);
+
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
 
@@ -90,14 +95,7 @@ function HomepageBackground() {
               {siteConfig.title}
             </p>
             <p className="hero__subtitle">
-              <Typical
-                steps={config.subtitles_and_delays.flatMap((x) => [
-                  x.text,
-                  x.delay,
-                ])}
-                loop={Infinity}
-                wrapper="span"
-              />
+              <Typical steps={subtitle_steps} loop={Infinity} wrapper="span" />
             </p>
             <div>
               <a
