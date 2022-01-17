@@ -54,15 +54,13 @@ function HomepageBackground() {
   return (
     <header
       className={clsx("hero hero--primary themedHead", styles.heroBanner)}
-      style={
-        {
+      style={{
           height: "calc(100vh - var(--ifm-navbar-height))",
           // backgroundImage: `url(${bgimg})`,
           // backgroundPosition: 'bottom',
           // backgroundSize: 'cover',
           // backgroundRepeat: 'no-repeat'
-        }
-      }
+        }}
     >
       <div className="container">
         <div className="row">
@@ -109,18 +107,18 @@ function HomepageBackground() {
                 className="button button--outline"
                 style={{ border: "solid 1px" }}
                 href="#functionals"
-                // onClick={
-                //   (e)=>{
-                //     e.preventDefault();
-                //     const target=e.target.getAttribute('href');
-                //     const yLocation = document.querySelector(target).offsetTop;
-                //     // console.log(element)
-                //     window.scrollTo({
-                //       left:0,
-                //       top:yLocation
-                //     })
-                //   }
-                // }
+                onClick={
+                  (e)=>{
+                    e.preventDefault();
+                    const target=e.target.getAttribute('href');
+                    const yLocation = document.querySelector(target).offsetTop;
+                    // console.log(element)
+                    window.scrollTo({
+                      left:0,
+                      top:yLocation - 60
+                    })
+                  }
+                }
               >
                 Things Fun
               </a>
@@ -200,7 +198,12 @@ export default function Home(): JSX.Element {
       description="Akasaki Focusing is where Gavin Gong (aka VisualDust) enjoys coding life"
     >
       <HomepageBackground />
-      <main id="functionals">
+      <main id="functionals"
+      style={{
+        display: "flex",
+        alignContent:"center",
+        height: "calc(100vh - var(--ifm-navbar-height))",
+      }}>
         <BrowserOnly>{FeatureSwiper}</BrowserOnly>
         {/* <Parallax bgImage={bgimg} strength={500}>
           <div style={{ height: 500 }}>

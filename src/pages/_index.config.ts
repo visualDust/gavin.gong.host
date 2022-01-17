@@ -17,7 +17,6 @@ export const illustrations: string[] = [
   "/img/illustrations/coding.svg",
   "/img/illustrations/developer_activity.svg",
   "/img/illustrations/exploring.svg",
-  "/img/illustrations/happy_2021.svg",
   "/img/illustrations/hello.svg",
   "/img/illustrations/outer_space.svg",
   "/img/illustrations/playful_cat.svg",
