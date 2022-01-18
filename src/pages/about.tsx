@@ -117,7 +117,7 @@ function Friends() {
     };
   }, [current]);
   return (
-    <div className="friends">
+    <div className="friends" lang="zh-cn">
       <div style={{ position: "relative" }}>
         <div className="friend-columns">
           {/* Big card showing current selected */}
