@@ -71,7 +71,7 @@ var friendsData: FriendData[] = [
     pic: githubPic("Zerorains"),
     name: "Zerorains",
     intro: "life is but a span, I use python",
-    url: "blog.zerorains.top",
+    url: "https://blog.zerorains.top",
     note: "科协F4的成员。科协恶霸(x)。主攻方向是基于深度学习技术图像分割。他不太喜欢看我抽卡。",
   },
   {
