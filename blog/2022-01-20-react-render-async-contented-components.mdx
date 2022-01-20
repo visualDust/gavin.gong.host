@@ -1,0 +1,17 @@
+---
+title: React 异步渲染内容
+authors: [visualdust]
+tags: [frontend, react, async]
+---
+
+```ts
+function AsyncComponent(props: { func: () => Promise<JSX.Element> }) {
+  const [loaded, setLoaded] = useState<JSX.Element>(null);
+  useEffect(() => {
+    props.func().then(result => {
+      setLoaded(result);
+    });
+  }, []);
+  return loaded ? loaded : <div>Loading...</div>
+}
+```
