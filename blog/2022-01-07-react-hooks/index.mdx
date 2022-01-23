@@ -1,9 +1,17 @@
 ---
 authors: [visualdust]
-tags: [frontend, react]
+tags: [frontend, react, react-hooks]
 ---
 
 # React Hooks
+
+Hooks are a new addition in React 16.8. They let you "hook into" React state and lifecycle features from function components. Hooks don't work inside classes — they let you use React without classes. In older React, it's hard to reuse stateful logic between components. The older React doesn't offer a way to "attach" reusable behavior to a component. With Hooks, you can extract stateful logic from a component so it can be tested independently and reused. **Hooks allow you to reuse stateful logic without changing your component hierarchy.** This makes it easy to share Hooks among many components or with the community.
+
+There are nine of them:
+
+| Hook | Motivation |
+|:---:|---|
+| `useState` ||
 
 :::warning
 **There are some important things to konw about React Hooks before using them**
@@ -12,10 +20,56 @@ tags: [frontend, react]
 - Every time your function runs, React Hooks must be called in the exact same order. You must put your hooks at the top level of your function. You cannot call hooks conditionally (e.g. put it into an `if` statement, `for` loop etc.), or you get errors.
 :::
 
-## `useState` Hook
+After you get familiar with the built-in Hooks, you can also build your own Hooks.
+
+## The built-in `useState` Hook
+
+The `useState` is a Hook that allow you to update and rerender components in a pure logical way:
+
+```typescript
+import React, { useState } from 'react';
+
+function Example() {
+  // Declare a new state variable, which we'll call "count"
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+The code above forms a counter. To say how, we call it inside a function scope to add some local state to it. React will preserve the state between re-renders.
+
+Declaration | Required args | Returens
+|:---:|:---:|:---:|
+|`const [what, setWhat] = useState(/*initial state*/);`| `type:any` The initial state | A pair: the current state value and a function that lets you update it. |
+
+In the example above, the initial state is 0 because the counter starts from zero.
+
+:::note
+Note that unlike this.state, the state here doesn't have to be an object — although it can be if you want. The initial state argument is only used during the first render.
+:::
+
+You can use the State Hook more than once in a single component:
+
+```typescript
+function ExampleWithManyStates() {
+  // Declare multiple state variables!
+  const [age, setAge] = useState(42);
+  const [fruit, setFruit] = useState('banana');
+  const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+  // ...
+}
+```
 
 :::warning
-**The can be an incorrect way to update: **
+**There can be an incorrect way to update: **
 
 ```ts
 function what(){

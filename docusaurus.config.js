@@ -85,7 +85,7 @@ const config = {
           { to: "/blog/tags", label: "Blogs", position: "left" },
           {
             href: "https://ml.akasaki.space",
-            label: "MechineLearning Part",
+            label: "Machine Learning Part",
             position: "left",
           },
           {

@@ -1,17 +1,32 @@
 ---
 title: React 异步渲染内容
 authors: [visualdust]
-tags: [frontend, react, async]
+tags: [frontend, react, typescript, async, react-hooks]
 ---
 
-```ts
-function AsyncComponent(props: { func: () => Promise<JSX.Element> }) {
+在React(typescript)中渲染需即时加载的元素。主要思路是使用useEffect Hook加载内容，而后使用useState Hook在加载完成时重新渲染界面。简短的代码描述如下：
+
+```tsx
+interface AsyncCompomentProps {
+  func: () => Promise<JSX.Element>;
+  default?: JSX.Element;
+}
+
+function AsyncComponent(props: AsyncCompomentProps) {
   const [loaded, setLoaded] = useState<JSX.Element>(null);
   useEffect(() => {
-    props.func().then(result => {
+    props.func().then((result) => {
       setLoaded(result);
     });
   }, []);
-  return loaded ? loaded : <div>Loading...</div>
+  return loaded ? loaded : props.default ?? <div>Loading...</div>;
 }
+
+<AsyncComponent
+  func={async () => {
+    await new Promise((r) => setTimeout(r, 3000));
+    return <div>hi</div>;
+  }}
+  default={<div>I'm loading...</div>}
+/>;
 ```

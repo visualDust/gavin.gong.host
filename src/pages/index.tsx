@@ -310,16 +310,6 @@ export default function Home(): JSX.Element {
   );
 }
 
-function AsyncComponent(props: { func: () => Promise<JSX.Element> }) {
-  const [loaded, setLoaded] = useState<JSX.Element>(null);
-  useEffect(() => {
-    props.func().then((result) => {
-      setLoaded(result);
-    });
-  }, []);
-  return loaded ? loaded : <div>Loading...</div>;
-}
-
 function FeatureSwiper(): JSX.Element {
   const isTabletOrMobile = useMediaQuery({ maxWidth: 997 });
   const waka = useWakatimeData();
