@@ -46,8 +46,6 @@ SwiperCore.use([
   EffectCreative,
 ]);
 
-import "./index.css";
-
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
 
