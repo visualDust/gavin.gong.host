@@ -103,7 +103,7 @@ function a(){
 // Update or rerender UI
 ```
 
-And there is no way for:
+As you can see, the useState hook update the data after each rerendering, but the rerender procedure takes place right after the function ended. The processing order CANNOT be:
 
 ```ts
 function a(){
@@ -112,9 +112,38 @@ function a(){
     abaaba(100 - 1);
 }
 ```
+
+Stuff like this, you'd better call your hooks at onece which could solve all the problems.
+
 :::
-
-
 
 ## `useEffect` Hook
 
+> The Effect Hook lets you perform side effects in function components
+
+```typescript
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
+    // Update the document title using the browser API
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+
+:::note
+如果你熟悉 React class 的生命周期函数，你可以把 useEffect Hook 看做 componentDidMount，componentDidUpdate 和 componentWillUnmount 这三个函数的组合。
+:::

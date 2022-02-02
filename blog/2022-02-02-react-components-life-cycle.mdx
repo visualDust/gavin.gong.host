@@ -1,0 +1,63 @@
+---
+title: React Components 生命周期
+authors: [visualdust]
+tags: [frontend,react]
+---
+
+在 React.Component 的子类中有个必须定义的 render() 函数。render() 方法是 class 组件中唯一必须实现的方法。当 render 被调用时，它会检查 this.props 和 this.state 的变化并返回以下类型之一：
+
+- __React 元素__。通常通过 JSX 创建。例如，`<div />` 会被 React 渲染为 DOM 节点，`<MyComponent />` 会被 React 渲染为自定义组件，无论是 `<div />` 还是 `<MyComponent />` 均为 React 元素。
+- __数组或 fragments__。 使得 `render` 方法可以返回多个元素。
+- __Portals__。可以渲染子节点到不同的 DOM 子树中。
+- __字符串或数值类型__。它们在 DOM 中会被渲染为文本节点
+- __布尔类型或 null__。什么都不渲染。（主要用于支持返回 b && `<Child />` 的模式，其中 b 为布尔类型。)
+
+`render()` 函数应该为纯函数，这意味着在不修改组件 `state` 的情况下，每次调用时都返回相同的结果，并且它不会直接与浏览器交互。
+
+:::warning
+如果 shouldComponentUpdate() 返回 false，则不会调用 render()。
+:::
+
+React组件在具有`render()`方法的同时，每个组件都包含一些 “生命周期方法”，你可以重写这些方法，以便于在运行过程中特定的阶段执行这些方法：
+
+## Mounting（挂载）
+
+当组件实例被创建并插入 DOM 中时，其生命周期调用顺序如下：
+
+- [constructor()](https://reactjs.org/docs/react-component.html#constructor)
+- [static getDerivedStateFromProps()](https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops)
+- [render()](https://reactjs.org/docs/react-component.html#render)
+- [componentDidMount()](https://reactjs.org/docs/react-component.html#componentdidmount)
+
+## Updateing（更新）
+
+当组件的 props 或 state 发生变化时会触发更新。组件更新的生命周期调用顺序如下：
+
+- [static getDerivedStateFromProps()](https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops)
+- [shouldComponentUpdate()](https://reactjs.org/docs/react-component.html#shouldcomponentupdate)
+- [render()](https://reactjs.org/docs/react-component.html#render)
+- [getSnapshotBeforeUpdate()](https://reactjs.org/docs/react-component.html#getsnapshotbeforeupdate)
+- [componentDidUpdate()](https://reactjs.org/docs/react-component.html#componentdidupdate)
+
+## Unmounting（卸载）
+
+当组件从 DOM 中移除时会调用如下方法：
+
+- [componentWillUnmount()](https://reactjs.org/docs/react-component.html#componentwillunmount)
+
+## 其他API
+
+Each component also provides some other APIs:
+
+[setState()](https://reactjs.org/docs/react-component.html#setstate)
+[forceUpdate()](https://reactjs.org/docs/react-component.html#forceupdate)
+
+类属性
+
+[defaultProps](https://reactjs.org/docs/react-component.html#defaultprops)
+[displayName](https://reactjs.org/docs/react-component.html#displayname)
+
+对象属性
+
+[props](https://reactjs.org/docs/react-component.html#props)
+[state](https://reactjs.org/docs/react-component.html#state)

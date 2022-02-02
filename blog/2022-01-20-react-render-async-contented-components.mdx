@@ -1,7 +1,7 @@
 ---
 title: React 异步渲染内容
 authors: [visualdust]
-tags: [frontend, react, typescript, async, react-hooks]
+tags: [frontend, react, typescript, react-hooks, react-query]
 ---
 
 在React(typescript)中渲染需即时加载的元素。主要思路是使用useEffect Hook加载内容，而后使用useState Hook在加载完成时重新渲染界面。简短的代码描述如下：
@@ -30,3 +30,30 @@ function AsyncComponent(props: AsyncCompomentProps) {
   default={<div>I'm loading...</div>}
 />;
 ```
+
+在react中，这种包含了data fetching的操作经常出现。React 没有内置的从组件中获取或更新数据的方式，因此开发人员最终会构建自己的获取数据的方式。 这通常意味着使用 React Hooks 将基于组件的状态 state 和 effects 整合在一起，或者使用更通用的状态管理库来存储和提供整个程序中的异步数据。为了简化这种操作，React Query应运而生。React Query是一组React Hook，它易于使用，其最基本的Hook是`useQuery`，例如：
+
+```typescript
+function Example() {
+  const { isLoading, error, data, isFetching } = useQuery("repoData", () =>
+    fetch(
+      "https://api.github.com/repos/tannerlinsley/react-query"
+    ).then((res) => res.json())
+  );
+  if (isLoading) return "Loading...";
+  if (error) return "An error has occurred: " + error.message;
+  return (
+    <div>
+      <h1>{data.name}</h1>
+      <p>{data.description}</p>
+      <strong>👀 {data.subscribers_count}</strong>{" "}
+      <strong>✨ {data.stargazers_count}</strong>{" "}
+      <strong>🍴 {data.forks_count}</strong>
+      <div>{isFetching ? "Updating..." : ""}</div>
+      <ReactQueryDevtools initialIsOpen />
+    </div>
+  );
+}
+```
+
+后面会专门开一页ReactQuery相关的内容。
