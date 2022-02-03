@@ -1,0 +1,55 @@
+---
+title: Typescript 中的 promise
+authors: [visualdust]
+tags: [frontend,js-async,js-promise]
+---
+
+[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是一个对象，它代表了一个异步操作的最终完成或者失败。本质上 Promise 是一个函数返回的对象，我们可以在它上面绑定回调函数，这样我们就不需要在一开始把回调函数作为参数传入这个函数了。Promise 类存在于很多现代 JavaScript 引擎中，其主要目的是为异步／回调风格的代码带来同步风格的错误处理。
+假设现在有一个名为 createAudioFileAsync() 的函数，它接收一些配置和两个回调函数，然后异步地生成音频文件。一个回调函数在文件成功创建时被调用，另一个则在出现异常时被调用：
+
+```typescript
+// 成功的回调函数
+function successCallback(result) {
+  console.log("音频文件创建成功: " + result);
+}
+
+// 失败的回调函数
+function failureCallback(error) {
+  console.log("音频文件创建失败: " + error);
+}
+
+createAudioFileAsync(audioSettings, successCallback, failureCallback)
+```
+
+更现代的函数会返回一个 Promise 对象，使得你可以将你的回调函数绑定在该 Promise 上。如果函数 createAudioFileAsync() 被重写为返回 Promise 的形式，那么我们可以像下面这样简单地调用它：
+
+```typescript
+const promise = createAudioFileAsync(audioSettings);
+promise.then(successCallback, failureCallback);
+```
+
+或简写为：
+
+```typescript
+createAudioFileAsync(audioSettings).then(successCallback, failureCallback);
+```
+
+不同于“老式”的传入回调，在使用 Promise 时，会有以下约定：
+
+- 在本轮[事件循环](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop#run-to-completion)运行完成之前，回调函数是不会被调用的。
+- 即使异步操作已经完成（成功或失败），在这之后通过 then() 添加的回调函数也会被调用。
+- 通过多次调用[then()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)可以添加多个回调函数，它们会按照插入顺序进行执行。
+
+:::note
+
+__JS 事件循环__
+
+JavaScript有一个基于事件循环的并发模型，事件循环负责执行代码、收集和处理事件以及执行队列中的子任务。这个模型与其它语言中的模型截然不同，比如 C 和 Java。这让我这个原本写C++和Java的程序员上来很不习惯（不过运行时栈、堆的概念倒是很熟悉的味道）。详情请参阅[Javascript 事件循环](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)
+
+__"执行至完成"__
+
+对 Javascript 来说，每一个消息完整地执行后，其它消息才会被执行。这为程序的分析提供了一些优秀的特性，包括：当一个函数执行时，它不会被抢占，只有在它运行完毕之后才会去运行任何其他的代码，才能修改这个函数操作的数据。这与C语言不同，例如，如果函数在线程中运行，它可能在任何位置被终止，然后在另一个线程中运行其他代码。
+
+:::
+
+Promise 很棒的一点就是链式调用（chaining）。在其他语言中，我在封装类的时候也喜欢设计一些链式调用（比如我的操作系统大作业就因为使用了过多的链式调用设计被指导老师诟病）。
