@@ -4,6 +4,9 @@ authors: [visualdust]
 tags: [frontend,js-async,js-promise]
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是一个对象，它代表了一个异步操作的最终完成或者失败。本质上 Promise 是一个函数返回的对象，我们可以在它上面绑定回调函数，这样我们就不需要在一开始把回调函数作为参数传入这个函数了。Promise 类存在于很多现代 JavaScript 引擎中，其主要目的是为异步／回调风格的代码带来同步风格的错误处理。
 假设现在有一个名为 createAudioFileAsync() 的函数，它接收一些配置和两个回调函数，然后异步地生成音频文件。一个回调函数在文件成功创建时被调用，另一个则在出现异常时被调用：
 
@@ -52,4 +55,68 @@ __"执行至完成"__
 
 :::
 
-Promise 很棒的一点就是链式调用（chaining）。在其他语言中，我在封装类的时候也喜欢设计一些链式调用（比如我的操作系统大作业就因为使用了过多的链式调用设计被指导老师诟病）。
+Promise 很棒的一点就是链式调用（chaining）。在其他语言中，我在封装类的时候也喜欢设计一些链式调用（比如我的操作系统大作业就因为使用了过多的链式调用设计被指导老师诟病）。不过，`Promise`的`then()`方法返回的并不是原来的对象了。
+
+:::warning
+`then()` 函数会返回一个和原来不同的新的 `Promise`
+:::
+
+```typescript
+const promise = doSomething();
+const promise2 = promise.then(successCallback, failureCallback);
+```
+
+在上例中，`promise2` 不仅表示 `doSomething()` 函数的完成，也代表了你传入的 `successCallback` 或者 `failureCallback` 的完成，这两个函数也可以返回一个 `Promise` 对象，从而形成另一个异步操作，这样的话，在 `promise2` 上新增的回调函数会排在这个 `Promise` 对象的后面。基本上，每一个 Promise 都代表了链中另一个异步过程的完成。
+
+## 使用 `Promise` 解决回调地狱
+
+在 `Promise` 之前，要想做多重的异步操作，会导致经典的回调地狱：
+
+```typescript
+doSomething(function(result) {
+  doSomethingElse(result, function(newResult) {
+    doThirdThing(newResult, function(finalResult) {
+      console.log('Got the final result: ' + finalResult);
+    }, failureCallback);
+  }, failureCallback);
+}, failureCallback);
+```
+
+而使用 `Promise` 则可以将回调绑定在对象上，形成回调链：
+
+<Tabs groupId="promise-in-ts">
+  <TabItem value="写法 1" default>
+
+  ```typescript
+  doSomething().then(function(result) {
+    return doSomethingElse(result);
+  })
+  .then(function(newResult) {
+    return doThirdThing(newResult);
+  })
+  .then(function(finalResult) {
+    console.log('Got the final result: ' + finalResult);
+  })
+  .catch(failureCallback);
+  ```
+  
+  </TabItem>
+  <TabItem value="写法 2（使用箭头函数）">
+
+  ```typescript
+  doSomething()
+  .then(result => doSomethingElse(result))
+  .then(newResult => doThirdThing(newResult))
+  .then(finalResult => {
+    console.log(`Got the final result: ${finalResult}`);
+  })
+  .catch(failureCallback);
+  ```
+
+  </TabItem>
+</Tabs> 
+
+:::warning
+一定要有返回值，否则，callback 将无法获取上一个 Promise 的结果。(如果使用箭头函数，() => x 比 () => { return x; } 更简洁一些，但后一种保留 return 的写法才支持使用多个语句。）。
+:::
+

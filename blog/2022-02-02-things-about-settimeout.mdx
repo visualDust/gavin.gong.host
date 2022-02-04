@@ -15,7 +15,7 @@ import TabItem from '@theme/TabItem';
 
 下面的例子演示了这个概念（setTimeout 并不会在计时器到期之后直接执行）：
 
-<Tabs groupId="about-settimeout">
+<Tabs>
   <TabItem value="code" default>
 
   ```typescript
@@ -51,7 +51,7 @@ import TabItem from '@theme/TabItem';
 
 零延迟并不意味着回调会立即执行。以 0 为第二参数调用 setTimeout 并不表示在 0 毫秒后就立即调用回调函数。其等待的时间取决于队列里待处理的消息数量。在下面的例子中，"这是一条消息" 将会在回调获得处理之前输出到控制台，这是因为延迟参数是运行时处理请求所需的最小等待时间，但并不保证是准确的等待时间。
 
-<Tabs groupId="about-settimeout">
+<Tabs>
   <TabItem value="code" default>
 
   ```typescript
@@ -84,10 +84,64 @@ import TabItem from '@theme/TabItem';
 
 基本上，setTimeout 需要等待当前队列中所有的消息都处理完毕之后才能执行，即使已经超出了由第二参数所指定的时间。
 
-## setTimeout 之于 React Hooks 的大坑
+## setTimeout 在循环中的大坑
 
-setTimeout 和 useState Hook 只要不一起塞进循环里就还相安无事。下面的例子是大坑中的一个：
+setTimeout 只要不塞进循环里就还相安无事。下面的例子是大坑中的一个：
 
-```javascript
-//今天突然有事明天再写
-```
+<Tabs>
+  <TabItem value="code" default>
+
+  ```typescript
+  for(var i=0; i<9; i++){
+      setTimeout(function(){
+          console.log(i);
+      }, 0);
+  }
+  ```
+
+  </TabItem>
+  <TabItem value="等效 code(?)" default>
+
+  ```typescript
+  // for 循环开始
+  var i = 0;
+  setTimeout(function(){
+      console.log(i);
+  }, 0);
+  i = 1;
+  setTimeout(function(){
+      console.log(i);
+  }, 0);
+  i = 2;
+  setTimeout(function(){
+      console.log(i);
+  }, 0);
+  // ...
+  i = 8;
+  setTimeout(function(){
+      console.log(i);
+  }, 0);
+  i = 9;
+  // for 循环结束
+  ```
+
+  </TabItem>
+  <TabItem value="result">
+
+  ```
+  9
+  9
+  9
+  9
+  9
+  9
+  9
+  9
+  9
+  ```
+
+  </TabItem>
+</Tabs> 
+
+在上方的“零延迟”部分介绍的特性在此处通用，所以所有 setTimeout 的回调会被塞到一起执行。
+
