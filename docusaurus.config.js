@@ -143,11 +143,7 @@ const config = {
             ],
           },
         ],
-        copyright: `${new Date().getFullYear()}  @VisualDust (aka ${() => {
-          return "Miya Akasaki";
-        }} aka ${() => {
-          return "Gavin Gong";
-        }}).`,
+        copyright: `<a href="https://github.com/VisualDust" target="_blank">@VisualDust</a> ${new Date().getFullYear()} all rights reserved | <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2021025239号</a>`,
       },
       prism: {
         theme: lightCodeTheme,
