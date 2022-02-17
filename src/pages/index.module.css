@@ -42,6 +42,9 @@
   justify-content: center;
 }
 
+.focusin {
+  animation: focusin 5s;
+}
 
 @keyframes focusin {
   from {

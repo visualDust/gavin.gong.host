@@ -24,12 +24,12 @@ const config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl:
-            "https://github.com/visualDust/focus.akasaki.space/edit/master/",
+            "https://github.dev/visualDust/focus.akasaki.space/blob/master/",
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            "https://github.com/visualDust/focus.akasaki.space/edit/master/",
+            "https://github.dev/visualDust/focus.akasaki.space/blob/master/",
           blogSidebarTitle: "All posts",
           blogSidebarCount: "ALL",
         },
@@ -82,7 +82,7 @@ const config = {
             position: "left",
             label: "Docs",
           },
-          { to: "/blog/tags", label: "Blogs", position: "left" },
+          { to: "/blog", label: "Blogs", position: "left" },
           {
             href: "https://ml.akasaki.space",
             label: "Machine Learning Part",

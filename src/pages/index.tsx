@@ -99,13 +99,13 @@ function HomepageBackground() {
             }}
           >
             <p
-              className="hero__title"
+              className={`hero__title ${styles.focusin}`}
               style={{
                 textShadow: `2px 2px var(${isDarkTheme?"--ifm-color-primary-lighter":"--ifm-color-primary-darker"})`,
-                animationName: "focusin",
-                animationDuration: "3s",
-                animationIterationCount: "infinite",
-                animationDirection: "alternate-reverse",
+                // animationName: "focusin",
+                // animationDuration: "3s",
+                // animationIterationCount: "infinite",
+                // animationDirection: "alternate-reverse",
               }}
             >
               {siteConfig.title}

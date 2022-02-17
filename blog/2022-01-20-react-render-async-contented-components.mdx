@@ -31,6 +31,8 @@ function AsyncComponent(props: AsyncCompomentProps) {
 />;
 ```
 
+<!--truncate-->
+
 在react中，这种包含了data fetching的操作经常出现。React 没有内置的从组件中获取或更新数据的方式，因此开发人员最终会构建自己的获取数据的方式。 这通常意味着使用 React Hooks 将基于组件的状态 state 和 effects 整合在一起，或者使用更通用的状态管理库来存储和提供整个程序中的异步数据。为了简化这种操作，React Query应运而生。React Query是一组React Hook，它易于使用，其最基本的Hook是`useQuery`，例如：
 
 ```typescript

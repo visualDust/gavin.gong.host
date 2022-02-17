@@ -13,6 +13,9 @@ tags: [C#]
 > 迭代器方法或 get 访问器可对集合执行自定义迭代。 迭代器方法使用 yield return 语句返回元素，每次返回一个。 到达 yield return 语句时，会记住当前在代码中的位置。 下次调用迭代器函数时，将从该位置重新开始执行。
 
 可迭代的类型为`public static System.Collections.IEnumerable`。例如：
+
+<!--truncate-->
+
 ```c#
 public static System.Collections.IEnumerable SomeNumbers()
 {

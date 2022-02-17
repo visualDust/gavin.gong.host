@@ -27,3 +27,5 @@ class SELayer(Layer):
         y = self.fc(y).view(b, c, 1, 1)
         return x * y.expand_as(x)
 ```
+
+<!--truncate-->
