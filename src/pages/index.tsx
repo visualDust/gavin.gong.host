@@ -49,12 +49,14 @@ SwiperCore.use([
 
 function BlurBackgroundImage(){
   const { isDarkTheme } = useThemeContext();
+  const imgurl = isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg";
+  const anotherImgurl = !isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg";
   return (
       <div
         // src={isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg"}
         // alt="background"
         style={{
-          backgroundImage: `url(${isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg"})`,
+          backgroundImage: `url(${imgurl})`,
           backgroundAttachment: 'fixed',
           backgroundSize: 'cover',
           filter: `blur(10px) brightness(${isDarkTheme ? 1:0.7})`,
@@ -64,7 +66,10 @@ function BlurBackgroundImage(){
           height: "100%",
           width: '100%',
         }}
-      />
+      >
+        {/* Keep another image loaded */}
+        <img src={anotherImgurl} alt="" style={{display: 'none'}} />
+      </div>
   );
 }
 
@@ -83,7 +88,7 @@ function HomepageBackground() {
         // backgroundRepeat: 'no-repeat'
       }}
     >
-      <BlurBackgroundImage />
+      <BrowserOnly>{BlurBackgroundImage}</BrowserOnly>
       <div className="container" style={{zIndex: 1}}>
         <div className="row">
           <div
@@ -161,7 +166,7 @@ function HomepageBackground() {
               }
               alt="Programmer"
             /> */}
-            <BrowserOnly>{carousel}</BrowserOnly>
+            <BrowserOnly>{RandomImage}</BrowserOnly>
           </div>
         </div>
       </div>
@@ -169,7 +174,9 @@ function HomepageBackground() {
   );
 }
 
-function carousel() {
+function RandomImage() {
+  const [loaded, setLoaded] = useState(false);
+  const [imgsrc] = useState(() => config.illustrations[Math.floor(Math.random()*config.illustrations.length)]);
   // const isTabletOrMobile = useMediaQuery({ maxWidth: 997 });
   return (
     // <Carousel
@@ -185,8 +192,15 @@ function carousel() {
     //     <img key={item} src={item} />
     //   ))}
     // </Carousel>
-    <img src={config.illustrations[Math.floor(Math.random()*config.illustrations.length)]}>
-    </img>
+    <img src={imgsrc}
+      className={clsx(
+        styles.randomImage,
+        loaded && styles.loaded,
+      )}
+      onLoad={() => {
+        setLoaded(true);
+      }}
+    />
   );
 }
 
