@@ -49,8 +49,8 @@ SwiperCore.use([
 
 function BlurBackgroundImage(){
   const { isDarkTheme } = useThemeContext();
-  const imgurl = isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg";
-  const anotherImgurl = !isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg";
+  const anotherImgurl = isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg";
+  const imgurl = !isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg";
   return (
       <div
         // src={isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg"}
@@ -59,7 +59,7 @@ function BlurBackgroundImage(){
           backgroundImage: `url(${imgurl})`,
           backgroundAttachment: 'fixed',
           backgroundSize: 'cover',
-          filter: `blur(10px) brightness(${isDarkTheme ? 1:0.7})`,
+          filter: `blur(10px) brightness(${isDarkTheme ? .7:1})`,
           transform: 'scale(1.2)',
           position: "absolute",
           zIndex: 0,
@@ -78,10 +78,11 @@ function HomepageBackground() {
   const { isDarkTheme } = useThemeContext();
   return (
     <header
-      className={clsx("hero hero--primary themedHead", styles.heroBanner)}
+      className={clsx("hero themedHead", styles.heroBanner)}
       style={{
         minHeight: "calc(100vh - var(--ifm-navbar-height))",
         backgroundAttachment : "fixed",
+        backgroundColor: isDarkTheme ? "#4E1F7A" : "#EB8B68",
         // background: ``,
         // backgroundPosition: 'bottom',
         // backgroundSize: 'cover',
@@ -106,7 +107,7 @@ function HomepageBackground() {
             <p
               className={`hero__title ${styles.focusin}`}
               style={{
-                textShadow: `2px 2px var(${isDarkTheme?"--ifm-color-primary-lighter":"--ifm-color-primary-darker"})`,
+                textShadow: `2px 2px var(${isDarkTheme?"--ifm-color-primary-lighter":"--ifm-color-primary-lightest"})`,
                 // animationName: "focusin",
                 // animationDuration: "3s",
                 // animationIterationCount: "infinite",
