@@ -49,7 +49,7 @@ export const FeatureList: FeatureItem[] = [
         intrested.
       </>
     ),
-    buttonLink: "/blog/tags",
+    buttonLink: "/blog",
     buttonText: "blogs",
   },
 ];
