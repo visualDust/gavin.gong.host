@@ -24,6 +24,7 @@ import {
 import { GithubFeatures } from "../components/GithubFeatures";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import useThemeContext from '@theme/hooks/useThemeContext';
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/zoom";
@@ -46,21 +47,44 @@ SwiperCore.use([
   EffectCreative,
 ]);
 
+function BlurBackgroundImage(){
+  const { isDarkTheme } = useThemeContext();
+  return (
+      <div
+        // src={isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg"}
+        // alt="background"
+        style={{
+          backgroundImage: `url(${isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg"})`,
+          backgroundAttachment: 'fixed',
+          backgroundSize: 'cover',
+          filter: `blur(10px) brightness(${isDarkTheme ? 1:0.7})`,
+          transform: 'scale(1.2)',
+          position: "absolute",
+          zIndex: 0,
+          height: "100%",
+          width: '100%',
+        }}
+      />
+  );
+}
+
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
-
+  const { isDarkTheme } = useThemeContext();
   return (
     <header
       className={clsx("hero hero--primary themedHead", styles.heroBanner)}
       style={{
         minHeight: "calc(100vh - var(--ifm-navbar-height))",
-        // backgroundImage: `url(${bgimg})`,
+        backgroundAttachment : "fixed",
+        // background: ``,
         // backgroundPosition: 'bottom',
         // backgroundSize: 'cover',
         // backgroundRepeat: 'no-repeat'
       }}
     >
-      <div className="container">
+      <BlurBackgroundImage />
+      <div className="container" style={{zIndex: 1}}>
         <div className="row">
           <div
             className={clsx(
@@ -77,7 +101,7 @@ function HomepageBackground() {
             <p
               className="hero__title"
               style={{
-                textShadow: "4px 4px var(--ifm-color-primary-darker)",
+                textShadow: `2px 2px var(${isDarkTheme?"--ifm-color-primary-lighter":"--ifm-color-primary-darker"})`,
                 animationName: "focusin",
                 animationDuration: "3s",
                 animationIterationCount: "infinite",
