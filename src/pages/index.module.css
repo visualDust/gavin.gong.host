@@ -43,7 +43,7 @@
 }
 
 .focusin {
-  animation: focusin 5s;
+  animation: focusin 3s;
 }
 
 @keyframes focusin {

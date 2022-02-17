@@ -170,21 +170,23 @@ function HomepageBackground() {
 }
 
 function carousel() {
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 997 });
+  // const isTabletOrMobile = useMediaQuery({ maxWidth: 997 });
   return (
-    <Carousel
-      axis={isTabletOrMobile ? "horizontal" : "vertical"}
-      autoPlay
-      showArrows={false}
-      showIndicators={false}
-      showStatus={false}
-      showThumbs={false}
-      swipeable={false}
-    >
-      {config.illustrations.map((item) => (
-        <img key={item} src={item} />
-      ))}
-    </Carousel>
+    // <Carousel
+    //   axis={isTabletOrMobile ? "horizontal" : "vertical"}
+    //   autoPlay
+    //   showArrows={false}
+    //   showIndicators={false}
+    //   showStatus={false}
+    //   showThumbs={false}
+    //   swipeable={false}
+    // >
+    //   {config.illustrations.map((item) => (
+    //     <img key={item} src={item} />
+    //   ))}
+    // </Carousel>
+    <img src={config.illustrations[Math.floor(Math.random()*config.illustrations.length)]}>
+    </img>
   );
 }
 

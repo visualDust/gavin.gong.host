@@ -172,3 +172,9 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 .blog-list-page main {
   --ifm-col-width: calc(9 / 12 * 100%)!important;
 }
+
+@media (max-width: 996px) {
+  .blog-list-page main {
+    --ifm-col-width: 100%!important;
+  }
+}
