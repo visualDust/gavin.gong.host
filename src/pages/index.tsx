@@ -178,7 +178,7 @@ function HomepageBackground() {
 function RandomImage() {
   const [loaded, setLoaded] = useState(false);
   const [imgsrc] = useState(() => config.illustrations[Math.floor(Math.random()*config.illustrations.length)]);
-  // const isTabletOrMobile = useMediaQuery({ maxWidth: 997 });
+  const isMobile = useMediaQuery({ maxWidth: 1024 });
   return (
     // <Carousel
     //   axis={isTabletOrMobile ? "horizontal" : "vertical"}
@@ -198,6 +198,10 @@ function RandomImage() {
         styles.randomImage,
         loaded && styles.loaded,
       )}
+      style={{
+        width:isMobile?"70%":"100%",
+        alignSelf:"center"
+      }}
       onLoad={() => {
         setLoaded(true);
       }}
