@@ -200,7 +200,7 @@ function RandomImage() {
       )}
       style={{
         width:isMobile?"70%":"100%",
-        alignSelf:"center"
+        alignSelf:"center"   
       }}
       onLoad={() => {
         setLoaded(true);
