@@ -51,7 +51,7 @@ var friendsData: FriendData[] = [
     name: "Tanger",
     intro: "赶紧学习",
     url: "https://tanger.ltd/",
-    note: "隔壁学院（数学与计算科学）基地的负责人。常见面交流。",
+    note: "隔壁学院（数学与计算科学）基地2019级的负责人。常见面交流。",
   },
   {
     pic: githubPic("Therainisme"),
@@ -61,8 +61,8 @@ var friendsData: FriendData[] = [
     note: "雨神，一出门就下雨。我大学期间的同事，任我社2019级多媒体部部长。网站开发运维专家。",
   },
   {
-    pic: githubPic("coronaPolvo"),
-    name: "coronaPolvo",
+    pic: githubPic("AndSonder"),
+    name: "Sonder",
     intro: "life is but a span, I use python",
     url: "https://blog.keter.top/",
     note: "科协F4的成员。我大学期间的同事，任我社2019级软件部部长。主攻方向是神经网络攻击。他找女朋友之前我们常一起吃饭。",
@@ -92,8 +92,8 @@ var friendsData: FriendData[] = [
     pic: githubPic("AndPuQing"),
     name: "PuQing",
     intro: "intro * new",
-    url: "https://github.com/AndPuQing",
-    note: "啊对对对",
+    url: "https://blog.puqing.work",
+    note: "梁老师感兴趣的不是程序，不是科技，不是摄影，而是能够表达自己的方式，却落得了专业写代码非常懂科技很会摄影的下场。",
   },
 ];
 
