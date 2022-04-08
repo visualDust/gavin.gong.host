@@ -92,7 +92,7 @@ var friendsData: FriendData[] = [
     pic: githubPic("AndPuQing"),
     name: "PuQing",
     intro: "intro * new",
-    url: "https://blog.puqing.work",
+    url: "https://puqing.work",
     note: "梁老师感兴趣的不是程序，不是科技，不是摄影，而是能够表达自己的方式，却落得了专业写代码非常懂科技很会摄影的下场。",
   },
 ];
