@@ -3,6 +3,8 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const math = require('remark-math');
+const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -16,6 +18,7 @@ const config = {
   organizationName: "visualDust", // Usually your GitHub org/user name.
   projectName: "focus.akasaki.space", // Usually your repo name.
 
+
   presets: [
     [
       "@docusaurus/preset-classic",
@@ -23,21 +26,33 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl:
-            "https://github.dev/visualDust/focus.akasaki.space/blob/master/",
+          editUrl: "https://github.dev/visualDust/focus.akasaki.space/blob/master/",
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
         },
         blog: {
           showReadingTime: true,
-          editUrl:
-            "https://github.dev/visualDust/focus.akasaki.space/blob/master/",
+          editUrl: "https://github.dev/visualDust/focus.akasaki.space/blob/master/",
           blogSidebarTitle: "All posts",
           blogSidebarCount: "ALL",
+          remarkPlugins: [math],
+          rehypePlugins: [katex],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
       }),
     ],
+  ],
+
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
+      crossorigin: 'anonymous',
+    },
   ],
 
   plugins: [
@@ -75,14 +90,17 @@ const config = {
           alt: "Logo",
           src: "img/logo.svg",
         },
-        items: [
-          {
+        items: [{
             type: "doc",
             docId: "intro",
             position: "left",
             label: "Docs",
           },
-          { to: "/blog", label: "Blogs", position: "left" },
+          {
+            to: "/blog",
+            label: "Blogs",
+            position: "left"
+          },
           {
             href: "https://ml.akasaki.space",
             label: "Machine Learning Part",
@@ -102,20 +120,16 @@ const config = {
       },
       footer: {
         style: "light",
-        links: [
-          {
+        links: [{
             title: "Docs",
-            items: [
-              {
-                label: "Documents",
-                to: "/docs/intro",
-              },
-            ],
+            items: [{
+              label: "Documents",
+              to: "/docs/intro",
+            }, ],
           },
           {
             title: "Community",
-            items: [
-              {
+            items: [{
                 label: "NEET CV",
                 href: "https://github.com/neet-cv",
               },
@@ -127,8 +141,7 @@ const config = {
           },
           {
             title: "More",
-            items: [
-              {
+            items: [{
                 label: "ml.akasaki.space",
                 to: "https://ml.akasaki.space",
               },

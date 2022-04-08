@@ -42,13 +42,14 @@ tags: [computer vision, deep learning, paper reading]
 
 上文中的 global filter 是在频域内建立关系的关键，也是本网络结构与 Vision Transformer 的主要区别。在 Vision Transformer 中，关系是通过 token 表示的。在本文中，作者将离散傅里叶变换后的特征理解为一种“按频域顺序罗列的query”，因此产生 token 的过程可以理解为在该特征上的矩阵点乘，复杂度相比于 self-attention layer 大大降低了。通俗地说，作者设计使用频域上的点乘模拟空间域上不同位置的的键值对，建立的关系被储存在一个矩阵中，其参数量对比其他操作的参数量如下表：
 
+
 |                           | 复杂度（FLOPs）                                              | 参数量    |
 | ------------------------- | ------------------------------------------------------------ | --------- |
 | 深度可分离卷积            | $O(k^2 HWD)$                                                 | $k^2 D$   |
 | self-attention            | $O(HWD^2 + H^2 W^2 D)$                                       | $4D^2$    |
 | 全连接                    | $O(H^2W^2D)$                                                 | $H^2 W^2$ |
 | **Global Filter**（本文） | $O(HWD)\lceil \log_2(HW) \rceil+HWD$                         | $HWD$     |
-|                           | <center>表：本文中 Global Filter 与其他常见结构的复杂度及参数量对比</center> |           |
+
 
 Global Filter Layer 表示成伪代码是：
 
