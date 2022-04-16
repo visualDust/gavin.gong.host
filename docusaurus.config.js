@@ -10,7 +10,7 @@ const katex = require('rehype-katex');
 const config = {
   title: "Akasaki Focusing",
   tagline: "Empoered learning life",
-  url: "https://focus.akasaki.space",
+  url: "https://gong.host",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -90,12 +90,13 @@ const config = {
           alt: "Logo",
           src: "img/logo.svg",
         },
-        items: [{
-            type: "doc",
-            docId: "intro",
-            position: "left",
-            label: "Docs",
-          },
+        items: [
+          // {
+          //   type: "doc",
+          //   docId: "intro",
+          //   position: "left",
+          //   label: "Docs",
+          // },
           {
             to: "/blog",
             label: "Blogs",
