@@ -107,7 +107,7 @@ function HomepageBackground() {
             <p
               className={`hero__title ${styles.focusin}`}
               style={{
-                textShadow: `2px 2px var(${isDarkTheme?"--ifm-color-primary-lighter":"--ifm-color-primary-lightest"})`,
+                textShadow: `0px 0px 2px ${isDarkTheme?"#000000":"#FFFFFF"}`,
                 // animationName: "focusin",
                 // animationDuration: "3s",
                 // animationIterationCount: "infinite",
@@ -133,7 +133,10 @@ function HomepageBackground() {
             <div>
               <a
                 className="button button--outline"
-                style={{ border: "solid 1px" }}
+                style={{ 
+                  border: "solid 2px",
+                  // textShadow: `0px 0px 3px ${isDarkTheme?"#000000":"#FFFFFF"}`,
+                }}
                 href="#functionals"
                 onClick={(e) => {
                   e.preventDefault();
