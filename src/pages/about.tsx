@@ -2,11 +2,17 @@ import React, { useEffect, useState } from "react";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 import arrayShuffle from "array-shuffle";
+import Sakana from "../plugins/sakana"
 
 function About() {
+  useEffect(()=>{
+    //@ts-ignore
+    Sakana.init({el: '.sakana-box', scale: .5, canSwitchCharacter: true} as any)
+  },[])
   return (
     <Layout>
       <Friends />
+      <div className="sakana-box" style={{height:0}}></div>
       <p style={{ paddingLeft: '20px' }}>The list is random. try to refresh the page.</p>
     </Layout>
   );
@@ -30,7 +36,7 @@ var friendsData: FriendData[] = [
     name: "lideming",
     intro: "Building random things with Deno, Node and .NET Core.",
     url: "https://yuuza.net/",
-    note: "我的大学同学，某些时候是同事，也有时是队友。全栈/APEX/R6/CSGO/BFV，有些懒。",
+    note: "我的大学同学，某些时候是同事，也有时是队友。全栈/APEX/R6/CSGO/BFV，有些懒。“字节和心脏只有一个能跳动”",
   },
   {
     pic: githubPic("papercube"),
@@ -57,29 +63,29 @@ var friendsData: FriendData[] = [
     pic: githubPic("Therainisme"),
     name: "Therainisme",
     intro: "寄忆犹新",
-    url: "https://notebook.therainisme.com/",
-    note: "雨神，一出门就下雨。我大学期间的同事，任我社2019级多媒体部部长。网站开发运维专家。",
+    url: "https://blog.therainisme.com/",
+    note: "（已保研）雨神，一出门就下雨。我大学期间的同事，任我社2019级多媒体部部长。网站开发运维专家。",
   },
   {
     pic: githubPic("AndSonder"),
     name: "Sonder",
     intro: "life is but a span, I use python",
     url: "https://blog.keter.top/",
-    note: "科协F4的成员。我大学期间的同事，任我社2019级软件部部长。主攻方向是神经网络攻击。他找女朋友之前我们常一起吃饭。",
+    note: "（已保研）科协F4的成员。我大学期间的同事，任我社2019级软件部部长。主攻方向是神经网络攻击。他找女朋友之前我们常一起吃饭。",
   },
   {
     pic: githubPic("Zerorains"),
     name: "Zerorains",
     intro: "life is but a span, I use python",
     url: "https://blog.zerorains.top",
-    note: "科协F4的成员。科协恶霸(x)。主攻方向是基于深度学习技术图像分割。他不太喜欢看我抽卡。",
+    note: "（已保研）科协F4的成员。科协恶霸(x)。主攻方向是基于深度学习技术图像分割。他不太喜欢看我抽卡。",
   },
   {
     pic: githubPic("PommesPeter"),
     name: "PommesPeter",
     intro: "I want to be strong. But it seems so hard.",
     url: "https://memo.pommespeter.space/",
-    note: "科协F4的成员。我大学期间的同事，任我社2019级软件部副部长。主攻方向是基于深度学习技术的图像低照度增强。他找女朋友之前我们常一起吃饭。",
+    note: "（已保研）科协F4的成员。我大学期间的同事，任我社2019级软件部副部长。主攻方向是基于深度学习技术的图像低照度增强。他找女朋友之前我们常一起吃饭。",
   },
   {
     pic: githubPic("breezeshane"),
