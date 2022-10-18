@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@cmfcmf/docusaurus-search-local": "^0.9.3",
-    "@docusaurus/core": "2.0.0-beta.21",
-    "@docusaurus/preset-classic": "2.0.0-beta.21",
+    "@docusaurus/core": "^2.1.0",
+    "@docusaurus/preset-classic": "^2.1.0",
     "@easyops-cn/docusaurus-search-local": "^0.21.4",
     "@mdx-js/react": "^1.6.21",
     "@nivo/bar": "^0.74.0",
@@ -46,7 +46,7 @@
     "wakatime-client": "^2.7.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.0.0-beta.21",
+    "@docusaurus/module-type-aliases": "^2.1.0",
     "@tsconfig/docusaurus": "^1.0.4",
     "typescript": "^4.3.5"
   },

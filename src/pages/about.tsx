@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 import arrayShuffle from "array-shuffle";
-import Sakana from "../plugins/sakana"
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
 function About() {
-  useEffect(()=>{
-    //@ts-ignore
-    Sakana.init({el: '.sakana-box', scale: .5, canSwitchCharacter: true} as any)
-  },[])
   return (
     <Layout>
       <Friends />
-      <div className="sakana-box" style={{height:0}}></div>
+      <BrowserOnly>
+        {() => {
+          useEffect(()=>{
+            const Sakana = require('../plugins/sakana')
+            //@ts-ignore
+            Sakana.init({el: '.sakana-box', scale: .5, canSwitchCharacter: true} as any)
+          },[])
+          return <div className="sakana-box" style={{ height: 0 }}></div>
+        }}
+      </BrowserOnly>
       <p style={{ paddingLeft: '20px' }}>The list is random. try to refresh the page.</p>
     </Layout>
   );
