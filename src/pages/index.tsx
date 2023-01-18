@@ -24,7 +24,14 @@ import {
 import { GithubFeatures } from "../components/GithubFeatures";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import useThemeContext from '@theme/hooks/useThemeContext';
+import {
+  useThemeConfig,
+  useColorMode,
+  useHideableNavbar,
+  useLockBodyScroll,
+  useWindowSize,
+  
+} from '@docusaurus/theme-common';
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/zoom";
@@ -48,7 +55,7 @@ SwiperCore.use([
 ]);
 
 function BlurBackgroundImage(){
-  const { isDarkTheme } = useThemeContext();
+  const { isDarkTheme } = useColorMode();
   const anotherImgurl = isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg";
   const imgurl = !isDarkTheme?"/img/indexbackground_light.jpg":"/img/indexbackground_dark.jpg";
   return (
@@ -75,7 +82,7 @@ function BlurBackgroundImage(){
 
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
-  const { isDarkTheme } = useThemeContext();
+  const { isDarkTheme } = useColorMode();
   return (
     <header
       className={clsx("hero themedHead", styles.heroBanner)}
