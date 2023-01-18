@@ -7,6 +7,8 @@ image: https://ml.akasaki.space/assets/img/image-20210703225313459.efd76d2a.png
 hide_table_of_contents: false
 ---
 
+偶尔忘记的时候再来看看怎么实现（）
+
 ```python
 from paddle.nn import *
 

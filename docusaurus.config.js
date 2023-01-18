@@ -8,8 +8,8 @@ const katex = require('rehype-katex');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Akasaki Focusing",
-  tagline: "Empoered learning life",
+  title: "Life that deepdive",
+  tagline: "Empoered with knowledge",
   url: "https://gong.host",
   baseUrl: "/",
   onBrokenLinks: "throw",
@@ -85,22 +85,22 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Akasaki Focusing",
+        title: "Blog of Gavin",
         logo: {
           alt: "Logo",
           src: "img/logo.svg",
         },
         items: [
-          // {
-          //   type: "doc",
-          //   docId: "intro",
-          //   position: "left",
-          //   label: "Docs",
-          // },
           {
             to: "/blog",
             label: "Blogs",
             position: "left"
+          },
+          {
+            type: "doc",
+            docId: "intro",
+            position: "left",
+            label: "Useless",
           },
           {
             href: "https://ml.akasaki.space",

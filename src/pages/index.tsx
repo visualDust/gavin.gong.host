@@ -334,7 +334,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Akasaki Focusing is where Gavin Gong (aka VisualDust) enjoys coding life"
+      description="Gavin Gong (aka VisualDust) and his coding life"
     >
       <HomepageBackground />
       <main

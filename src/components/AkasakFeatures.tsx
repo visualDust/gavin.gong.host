@@ -37,8 +37,8 @@ export const FeatureList: FeatureItem[] = [
         React.
       </>
     ),
-    buttonLink: "/docs",
-    buttonText: "useless articals",
+    buttonLink: "/blog/",
+    buttonText: "random blogs",
   },
   {
     title: "Me",
@@ -49,8 +49,8 @@ export const FeatureList: FeatureItem[] = [
         intrested.
       </>
     ),
-    buttonLink: "/blog",
-    buttonText: "blogs",
+    buttonLink: "/docs/intro",
+    buttonText: "useless corner",
   },
 ];
 

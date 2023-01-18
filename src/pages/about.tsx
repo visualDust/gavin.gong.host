@@ -43,7 +43,7 @@ var friendsData: FriendData[] = [
     pic: githubPic("VoidmatrixHeathcliff"),
     name: "Voidmatrix",
     intro: "积淀，分享，传承",
-    url: "http://voidmatrix.xyz/",
+    url: "https://www.voidmatrix.work/",
     note: "素未谋面的大佬，轮子从galgame引擎造到前端，雨露均沾。我们假期一起打MC。",
   },
   {
