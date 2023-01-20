@@ -89,7 +89,7 @@ var friendsData: FriendData[] = [
     pic: githubPic("PommesPeter"),
     name: "PommesPeter",
     intro: "I want to be strong. But it seems so hard.",
-    url: "https://memo.pommespeter.space/",
+    url: "https://memo.xiee.ltd/",
     note: "（已保研）科协F5的成员。我大学期间的同事，任我社2019级软件部副部长。主攻方向是多模态场景图生成。他找女朋友之前我们常一起吃饭。",
   },
   {
