@@ -10,6 +10,9 @@ import {
   Feature,
   FeatureList,
 } from "../components/AkasakFeatures";
+import { inject } from '@vercel/analytics';
+inject();
+
 import { ResponsiveBar } from "@nivo/bar";
 import Typical from "react-typical";
 import * as config from "./_index.config";
