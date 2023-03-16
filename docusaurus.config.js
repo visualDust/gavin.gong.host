@@ -103,8 +103,13 @@ const config = {
             label: "Useless",
           },
           {
+            href: "https://neetbox.550w.host",
+            label: "NEETBox",
+            position: "left",
+          },
+          {
             href: "https://ml.akasaki.space",
-            label: "Machine Learning Part",
+            label: "DeepLearning Part",
             position: "left",
           },
           {
