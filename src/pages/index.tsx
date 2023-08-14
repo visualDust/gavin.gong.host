@@ -86,6 +86,23 @@ function BlurBackgroundImage(){
 function HomepageBackground() {
   const { siteConfig } = useDocusaurusContext();
   const { isDarkTheme } = useColorMode();
+  const [subtitlesAndDelays, setSubtitlesAndDelays] = useState(config.subtitles_and_delays);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch("https://api.gametools.network/bf2042/stats/?raw=false&format_values=true&name=visualdust&platform=pc&skip_battlelog=true");
+      const json = await response.json();
+      const { killDeath } = json;
+      // !!! DANGER !!!
+      let end = Number(setInterval(function () { }, 100000));
+      for (let i = 1; i <= end; i++) {
+        clearInterval(i);
+      }
+      // !!! DANGER !!!
+      setSubtitlesAndDelays([...subtitlesAndDelays, { text: `KD ${killDeath} !`, delay: 1000 }]);
+    })();
+  }, []);
+
   return (
     <header
       className={clsx("hero themedHead", styles.heroBanner)}
@@ -128,14 +145,10 @@ function HomepageBackground() {
             </p>
             <p className="hero__subtitle">
               <Typical
-                steps={useMemo(
-                  () =>
-                    config.subtitles_and_delays.flatMap((x) => [
-                      x.text,
-                      x.delay,
-                    ]),
-                  []
-                )}
+                steps={subtitlesAndDelays.flatMap((x) => [
+                  x.text,
+                  x.delay,
+                ])}
                 loop={Infinity}
                 wrapper="span"
               />
