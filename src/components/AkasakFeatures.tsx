@@ -140,6 +140,6 @@ function AkasakFeaturesDesktop(): JSX.Element {
 }
 
 export function AkasakiFeatures(): JSX.Element {
-  const isTabletOrMobile = useIsMobile(800);
+  const isTabletOrMobile = useIsMobile();
   return isTabletOrMobile ? AkasakFeaturesMobile() : AkasakFeaturesDesktop()
 }

@@ -1,10 +1,10 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 
-function useIsMobile(maxWidth: number) {
-    const [width, setWidth] = useState<number>(1000);
+function useIsMobile(maxWidth = 800) {
+    const [mobile, setMobile] = useState(false);
 
     function handleWindowSizeChange() {
-        setWidth(window.innerWidth);
+        setMobile(matchMedia(`(max-width: ${maxWidth}px)`).matches);
     }
     useLayoutEffect(() => {
         handleWindowSizeChange();
@@ -14,7 +14,7 @@ function useIsMobile(maxWidth: number) {
         }
     }, []);
 
-    return width <= maxWidth;
+    return mobile;
 }
 
 export default useIsMobile;

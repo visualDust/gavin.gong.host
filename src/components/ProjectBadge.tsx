@@ -65,7 +65,7 @@ function ProjectBadgeDesktop(): JSX.Element {
 }
 
 function ProjectBadge(): JSX.Element {
-    const isTabletOrMobile = useIsMobile(800);
+    const isTabletOrMobile = useIsMobile();
     return isTabletOrMobile ? ProjectBadgeMobile() : ProjectBadgeDesktop()
 }
 

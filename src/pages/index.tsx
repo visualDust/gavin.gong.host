@@ -154,7 +154,7 @@ function HomePageDesktop(): JSX.Element {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
-  const isTabletOrMobile = useIsMobile(800);
+  const isTabletOrMobile = useIsMobile();
   // const isTabletOrMobile = useMediaQuery({ maxWidth: 800 });
   // useForceRerender();
   const [_, update] = useState(0);
