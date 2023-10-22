@@ -38,12 +38,12 @@ function ProjectBadgeMobile(): JSX.Element {
     return (
         <div style={{ margin: "5%" }}>
             <Carousel showArrows={true} autoPlay={true}>
-                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (1).jpg" title="assets (1)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
-                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (2).jpg" title="assets (2)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
-                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (3).jpg" title="assets (3)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
-                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (4).jpg" title="assets (4)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
-                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (5).jpg" title="assets (5)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
-                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (6).jpg" title="assets (6)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
+                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (1).JPG" title="assets (1)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
+                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (2).JPG" title="assets (2)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
+                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (3).JPG" title="assets (3)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
+                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (4).JPG" title="assets (4)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
+                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (5).JPG" title="assets (5)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
+                <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (6).JPG" title="assets (6)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
             </Carousel>
         </div>
     );
@@ -53,12 +53,12 @@ function ProjectBadgeDesktop(): JSX.Element {
     return (
         <div style={{ margin: "5%" }}>
             <Carousel showArrows={true} autoPlay={true}>
-                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (1).jpg" title="assets (1)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
-                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (2).jpg" title="assets (2)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
-                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (3).jpg" title="assets (3)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
-                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (4).jpg" title="assets (4)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
-                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (5).jpg" title="assets (5)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
-                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (6).jpg" title="assets (6)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
+                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (1).JPG" title="assets (1)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
+                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (2).JPG" title="assets (2)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
+                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (3).JPG" title="assets (3)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
+                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (4).JPG" title="assets (4)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
+                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (5).JPG" title="assets (5)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
+                <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (6).JPG" title="assets (6)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
             </Carousel>
         </div>
     )

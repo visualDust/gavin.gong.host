@@ -1,21 +1,12 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
-import clsx from "clsx";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Layout from "@theme/Layout";
 import ProjectBadge from "../components/ProjectBadge";
-import BrowserOnly from "@docusaurus/BrowserOnly";
 import GitHubCalendar from 'react-github-calendar';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import styles from "./index.module.css";
-import { Parallax, Background } from "react-parallax";
 import { AkasakiFeatures } from "../components/AkasakFeatures";
 import { inject } from '@vercel/analytics';
 inject();
-import {
-  useThemeConfig,
-  useColorMode,
-  useWindowSize,
 
-} from '@docusaurus/theme-common';
 import useIsMobile from "../hooks/useIsMobile";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import "swiper/css";
@@ -64,12 +55,7 @@ function ComponentLink(): JSX.Element {
 
 function HomePageMobile(): JSX.Element {
   return (
-    <div
-      style={{
-        maxWidth: "1000px",
-        margin: "0 auto"
-      }}
-    >
+    <>
       <div // personal information and links
         style={{
           display: "flex",
@@ -99,7 +85,7 @@ function HomePageMobile(): JSX.Element {
       </div>
       <ProjectBadge></ProjectBadge>
       <AkasakiFeatures />
-    </div>
+    </>
   )
 }
 
