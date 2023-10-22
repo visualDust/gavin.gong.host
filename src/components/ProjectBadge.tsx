@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import style from "./carousel.module.css";
 import { useMediaQuery } from "react-responsive";
 import { Carousel } from 'react-responsive-carousel';
+import useIsMobile from "../hooks/useIsMobile";
 
 type BadgeItem = {
     imgUrl: string;
@@ -64,7 +65,7 @@ function ProjectBadgeDesktop(): JSX.Element {
 }
 
 function ProjectBadge(): JSX.Element {
-    const isTabletOrMobile = useMediaQuery({ maxWidth: 800 });
+    const isTabletOrMobile = useIsMobile(800);
     return isTabletOrMobile ? ProjectBadgeMobile() : ProjectBadgeDesktop()
 }
 

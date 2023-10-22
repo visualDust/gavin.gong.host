@@ -7,7 +7,7 @@
 import React from "react";
 import clsx from "clsx";
 import styles from "./AkasakiFeatures.module.css";
-import { useMediaQuery } from "react-responsive";
+import useIsMobile from "../hooks/useIsMobile";
 
 type FeatureItem = {
   title: string;
@@ -98,7 +98,7 @@ export function FeatureMobile({
         <h3>{title}</h3>
         <p>{description}</p>
         {buttonLink ? (
-          <div style={{ textAlign: "left" }}>
+          <div>
             <a
               href={buttonLink}
               className="button button--primary button--outline"
@@ -140,6 +140,6 @@ function AkasakFeaturesDesktop(): JSX.Element {
 }
 
 export function AkasakiFeatures(): JSX.Element {
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 800 });
+  const isTabletOrMobile = useIsMobile(800);
   return isTabletOrMobile ? AkasakFeaturesMobile() : AkasakFeaturesDesktop()
 }

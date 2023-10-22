@@ -16,9 +16,8 @@ import {
   useWindowSize,
 
 } from '@docusaurus/theme-common';
-
+import useIsMobile from "../hooks/useIsMobile";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { useMediaQuery } from "react-responsive";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -96,7 +95,7 @@ function HomePageMobile(): JSX.Element {
         </div>
         <ComponentPersonalInfo></ComponentPersonalInfo>
         <ComponentLink></ComponentLink>
-        <GitHubCalendar style={{marginTop:"10px",marginBottom:"10px"}} colorScheme="light" username="VisualDust" />
+        <GitHubCalendar style={{ marginTop: "10px", marginBottom: "10px" }} colorScheme="light" username="VisualDust" />
       </div>
       <ProjectBadge></ProjectBadge>
       <AkasakiFeatures />
@@ -110,7 +109,9 @@ function HomePageDesktop(): JSX.Element {
     <div
       style={{
         maxWidth: "1000px",
-        margin: "0 auto"
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "column"
       }}
     >
       <div // personal information and links
@@ -153,8 +154,14 @@ function HomePageDesktop(): JSX.Element {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 800 });
+  const isTabletOrMobile = useIsMobile(800);
+  // const isTabletOrMobile = useMediaQuery({ maxWidth: 800 });
   // useForceRerender();
+  const [_, update] = useState(0);
+  useLayoutEffect(() => {
+    update(state => state + 1);
+  }, []);
+  console.info({ isTabletOrMobile });
   return (
     <Layout
       noFooter={true}
