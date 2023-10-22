@@ -7,6 +7,7 @@
 import React from "react";
 import clsx from "clsx";
 import styles from "./AkasakiFeatures.module.css";
+import { useMediaQuery } from "react-responsive";
 
 type FeatureItem = {
   title: string;
@@ -18,43 +19,43 @@ type FeatureItem = {
 
 export const FeatureList: FeatureItem[] = [
   {
-    title: "Me as CVer",
-    image: "/img/illustrations/researching.svg",
+    title: "As a CV Learner",
+    image: "/img/illustrations/teaching.svg",
+
     description: (
       <>
-        Focusing on Deep learning technique for Computer Vision. Also know me as a poor Latex speaker.
+        Self taught learning materials by me and my friends. Focusing on Deep learning technique for Computer Vision.
       </>
     ),
     buttonLink: "https://ml.akasaki.space/",
-    buttonText: "See my notes",
+    buttonText: "Join Together",
   },
   {
-    title: "Me as Programmer",
-    image: "/img/illustrations/teaching.svg",
+    title: "As a Programmer",
+    image: "/img/illustrations/startup_life.svg",
+
     description: (
       <>
-        Using Java, Python & C++, Learning .NETcore, TypeScripts and
-        React.
+        Random notes about developing, programming or argorithm related theory. Also some useless anecdotes.
       </>
     ),
     buttonLink: "/blog/",
-    buttonText: "random blogs",
+    buttonText: "Random Blogs",
   },
   {
-    title: "Me",
-    image: "/img/illustrations/startup_life.svg",
+    title: "As a researcher",
+    image: "/img/illustrations/researching.svg",
     description: (
       <>
-        An rubbish undergraduate. Coffee and Customize keyboards makes me
-        intrested.
+        Random paper reading, where some interesting papers about Computer Vision were recapitulated and analyzed.
       </>
     ),
-    buttonLink: "/docs/intro",
-    buttonText: "useless corner",
+    buttonLink: "https://ml.akasaki.space/blog",
+    buttonText: "Paper Reading Blogs",
   },
 ];
 
-export function Feature({
+export function FeatureDesktop({
   title,
   image,
   description,
@@ -62,16 +63,16 @@ export function Feature({
   buttonText,
 }: FeatureItem) {
   return (
-    <div className={clsx("col col--4")} style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div className="text--center">
         <img className={styles.featureSvg} alt={title} src={image} />
       </div>
-      <div className="text--center padding-horiz--md">
+      <div className="text--center">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
       {buttonLink ? (
-        <div style={{ textAlign: "center", }}>
+        <div style={{ textAlign: "center" }}>
           <a
             href={buttonLink}
             className="button button--primary button--outline"
@@ -84,16 +85,61 @@ export function Feature({
   );
 }
 
-export function AkasakiFeatures(): JSX.Element {
+export function FeatureMobile({
+  title,
+  image,
+  description,
+  buttonLink,
+  buttonText,
+}: FeatureItem) {
   return (
-    <section className={clsx(styles.features,"hero")}>
-      <div className="container">
-        <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
-          ))}
-        </div>
+    <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center"}}>
+      <div className="text--left">
+        <h3>{title}</h3>
+        <p>{description}</p>
+        {buttonLink ? (
+          <div style={{ textAlign: "left" }}>
+            <a
+              href={buttonLink}
+              className="button button--primary button--outline"
+            >
+              {buttonText}
+            </a>
+          </div>
+        ) : null}
       </div>
-    </section>
+      <div className="text--center">
+        <img className={styles.featureSvg} alt={title} src={image} />
+      </div>
+    </div>
   );
+}
+
+function AkasakFeaturesMobile(): JSX.Element {
+  return (
+    <>
+      <div style={{ display: "flex", flexDirection: "column", margin: "5%"}}>
+        {FeatureList.map((props, idx) => (
+          <FeatureMobile key={idx} {...props} />
+        ))}
+      </div>
+    </>
+  )
+}
+
+function AkasakFeaturesDesktop(): JSX.Element {
+  return (
+    <>
+      <div style={{ display: "flex", flexDirection: "row", margin: "5%", gap:"30px" }}>
+        {FeatureList.map((props, idx) => (
+          <FeatureDesktop key={idx} {...props} />
+        ))}
+      </div>
+    </>
+  )
+}
+
+export function AkasakiFeatures(): JSX.Element {
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 800 });
+  return isTabletOrMobile ? AkasakFeaturesMobile() : AkasakFeaturesDesktop()
 }

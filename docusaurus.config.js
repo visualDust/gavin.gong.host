@@ -85,7 +85,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Blog of Gavin",
+        title: "Gavin Gong's Blog",
         logo: {
           alt: "Logo",
           src: "img/logo.svg",
@@ -95,12 +95,6 @@ const config = {
             to: "/blog",
             label: "Blogs",
             position: "left"
-          },
-          {
-            type: "doc",
-            docId: "intro",
-            position: "left",
-            label: "Useless",
           },
           {
             href: "https://neetbox.550w.host",
