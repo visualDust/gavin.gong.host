@@ -93,7 +93,7 @@ export function FeatureMobile({
   buttonText,
 }: FeatureItem) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: "center"}}>
+    <div style={{ marginTop:"10px", marginBottom:"10px", display: 'flex', flexDirection: 'row', alignItems: "center"}}>
       <div className="text--left">
         <h3>{title}</h3>
         <p>{description}</p>

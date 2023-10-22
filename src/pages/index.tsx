@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
 import clsx from "clsx";
 import Layout from "@theme/Layout";
+import ProjectBadge from "../components/ProjectBadge";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import GitHubCalendar from 'react-github-calendar';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -9,21 +10,15 @@ import { Parallax, Background } from "react-parallax";
 import { AkasakiFeatures } from "../components/AkasakFeatures";
 import { inject } from '@vercel/analytics';
 inject();
-
 import {
   useThemeConfig,
   useColorMode,
-  useHideableNavbar,
-  useLockBodyScroll,
   useWindowSize,
 
 } from '@docusaurus/theme-common';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { useMediaQuery } from "react-responsive";
-
-import { GithubFeatures } from "../components/GithubFeatures";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -46,23 +41,23 @@ SwiperCore.use([
   EffectCreative,
 ]);
 
-function ComponentPersonalInfo():JSX.Element{
-  return(
+function ComponentPersonalInfo(): JSX.Element {
+  return (
     <div // personal information
-            style={{
-              marginBottom: "25px",
-              marginTop:"25px"
-            }}
-          >
-          Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing  
-          </div>
+      style={{
+        marginBottom: "25px",
+        marginTop: "25px"
+      }}
+    >
+      Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing Page Testing
+    </div>
   )
 }
 
 function ComponentLink(): JSX.Element {
   return (
     <>
-      <h2>Links</h2>
+      <h3>Links</h3>
       <a href="https://github.com/VisualDust"> Github</a>
     </>
   )
@@ -88,26 +83,22 @@ function HomePageMobile(): JSX.Element {
           flex: "0 0 30%",
           marginRight: "5%"
         }}>
-          <img
-            style={{
-              maxWidth: "250px"
-            }}
-            src="/img/VisualDust.jpg"></img>
-          <h1 style={{
-            marginTop: "25px"
-          }}>Gavin Gong</h1>
-          <div>
-            <ComponentLink></ComponentLink>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <img
+              style={{
+                maxWidth: "150px"
+              }}
+              src="/img/VisualDust.jpg"></img>
+            <h1 style={{
+              marginTop: "25px"
+            }}>Gavin Gong</h1>
           </div>
         </div>
-        <div style={{ // personal information and github recent activities
-          display: "flex",
-          flexDirection: "column"
-        }}>
-          <ComponentPersonalInfo></ComponentPersonalInfo>
-          <GitHubCalendar colorScheme="light" username="VisualDust" />
-        </div>
+        <ComponentPersonalInfo></ComponentPersonalInfo>
+        <ComponentLink></ComponentLink>
+        <GitHubCalendar style={{marginTop:"10px",marginBottom:"10px"}} colorScheme="light" username="VisualDust" />
       </div>
+      <ProjectBadge></ProjectBadge>
       <AkasakiFeatures />
     </div>
   )
@@ -154,15 +145,16 @@ function HomePageDesktop(): JSX.Element {
           <GitHubCalendar colorScheme="light" username="VisualDust" />
         </div>
       </div>
+      <ProjectBadge></ProjectBadge>
       <AkasakiFeatures />
     </div>
   )
 }
 
-
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
   const isTabletOrMobile = useMediaQuery({ maxWidth: 800 });
+  // useForceRerender();
   return (
     <Layout
       noFooter={true}
