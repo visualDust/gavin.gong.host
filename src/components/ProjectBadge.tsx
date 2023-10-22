@@ -16,7 +16,7 @@ function HorizontalBadge({ imgUrl, title, text, buttonLink }: BadgeItem): JSX.El
     return (
         <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
             <img src={imgUrl} />
-            <div>
+            <div style={{textAlign:"right"}}>
                 <h3>{title}</h3>
                 <p>{text}</p>
             </div>
@@ -26,18 +26,22 @@ function HorizontalBadge({ imgUrl, title, text, buttonLink }: BadgeItem): JSX.El
 
 function VerticalBadge({ imgUrl, title, text, buttonLink }: BadgeItem): JSX.Element {
     return (
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <h3>{title}</h3>
+        <div style={{ position: 'relative' }}>
             <img src={imgUrl} />
-            <p>{text}</p>
+            <h3 style={{ position: 'absolute', left: "5%", top: "5%", width: '100%', textAlign:"left"}}>{title}</h3>
+            <p style={{ position: 'absolute', left: 0, bottom: 0, width: '100%' }}>{text}</p>
         </div>
     )
 }
 
+const renderThumbs = (array) => {
+    return array.map(x => <img src={x.props.imgUrl} />);
+};
+
 function ProjectBadgeMobile(): JSX.Element {
     return (
         <div style={{ margin: "5%" }}>
-            <Carousel showArrows={true} autoPlay={true}>
+            <Carousel showArrows={true} autoPlay={true} renderThumbs={renderThumbs} showIndicators={false} swipeable={false}>
                 <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (1).JPG" title="assets (1)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
                 <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (2).JPG" title="assets (2)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
                 <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (3).JPG" title="assets (3)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
@@ -52,7 +56,7 @@ function ProjectBadgeMobile(): JSX.Element {
 function ProjectBadgeDesktop(): JSX.Element {
     return (
         <div style={{ margin: "5%" }}>
-            <Carousel showArrows={true} autoPlay={true}>
+            <Carousel showArrows={false} autoPlay={true} renderThumbs={renderThumbs} showIndicators={false}>
                 <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (1).JPG" title="assets (1)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
                 <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (2).JPG" title="assets (2)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
                 <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (3).JPG" title="assets (3)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
