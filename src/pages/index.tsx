@@ -162,7 +162,7 @@ function HomePageDesktop(): JSX.Element {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 600 });
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 800 });
   return (
     <Layout
       noFooter={true}
