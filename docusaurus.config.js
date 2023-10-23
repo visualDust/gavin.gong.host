@@ -104,7 +104,7 @@ const config = {
           },
           {
             href: "https://ml.akasaki.space",
-            label: "DeepLearning Part",
+            label: "Deep learning Section",
             position: "left",
           },
           {
@@ -112,52 +112,52 @@ const config = {
             label: "About & Links",
             position: "right",
           },
-          {
-            href: "https://github.com/VisualDust",
-            label: "Me on GitHub",
-            position: "right",
-          },
         ],
       },
       footer: {
-        style: "light",
+        style: "dark",
         links: [{
-            title: "Docs",
-            items: [{
-              label: "Documents",
-              to: "/docs/intro",
-            }, ],
+          title: "Pages",
+          items: [{
+            label: "Blogs",
+            to: "/blogs",
           },
           {
-            title: "Community",
-            items: [{
-                label: "NEET CV",
-                href: "https://github.com/neet-cv",
-              },
-              {
-                label: "sanyuankexie",
-                href: "https://github.com/sanyuankexie",
-              },
-            ],
+            label: "About",
+            to: "/ablut",
+          }, {
+            label: "ML.akasaki.space",
+            to: "https://ml.akasaki.space",
+          },
+          ],
+        },
+        {
+          title: "Community",
+          items: [{
+            label: "NEET CV",
+            href: "https://github.com/neet-cv",
           },
           {
-            title: "More",
-            items: [{
-                label: "ml.akasaki.space",
-                to: "https://ml.akasaki.space",
-              },
-              {
-                label: "See me on Github",
-                href: "https://github.com/VisualDust",
-              },
-              {
-                label: "Powered by docusaurus",
-                href: "https://github.com/facebook/docusaurus",
-              },
-            ],
+            label: "Sanyuan Kexie",
+            href: "https://hello.kexie.space",
           },
+          ],
+        },
+        {
+          title: "More",
+          items: [
+            {
+              label: "Github",
+              href: "https://github.com/VisualDust",
+            },
+            {
+              label: "Powered by docusaurus",
+              href: "https://github.com/facebook/docusaurus",
+            },
+          ],
+        },
         ],
-        copyright: `<a href="https://github.com/VisualDust" target="_blank">@VisualDust</a> ${new Date().getFullYear()} all rights reserved | <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2021025239号</a>`,
+        copyright: `@VisualDust ${new Date().getFullYear()} all rights reserved | <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2021025239号</a>`,
       },
       prism: {
         theme: lightCodeTheme,

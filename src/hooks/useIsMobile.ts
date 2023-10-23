@@ -1,6 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 
-function useIsMobile(maxWidth = 800) {
+function useIsMobile(maxWidth = 1000) {
     const [mobile, setMobile] = useState(false);
 
     function handleWindowSizeChange() {

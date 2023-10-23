@@ -6,13 +6,13 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: rgb(67, 80, 255);
-  --ifm-color-primary-dark: rgb(85, 102, 255);
-  --ifm-color-primary-darker: rgb(37, 92, 211);
-  --ifm-color-primary-darkest: rgb(53, 64, 155);
-  --ifm-color-primary-light: rgb(70, 117, 203);
-  --ifm-color-primary-lighter: rgb(81, 122, 255);
-  --ifm-color-primary-lightest: rgb(109, 172, 253);
+  --ifm-color-primary: rgb(52, 119, 219);
+  --ifm-color-primary-dark: rgb(87, 184, 255);
+  --ifm-color-primary-darker: rgb(251, 177, 60);
+  --ifm-color-primary-darkest: rgb(255, 90, 95);
+  --ifm-color-primary-light: rgb(52, 119, 219);
+  --ifm-color-primary-lighter: rgb(11, 90, 209);
+  --ifm-color-primary-lightest: rgb(19, 84, 181);
   --ifm-code-font-size: 95%;
   scroll-behavior: smooth;
 }
@@ -177,4 +177,18 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   .blog-list-page main {
     --ifm-col-width: 100%!important;
   }
+}
+
+.feature-card{
+  background-color: var(--ifm-color-emphasis-0);
+
+  box-shadow: 3px 3px 10px var(--ifm-color-emphasis-200);
+  border-radius: 19px;
+  padding: 20px;
+  margin-bottom: 20px !important;
+}
+
+.feature-card-text{
+  color: var(--ifm-color-content-secondary);
+  font-style: italic;
 }

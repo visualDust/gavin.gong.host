@@ -41,7 +41,8 @@ const renderThumbs = (array) => {
 function ProjectBadgeMobile(): JSX.Element {
     return (
         <div style={{ margin: "5%" }}>
-            <Carousel showArrows={true} autoPlay={true} renderThumbs={renderThumbs} showIndicators={false} swipeable={false}>
+            <h3>Cool Things</h3>
+            <Carousel showArrows={true} autoPlay={true} renderThumbs={renderThumbs} showIndicators={false} swipeable={true}>
                 <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (1).JPG" title="assets (1)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
                 <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (2).JPG" title="assets (2)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
                 <VerticalBadge imgUrl="/img/projectBadgeImgs/assets (3).JPG" title="assets (3)" text="Test Text Test Text Test Text Test Text Test Text"></VerticalBadge>
@@ -56,6 +57,7 @@ function ProjectBadgeMobile(): JSX.Element {
 function ProjectBadgeDesktop(): JSX.Element {
     return (
         <div style={{ margin: "5%" }}>
+            <h3>Cool Things</h3>
             <Carousel showArrows={false} autoPlay={true} renderThumbs={renderThumbs} showIndicators={false}>
                 <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (1).JPG" title="assets (1)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>
                 <HorizontalBadge imgUrl="/img/projectBadgeImgs/assets (2).JPG" title="assets (2)" text="Test Text Test Text Test Text Test Text Test Text"></HorizontalBadge>

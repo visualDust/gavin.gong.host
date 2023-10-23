@@ -63,24 +63,31 @@ export function FeatureDesktop({
   buttonText,
 }: FeatureItem) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <div className="text--center">
-        <img className={styles.featureSvg} alt={title} src={image} />
-      </div>
-      <div className="text--center">
-        <h3>{title}</h3>
-        <p>{description}</p>
-      </div>
-      {buttonLink ? (
-        <div style={{ textAlign: "center" }}>
-          <a
-            href={buttonLink}
-            className="button button--primary button--outline"
-          >
-            {buttonText}
-          </a>
+    <div className="feature-card" style={{ display: 'flex', flexDirection: 'row', alignItems: "stretch" }}>
+      <div style={{
+        display: "flex",
+        margin: "30px",
+        flexDirection: "column",
+        justifyContent: "space-between"
+      }}>
+        <div className="text--center">
+          <img className={styles.featureSvg} alt={title} src={image} />
         </div>
-      ) : null}
+        <div className="text--center feature-card-text">
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </div>
+        {buttonLink ? (
+          <div style={{ textAlign: "center" }}>
+            <a
+              href={buttonLink}
+              className="button button--secondary"
+            >
+              {buttonText}
+            </a>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -93,7 +100,7 @@ export function FeatureMobile({
   buttonText,
 }: FeatureItem) {
   return (
-    <div style={{ marginTop:"10px", marginBottom:"10px", display: 'flex', flexDirection: 'row', alignItems: "center"}}>
+    <div style={{ marginTop: "10px", marginBottom: "10px", display: 'flex', flexDirection: 'row', alignItems: "center" }}>
       <div className="text--left">
         <h3>{title}</h3>
         <p>{description}</p>
@@ -101,7 +108,7 @@ export function FeatureMobile({
           <div>
             <a
               href={buttonLink}
-              className="button button--primary button--outline"
+              className="button button--secondary"
             >
               {buttonText}
             </a>
@@ -115,31 +122,38 @@ export function FeatureMobile({
   );
 }
 
-function AkasakFeaturesMobile(): JSX.Element {
+export function AkasakFeaturesMobile(): JSX.Element {
   return (
-    <>
-      <div style={{ display: "flex", flexDirection: "column", margin: "5%"}}>
+    <div className="hero hero--primary" style={{ display: "flex", alignItems: "center", flexDirection: "column"}}>
+      <div style={{
+        display: "flex",
+        marginLeft: "5%",
+        marginRight: "5%",
+        gap: "10px",
+        flexDirection: "column",
+      }}>
         {FeatureList.map((props, idx) => (
           <FeatureMobile key={idx} {...props} />
         ))}
-      </div>
-    </>
+      </div></div>
   )
 }
 
-function AkasakFeaturesDesktop(): JSX.Element {
+export function AkasakFeaturesDesktop(): JSX.Element {
   return (
-    <>
-      <div style={{ display: "flex", flexDirection: "row", margin: "5%", gap:"30px" }}>
+    <div className="hero hero--primary" style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+      <div style={{
+        display: "flex",
+        maxWidth: "1000px",
+        margin: "5%",
+        gap: "30px",
+        flexDirection: "row",
+      }}>
         {FeatureList.map((props, idx) => (
           <FeatureDesktop key={idx} {...props} />
         ))}
       </div>
-    </>
-  )
-}
 
-export function AkasakiFeatures(): JSX.Element {
-  const isTabletOrMobile = useIsMobile();
-  return isTabletOrMobile ? AkasakFeaturesMobile() : AkasakFeaturesDesktop()
+    </div>
+  )
 }
