@@ -4,7 +4,7 @@ import Layout from "@theme/Layout";
 import ProjectBadge from "../components/ProjectBadge";
 import GitHubCalendar from 'react-github-calendar';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { AkasakFeaturesDesktop,AkasakFeaturesMobile } from "../components/AkasakFeatures";
+import { AkasakFeaturesDesktop, AkasakFeaturesMobile } from "../components/AkasakFeatures";
 import { inject } from '@vercel/analytics';
 inject();
 
@@ -38,7 +38,7 @@ function ComponentPersonalInfo(): JSX.Element {
       style={{
         marginBottom: "25px",
         marginTop: "25px",
-        textAlign:"justify"
+        textAlign: "justify"
       }}
     >
       Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page
@@ -71,10 +71,10 @@ const MyLinks: LinkProps[] = [
 
 function ComponentLinkMobile(): JSX.Element {
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", justifyContent:"center" }}>
+    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
       {MyLinks.map((props, idx) => (
         <div style={{ textAlign: "center", margin: "5px" }}>
-          <Button variant="outlined" href={props.url}>{props.icon}{props.text}</Button>
+          <Button style={{ whiteSpace: "nowrap" }} variant="outlined" href={props.url}>{props.icon}{props.text}</Button>
         </div>
       ))}
     </div>
@@ -86,7 +86,7 @@ function ComponentLinkDesktop(): JSX.Element {
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {MyLinks.map((props, idx) => (
         <div style={{ textAlign: "center", margin: "5px" }}>
-          <Button variant="outlined" href={props.url}>{props.icon}{props.text}</Button>
+          <Button style={{ whiteSpace: "nowrap" }} variant="outlined" href={props.url}>{props.icon}{props.text}</Button>
         </div>
       ))}
     </div>
@@ -174,13 +174,13 @@ function HomePageMobile(): JSX.Element {
         flexDirection: "column",
         alignItems: "stretch",
         overflow: "hidden",
-        width:"100%"
+        width: "100%"
       }}
     >
       <ComponentPersonalInfoAndLinksMobile />
-      <GitHubCalendar style={{marginLeft:"5%",marginRight:"5%", marginTop: "5%", marginBottom: "10%"}} colorScheme="light" username="VisualDust" />
+      <GitHubCalendar style={{ marginLeft: "5%", marginRight: "5%", marginTop: "5%", marginBottom: "10%" }} colorScheme="light" username="VisualDust" />
       <AkasakFeaturesMobile />
-      <ProjectBadge/>
+      <ProjectBadge />
     </div>
   )
 }
@@ -200,7 +200,7 @@ function HomePageDesktop(): JSX.Element {
         <ComponentPersonalInfoAndLinksDesktop />
       </div>
       <AkasakFeaturesDesktop />
-      <ProjectBadge/>
+      <ProjectBadge />
     </div>
   )
 }
