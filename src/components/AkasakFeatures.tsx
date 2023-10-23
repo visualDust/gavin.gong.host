@@ -141,11 +141,11 @@ export function AkasakFeaturesMobile(): JSX.Element {
 
 export function AkasakFeaturesDesktop(): JSX.Element {
   return (
-    <div className="hero hero--primary" style={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
+    <div className="hero hero--primary" style={{ display: "flex", alignItems: "center", flexDirection: "column",width:"100%" }}>
       <div style={{
         display: "flex",
-        maxWidth: "1000px",
         margin: "5%",
+        maxWidth: "1000px",
         gap: "30px",
         flexDirection: "row",
       }}>
