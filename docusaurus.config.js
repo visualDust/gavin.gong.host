@@ -120,11 +120,11 @@ const config = {
           title: "Pages",
           items: [{
             label: "Blogs",
-            to: "/blogs",
+            to: "/blog",
           },
           {
             label: "About",
-            to: "/ablut",
+            to: "/about",
           }, {
             label: "ML.akasaki.space",
             to: "https://ml.akasaki.space",

@@ -178,7 +178,8 @@ function HomePageMobile(): JSX.Element {
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
-        alignItems: "stretch"
+        alignItems: "stretch",
+        overflow: "hidden"
       }}
     >
       <ComponentPersonalInfoAndLinksMobile />
