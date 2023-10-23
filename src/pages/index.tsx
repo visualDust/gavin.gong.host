@@ -3,7 +3,9 @@ import Button from '@mui/material/Button';
 import Layout from "@theme/Layout";
 import ProjectBadge from "../components/ProjectBadge";
 import GitHubCalendar from 'react-github-calendar';
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import { useColorMode } from "@docusaurus/theme-common";
 import { AkasakFeaturesDesktop, AkasakFeaturesMobile } from "../components/AkasakFeatures";
 import { inject } from '@vercel/analytics';
 inject();
@@ -128,7 +130,9 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
         justifyContent: "space-between"
       }}>
         <ComponentPersonalInfo></ComponentPersonalInfo>
-        <GitHubCalendar colorScheme="light" username="VisualDust" />
+        <BrowserOnly>
+          {() => <GitHubCalendar colorScheme={useColorMode().colorMode} username="VisualDust" />}
+        </BrowserOnly>
       </div>
     </div>
   )
@@ -178,7 +182,7 @@ function HomePageMobile(): JSX.Element {
       }}
     >
       <ComponentPersonalInfoAndLinksMobile />
-      <GitHubCalendar style={{ marginLeft: "5%", marginRight: "5%", marginTop: "5%", marginBottom: "10%" }} colorScheme="light" username="VisualDust" />
+      <BrowserOnly>{() => <GitHubCalendar style={{ marginLeft: "5%", marginRight: "5%", marginTop: "5%", marginBottom: "10%" }} colorScheme={useColorMode().colorMode} username="VisualDust" />}</BrowserOnly>
       <AkasakFeaturesMobile />
       <ProjectBadge />
     </div>
