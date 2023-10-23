@@ -114,7 +114,7 @@ function ProjectBadgeMobile(): JSX.Element {
         autoPlay={true}
         renderThumbs={renderThumbs}
         showIndicators={false}
-        swipeable={true}
+        swipeable={false}
       >
         <BadgeMobile
           imgUrl="/img/projectBadgeImgs/assets (1).JPG"
