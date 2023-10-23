@@ -15,11 +15,13 @@
   --ifm-color-primary-lighter: rgb(11, 90, 209);
   --ifm-color-primary-lightest: rgb(19, 84, 181);
   --ifm-code-font-size: 95%;
+  --floating-card-background: rgb(240, 240, 240);
   scroll-behavior: smooth;
 }
 
 html[data-theme="dark"] {
   --ifm-color-primary: rgb(126, 177, 254);
+  --floating-card-background: rgb(53, 53, 53);
 }
 
 ::selection {

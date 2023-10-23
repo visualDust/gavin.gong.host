@@ -61,46 +61,39 @@ function BadgeMobile({
   buttonText,
 }: BadgeItem): JSX.Element {
   return (
-    <div style={{ position: "relative" }}>
-      <img style={{ objectFit: "cover" }} src={imgUrl} />
-      <h3
-        style={{
-          position: "absolute",
-          left: "5%",
-          top: "5%",
-          width: "100%",
-          textAlign: "left",
-        }}
-      >
-        {title}
-      </h3>
-      {buttonLink ? (
-        <div
+    <div>
+      <div style={{ position: "relative" }}>
+        <img style={{ objectFit: "cover",borderRadius:"20px 20px 0 0" }} src={imgUrl} />
+        <h3
           style={{
             position: "absolute",
-            right: "5%",
-            bottom: "5%",
-            width: "20%",
-            textAlign: "center",
+            left: "5%",
+            top: "5%",
+            width: "100%",
+            textAlign: "left",
           }}
         >
-          <a href={buttonLink} className="button button--primary">
-            {buttonText}
-          </a>
-        </div>
-      ) : null}
-      <p
-        style={{
-          position: "absolute",
-          left: "5%",
-          bottom: "5%",
-          width: "75%",
-          textAlign: "left",
-          margin: "0",
-        }}
-      >
-        {text}
-      </p>
+          {title}
+        </h3>
+        {buttonLink ? (
+          <div
+            style={{
+              position: "absolute",
+              right: "5%",
+              bottom: "5%",
+              textAlign: "center",
+              overflow: "hidden",
+            }}
+          >
+            <a href={buttonLink} className="button button--primary">
+              {buttonText}
+            </a>
+          </div>
+        ) : null}
+      </div>
+      <div style={{backgroundColor:"var(--floating-card-background)", padding:"3%", borderRadius:"0 0 20px 20px"}}>
+      <p style={{margin:"0"}}>{text}</p>
+      </div>
     </div>
   );
 }
