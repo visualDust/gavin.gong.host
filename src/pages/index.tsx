@@ -37,7 +37,8 @@ function ComponentPersonalInfo(): JSX.Element {
     <div // personal information
       style={{
         marginBottom: "25px",
-        marginTop: "25px"
+        marginTop: "25px",
+        textAlign:"justify"
       }}
     >
       Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page
@@ -70,8 +71,12 @@ const MyLinks: LinkProps[] = [
 
 function ComponentLinkMobile(): JSX.Element {
   return (
-    <div>
-
+    <div style={{ display: "flex", flexWrap: "wrap", justifyContent:"center" }}>
+      {MyLinks.map((props, idx) => (
+        <div style={{ textAlign: "center", margin: "5px" }}>
+          <Button variant="outlined" href={props.url}>{props.icon}{props.text}</Button>
+        </div>
+      ))}
     </div>
   )
 }
@@ -85,16 +90,6 @@ function ComponentLinkDesktop(): JSX.Element {
         </div>
       ))}
     </div>
-  )
-}
-
-function ComponentLink(): JSX.Element {
-  var isMobile = useIsMobile();
-  return (
-    <>
-      <h3>Links</h3>
-      {isMobile ? ComponentLinkMobile() : ComponentLinkDesktop()}
-    </>
   )
 }
 
@@ -124,7 +119,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
           marginTop: "25px"
         }}>Gavin Gong</h1>
         <div>
-          <ComponentLink></ComponentLink>
+          <ComponentLinkDesktop></ComponentLinkDesktop>
         </div>
       </div>
       <div style={{ // personal information and github recent activities
@@ -165,8 +160,7 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
         </div>
       </div>
       <ComponentPersonalInfo></ComponentPersonalInfo>
-      <ComponentLink></ComponentLink>
-      <GitHubCalendar style={{ marginTop: "10px", marginBottom: "10px" }} colorScheme="light" username="VisualDust" />
+      <ComponentLinkMobile></ComponentLinkMobile>
     </div>
   )
 }
@@ -179,12 +173,14 @@ function HomePageMobile(): JSX.Element {
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
-        overflow: "hidden"
+        overflow: "hidden",
+        width:"100%"
       }}
     >
       <ComponentPersonalInfoAndLinksMobile />
+      <GitHubCalendar style={{marginLeft:"5%",marginRight:"5%", marginTop: "5%", marginBottom: "10%"}} colorScheme="light" username="VisualDust" />
       <AkasakFeaturesMobile />
-      <ProjectBadge></ProjectBadge>
+      <ProjectBadge/>
     </div>
   )
 }
@@ -204,7 +200,7 @@ function HomePageDesktop(): JSX.Element {
         <ComponentPersonalInfoAndLinksDesktop />
       </div>
       <AkasakFeaturesDesktop />
-      <ProjectBadge></ProjectBadge>
+      <ProjectBadge/>
     </div>
   )
 }
