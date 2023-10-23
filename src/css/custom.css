@@ -5,6 +5,7 @@
  */
 
 /* You can override the default Infima variables here. */
+
 :root {
   --ifm-color-primary: rgb(52, 119, 219);
   --ifm-color-primary-dark: rgb(87, 184, 255);
@@ -15,6 +16,10 @@
   --ifm-color-primary-lightest: rgb(19, 84, 181);
   --ifm-code-font-size: 95%;
   scroll-behavior: smooth;
+}
+
+html[data-theme="dark"] {
+  --ifm-color-primary: rgb(126, 177, 254);
 }
 
 ::selection {
@@ -30,7 +35,7 @@
   padding: 0 var(--ifm-pre-padding);
 }
 
-html[data-theme='dark'] .docusaurus-highlight-code-line {
+html[data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -75,7 +80,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 .friend-card {
-  animation: friend-card-fadein .3s;
+  animation: friend-card-fadein 0.3s;
 }
 
 @keyframes friend-card-fadein {
@@ -102,7 +107,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 .friend-card.fadeout {
   position: absolute;
-  animation: friend-card-fadeout .3s;
+  animation: friend-card-fadeout 0.3s;
   opacity: 0;
   pointer-events: none;
 }
@@ -170,25 +175,24 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 .blog-list-page main {
-  --ifm-col-width: calc(9 / 12 * 100%)!important;
+  --ifm-col-width: calc(9 / 12 * 100%) !important;
 }
 
 @media (max-width: 996px) {
   .blog-list-page main {
-    --ifm-col-width: 100%!important;
+    --ifm-col-width: 100% !important;
   }
 }
 
-.feature-card{
+.feature-card {
   background-color: var(--ifm-color-emphasis-0);
-
   box-shadow: 3px 3px 10px var(--ifm-color-emphasis-200);
   border-radius: 19px;
   padding: 20px;
   margin-bottom: 20px !important;
 }
 
-.feature-card-text{
+.feature-card-text {
   color: var(--ifm-color-content-secondary);
   font-style: italic;
 }
