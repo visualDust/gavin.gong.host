@@ -41,21 +41,37 @@ function ComponentPersonalInfo(): JSX.Element {
   return (
     <div // personal information
       style={{
-        marginBottom: "25px",
-        marginTop: "25px",
         textAlign: "justify",
+
       }}
     >
-      Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test
-      Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page
-      Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test
-      Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page
-      Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test
-      Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page
-      Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test
-      Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page
-      Test Page Test Page Test Page Test Page Test Page Test Page Test Page Test
-      Page Test Page Test Page Test Page Test Page Test Page Test Page Test Page
+      <p style={{ marginBottom: "5px" }}>
+        I'm currently a
+        <strong>{" "}final year B.E. in Computer Science and Technology</strong>, at
+        School of Computer and Information Security, Guilin University of
+        Electronic Technology in China. I taught myself computer vision related content during my undergraduate studies.
+      </p>
+      <p style={{ marginBottom: "5px" }}>
+        My research interests span the broad area of computer vision, especially
+        in dence prediction(i.e. semantic segmentation), light weight model
+        design, as well as fine tuning and optimizing deep learning models into
+        software systems. I enjoy doing research, experiments, and building
+        highly performant systems via software approaches. I'm also interested
+        in generative models(i.e. diffusion models), and few shot learning(i.e.
+        AutoEncoders).
+      </p>
+      <p style={{ marginBottom: "5px" }}>
+        I'm
+        <strong>
+          {" "}
+          looking for PhD AI/ML, MS CS and other opportunities.
+        </strong>{" "}
+        You can find my full CV as PDF
+        <a href="#">
+          <strong>{" "}HERE</strong>
+        </a>
+        .
+      </p>
     </div>
   );
 }
@@ -70,6 +86,7 @@ type LinkProps = {
 import { IoLogoGithub } from "react-icons/io5";
 import { IoMail } from "react-icons/io5";
 import { FaLink } from "react-icons/fa6";
+import { BsTelegram } from "react-icons/bs";
 
 const MyLinks: LinkProps[] = [
   {
@@ -78,13 +95,18 @@ const MyLinks: LinkProps[] = [
     icon: <IoMail />,
   },
   {
+    url: "https://t.me/VisualDust",
+    text: "Telegram",
+    icon: <BsTelegram />,
+  },
+  {
     url: "https://github.com/visualDust",
     text: "GitHub",
     icon: <IoLogoGithub />,
   },
   {
     url: "http://gavin.gong.host/about",
-    text: "My friends",
+    text: "Friends",
     icon: <FaLink />,
   },
 ];

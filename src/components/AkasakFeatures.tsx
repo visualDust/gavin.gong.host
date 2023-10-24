@@ -144,7 +144,7 @@ export function AkasakFeaturesDesktop(): JSX.Element {
     <div className="hero hero--primary" style={{ display: "flex", alignItems: "center", flexDirection: "column",width:"100%" }}>
       <div style={{
         display: "flex",
-        margin: "5%",
+        margin: "1%",
         maxWidth: "1000px",
         gap: "30px",
         flexDirection: "row",
