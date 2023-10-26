@@ -74,6 +74,7 @@ function BadgeMobile({
             top: "5%",
             width: "100%",
             textAlign: "left",
+            textShadow: 'var(--ifm-color-emphasis-0) 1px 0 10px',
           }}
         >
           {title}

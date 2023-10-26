@@ -189,6 +189,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
         <img
           style={{
             maxWidth: "250px",
+            borderRadius:"10px 10px 10px 10px",
           }}
           src="/img/VisualDust.jpg"
         ></img>
@@ -250,8 +251,9 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
         >
           <img
             style={{
-              maxWidth: "150px",
+              maxWidth: "200px",
               marginTop: "10%",
+              borderRadius:"10px 10px 10px 10px"
             }}
             src="/img/VisualDust.jpg"
           ></img>
