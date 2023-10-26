@@ -7,7 +7,7 @@
 import React from "react";
 import clsx from "clsx";
 import styles from "./AkasakiFeatures.module.css";
-import useIsMobile from "../hooks/useIsMobile";
+import useIsMobile from "../../hooks/useIsMobile";
 
 type FeatureItem = {
   title: string;

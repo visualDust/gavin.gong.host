@@ -198,3 +198,53 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   color: var(--ifm-color-content-secondary);
   font-style: italic;
 }
+
+.goto-banner {
+  background-color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-900);
+  transition: all 300ms;
+  cursor: pointer;
+}
+
+.goto-banner:hover {
+  background-color: var(--ifm-color-emphasis-600);
+  color: var(--ifm-color-emphasis-100);
+}
+
+.goto-arrow {
+  transform: translate(50px, -2px) rotate(-90deg);
+  cursor: pointer;
+}
+
+.goto-arrow span {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-bottom: 5px solid var(--ifm-color-primary);
+  border-right: 5px solid var(--ifm-color-primary);
+  transform: rotate(45deg);
+  margin: -10px;
+  animation: arrowAnime 2s infinite;
+}
+
+.goto-arrow span:nth-child(2) {
+  animation-delay: -0.2s;
+}
+
+.goto-arrow span:nth-child(3) {
+  animation-delay: -0.4s;
+}
+
+@keyframes arrowAnime {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translate(-20px, -20px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(20px, 20px);
+  }
+}

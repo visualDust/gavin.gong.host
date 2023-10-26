@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import style from "./carousel.module.css";
 import { useMediaQuery } from "react-responsive";
 import { Carousel } from "react-responsive-carousel";
-import useIsMobile from "../hooks/useIsMobile";
+import useIsMobile from "../../hooks/useIsMobile";
 import { Button } from "@mui/material";
 
 type BadgeItem = {

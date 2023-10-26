@@ -1,7 +1,8 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Layout from "@theme/Layout";
-import ProjectBadge from "../components/ProjectBadge";
+import ProjectBadge from "../components/project_badge/ProjectBadge";
+import GalleryPage from "../components/gallery/gallery";
 import GitHubCalendar from "react-github-calendar";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -9,7 +10,7 @@ import { useColorMode } from "@docusaurus/theme-common";
 import {
   AkasakFeaturesDesktop,
   AkasakFeaturesMobile,
-} from "../components/AkasakFeatures";
+} from "../components/index_features/AkasakFeatures";
 import { inject } from "@vercel/analytics";
 inject();
 
@@ -42,14 +43,14 @@ function ComponentPersonalInfo(): JSX.Element {
     <div // personal information
       style={{
         textAlign: "justify",
-
       }}
     >
       <p style={{ marginBottom: "5px" }}>
         I'm currently a
-        <strong>{" "}final year B.E. in Computer Science and Technology</strong>, at
+        <strong> final year B.E. in Computer Science and Technology</strong>, at
         School of Computer and Information Security, Guilin University of
-        Electronic Technology in China. I taught myself computer vision related content during my undergraduate studies.
+        Electronic Technology in China. I taught myself computer vision related
+        content during my undergraduate studies.
       </p>
       <p style={{ marginBottom: "5px" }}>
         My research interests span the broad area of computer vision, especially
@@ -68,7 +69,7 @@ function ComponentPersonalInfo(): JSX.Element {
         </strong>{" "}
         You can find my full CV as PDF
         <a href="#">
-          <strong>{" "}HERE</strong>
+          <strong> HERE</strong>
         </a>
         .
       </p>
@@ -189,7 +190,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
         <img
           style={{
             maxWidth: "250px",
-            borderRadius:"10px 10px 10px 10px",
+            borderRadius: "10px 10px 10px 10px",
           }}
           src="/img/VisualDust.jpg"
         ></img>
@@ -253,7 +254,7 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
             style={{
               maxWidth: "200px",
               marginTop: "10%",
-              borderRadius:"10px 10px 10px 10px"
+              borderRadius: "10px 10px 10px 10px",
             }}
             src="/img/VisualDust.jpg"
           ></img>
@@ -268,6 +269,36 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
       </div>
       <ComponentPersonalInfo></ComponentPersonalInfo>
       <ComponentLinkMobile></ComponentLinkMobile>
+    </div>
+  );
+}
+
+function GotoGalleryBanner(): JSX.Element {
+  return (
+    <div
+      className="goto-banner"
+      style={{
+        height: "100px",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          width: "50%",
+          textAlign: "right",
+          fontSize: "var(--ifm-h3-font-size)",
+        }}
+      >
+        <strong>Gallery</strong>
+      </div>
+      <div>
+        <div style={{ height: "50%" }} className="goto-arrow">
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
     </div>
   );
 }
@@ -352,6 +383,7 @@ export default function Home(): JSX.Element {
         }}
       >
         {isMobile ? HomePageMobile() : HomePageDesktop()}
+        <GotoGalleryBanner />
       </main>
     </Layout>
   );

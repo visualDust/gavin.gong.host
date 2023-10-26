@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from '@nivo/pie';
 import { ResponsiveBar } from "@nivo/bar";
-import { WakatimeData, useWakatimeData } from "../hooks/useWakatimeData";
+import { WakatimeData, useWakatimeData } from "../../hooks/useWakatimeData";
 import clsx from 'clsx'
 
 interface Props {
