@@ -63,7 +63,10 @@ function BadgeMobile({
   return (
     <div>
       <div style={{ position: "relative" }}>
-        <img style={{ objectFit: "cover",borderRadius:"20px 20px 0 0" }} src={imgUrl} />
+        <img
+          style={{ objectFit: "cover", borderRadius: "20px 20px 0 0" }}
+          src={imgUrl}
+        />
         <h3
           style={{
             position: "absolute",
@@ -91,20 +94,60 @@ function BadgeMobile({
           </div>
         ) : null}
       </div>
-      <div style={{backgroundColor:"var(--floating-card-background)", padding:"3%", borderRadius:"0 0 20px 20px"}}>
-      <p style={{margin:"0"}}>{text}</p>
+      <div
+        style={{
+          backgroundColor: "var(--floating-card-background)",
+          padding: "3%",
+          borderRadius: "0 0 20px 20px",
+        }}
+      >
+        <p style={{ margin: "0" }}>{text}</p>
       </div>
     </div>
   );
 }
 
+const BadgeList: BadgeItem[] = [
+  {
+    imgUrl: "/img/projectBadgeImgs/depth_estimation.gif",
+    title: "Vehicle Distance Detection",
+    text: "Vehicle distance detection while driving built from target detection and depth estimation ensures driving security. The composite model allows inputs from both monodepth estimation models and phisical sensors such as lidar. The model is optimized for edge computing devices with fast inference speed with our visualization UI support.",
+    buttonLink: "#",
+    buttonText: "Button (1)",
+  },
+  {
+    imgUrl: "/img/projectBadgeImgs/lidar_visualization.gif",
+    title: "Blind Spot Visualization",
+    text: "Visualization on blind spots keeps the surroundings safe. The proposed approach allows lidar data and input from ultrasonic sensors. Both hardware and software are implemented from scratch. The system read sensor values within a optimized latency to to ensure real-time speed. We tried a more intuitive visualization method and corresponding UI design.",
+    buttonLink: "#",
+    buttonText: "Button (2)",
+  },
+  {
+    imgUrl: "/img/projectBadgeImgs/illegal_driving_behavior_detection.gif",
+    title: "Illegal Driving Behavior Detection",
+    text: "A set of integration for detecting illegal driving behaviors from edge computing devices, cloud services to mobile apps developed by us. The driver's facial key point features are used to judge dangerous driving behavior. Results are recorded on server and delivered to user's phone app that users can correct their behaviors on their own.",
+    buttonLink: "#",
+    buttonText: "Button (3)",
+  },
+  {
+    imgUrl: "/img/projectBadgeImgs/light_weight_semantic_segmentation.gif",
+    title: "Road scene seg on embedded device",
+    text: "Light weight yet accurate semantic segmentation model designed and trained for road scence. The proposed model is applied for scene understanding and drivable area detection. The proposed model achieved smooth floating-point precision inference on edge computing device NVIDIA Jetson NX with the speed of 25FPS.",
+    buttonLink: "#",
+    buttonText: "Button (4)",
+  },
+  {
+    imgUrl: "/img/projectBadgeImgs/network_based_inference.gif",
+    title: "Network based inference",
+    text: "The inference results and images of the assisted driving system are distributed through the network and are compatible with various platforms through web technology. This allows assisted driving edge computing devices to be deployed outside of existing vehicle-mounted terminals. Use a tablet instead when you don't have a screen on car.",
+    buttonLink: "#",
+    buttonText: "Button (5)",
+  },
+];
+
 const renderThumbs = (array) => {
   return array.map((x) => <img src={x.props.imgUrl} />);
 };
-
-const testText =
-  "Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test Text Test";
-
 function ProjectBadgeMobile(): JSX.Element {
   return (
     <div style={{ margin: "5%" }}>
@@ -115,42 +158,11 @@ function ProjectBadgeMobile(): JSX.Element {
         renderThumbs={renderThumbs}
         showIndicators={false}
         swipeable={false}
+        infiniteLoop={true}
       >
-        <BadgeMobile
-          imgUrl="/img/projectBadgeImgs/assets (1).JPG"
-          title="assets (1)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (1)"
-        ></BadgeMobile>
-        <BadgeMobile
-          imgUrl="/img/projectBadgeImgs/assets (2).JPG"
-          title="assets (2)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (2)"
-        ></BadgeMobile>
-        <BadgeMobile
-          imgUrl="/img/projectBadgeImgs/assets (3).JPG"
-          title="assets (3)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (3)"
-        ></BadgeMobile>
-        <BadgeMobile
-          imgUrl="/img/projectBadgeImgs/assets (4).JPG"
-          title="assets (4)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (4)"
-        ></BadgeMobile>
-        <BadgeMobile
-          imgUrl="/img/projectBadgeImgs/assets (5).JPG"
-          title="assets (5)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (5)"
-        ></BadgeMobile>
+        {BadgeList.map((props, idx) => (
+          <BadgeMobile key={idx} {...props} />
+        ))}
       </Carousel>
     </div>
   );
@@ -165,42 +177,11 @@ function ProjectBadgeDesktop(): JSX.Element {
         autoPlay={true}
         renderThumbs={renderThumbs}
         showIndicators={false}
+        infiniteLoop={true}
       >
-        <BadgeDesktop
-          imgUrl="/img/projectBadgeImgs/assets (1).JPG"
-          title="assets (1)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (1)"
-        ></BadgeDesktop>
-        <BadgeDesktop
-          imgUrl="/img/projectBadgeImgs/assets (2).JPG"
-          title="assets (2)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (2)"
-        ></BadgeDesktop>
-        <BadgeDesktop
-          imgUrl="/img/projectBadgeImgs/assets (3).JPG"
-          title="assets (3)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (3)"
-        ></BadgeDesktop>
-        <BadgeDesktop
-          imgUrl="/img/projectBadgeImgs/assets (4).JPG"
-          title="assets (4)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (4)"
-        ></BadgeDesktop>
-        <BadgeDesktop
-          imgUrl="/img/projectBadgeImgs/assets (5).JPG"
-          title="assets (5)"
-          text={testText}
-          buttonLink="#"
-          buttonText="Button (5)"
-        ></BadgeDesktop>
+        {BadgeList.map((props, idx) => (
+          <BadgeDesktop key={idx} {...props} />
+        ))}
       </Carousel>
     </div>
   );
