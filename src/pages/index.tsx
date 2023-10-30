@@ -67,8 +67,8 @@ function ComponentPersonalInfo(): JSX.Element {
           {" "}
           looking for PhD AI/ML, MS CS and other opportunities.
         </strong>{" "}
-        You can find my full CV as PDF
-        <a href="#">
+        You can find my full CV
+        <a href="/404"> //todo
           <strong> HERE</strong>
         </a>
         .
@@ -275,8 +275,9 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
 
 function GotoGalleryBanner(): JSX.Element {
   return (
-    <div
+    <a
       className="goto-banner"
+      href="/404"
       style={{
         height: "100px",
         display: "flex",
@@ -299,7 +300,7 @@ function GotoGalleryBanner(): JSX.Element {
           <span />
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
