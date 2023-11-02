@@ -91,5 +91,5 @@ for _image in image2metadata.keys():
     jsonarray.append(full_image_info)
 # write json
 json.dump(
-    jsonarray, open(os.path.join(target_dir, "gallery.json"), "w", encoding="utf-8")
+    jsonarray, open(os.path.join(target_dir, "galleryData.json"), "w", encoding="utf-8")
 )
