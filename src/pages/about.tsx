@@ -41,7 +41,7 @@ var friendsData: FriendData[] = [
     name: "lideming",
     intro: "Building random things with Deno, Node and .NET Core.",
     url: "https://yuuza.net/",
-    note: "大学同学，某些时候是同事，也有时是队友。全栈/APEX/R6/CSGO，有些懒但实力强，导师又爱又恨。目前任职于ByteDance。",
+    note: "大学同学，某些时候是同事，也有时是队友。全栈/APEX/2042/R6/CSGO，有些懒但实力强，导师又爱又恨。曾任职于ByteDance。",
   },
   {
     pic: githubPic("papercube"),

@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Layout from "@theme/Layout";
 import ProjectBadge from "../components/project_badge/ProjectBadge";
-import GalleryPage from "../components/gallery/gallery";
+import Gallery from "../components/gallery/gallery";
 import GitHubCalendar from "react-github-calendar";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -54,12 +54,12 @@ function ComponentPersonalInfo(): JSX.Element {
       </p>
       <p style={{ marginBottom: "5px" }}>
         My research interests span the broad area of computer vision, especially
-        in dence prediction(i.e. semantic segmentation), light weight model
-        design, as well as fine tuning and optimizing deep learning models into
-        software systems. I enjoy doing research, experiments, and building
-        highly performant systems via software approaches. I'm also interested
-        in generative models(i.e. diffusion models), and few shot learning(i.e.
-        AutoEncoders).
+        in dence prediction(i.e. semantic segmentation), Point clouds and 3D
+        reconstruction, as well as fine tuning and optimizing deep learning
+        models into software systems. I enjoy doing research, experiments, and
+        building highly performant systems via software approaches. I'm also
+        interested in generative models(i.e. diffusion models), and few shot
+        learning(i.e. AutoEncoders).
       </p>
       <p style={{ marginBottom: "5px" }}>
         I'm
@@ -68,7 +68,9 @@ function ComponentPersonalInfo(): JSX.Element {
           looking for PhD AI/ML, MS CS and other opportunities.
         </strong>{" "}
         You can find my full CV
-        <a href="/404"> //todo
+        <a href="/404">
+          {" "}
+          //todo
           <strong> HERE</strong>
         </a>
         .
@@ -88,11 +90,12 @@ import { IoLogoGithub } from "react-icons/io5";
 import { IoMail } from "react-icons/io5";
 import { FaLink } from "react-icons/fa6";
 import { BsTelegram } from "react-icons/bs";
+import Link from "@docusaurus/Link";
 
 const MyLinks: LinkProps[] = [
   {
     url: "mailto:gavin@gong.host",
-    text: "Mail me",
+    text: "Email",
     icon: <IoMail />,
   },
   {
@@ -275,9 +278,9 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
 
 function GotoGalleryBanner(): JSX.Element {
   return (
-    <a
+    <Link
       className="goto-banner"
-      href="/404"
+      href="/gallery"
       style={{
         height: "100px",
         display: "flex",
@@ -300,7 +303,7 @@ function GotoGalleryBanner(): JSX.Element {
           <span />
         </div>
       </div>
-    </a>
+    </Link>
   );
 }
 
