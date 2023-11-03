@@ -16,7 +16,9 @@ image2metadata = {}
 # scan original images
 for item in os.listdir(source_dir):
     if os.path.isfile(os.path.join(source_dir, item)):
-        if item.endswith((".jpg", ".jpeg", ".png")):
+        if item.endswith(
+            (".jpg", ".jpeg", ".png", ".gif", ".JPG", ".JPEG", ".PNG", ".GIF")
+        ):
             valid_images.append(item)
 
 # scan thumbnails
@@ -28,7 +30,7 @@ for item in os.listdir(thumbnail_dir):
 # scan metadata
 for item in os.listdir(source_dir):
     if os.path.isfile(os.path.join(source_dir, item)):
-        if item.endswith(".info"):
+        if item.endswith(".yml"):
             valid_metadata.append(item)
 
 
@@ -38,8 +40,8 @@ for imageFile in valid_images:
     filename = ""
     for segment in filenameSegment[:-1]:
         filename += segment
-    if filename + ".info" in valid_metadata:
-        image2metadata[imageFile] = f"{source_dir}/{filename}.info"
+    if filename + ".yml" in valid_metadata:
+        image2metadata[imageFile] = f"{source_dir}/{filename}.yml"
     if filename + ".jpg" in valid_thumbnails:
         image2thumbnails[imageFile] = f"{thumbnail_dir}/{filename}.jpg"
 
@@ -65,7 +67,7 @@ for imageFile in valid_images:
         for segment in filenameSegment[:-1]:
             filename += segment
         with open(
-            os.path.join(source_dir, filename + ".info"), "w", encoding="utf-8"
+            os.path.join(source_dir, filename + ".yml"), "w", encoding="utf-8"
         ) as metadata:
             empty_metadata = f"""
 title: {filename}
@@ -73,7 +75,7 @@ caption:
 tags: 
 """
             metadata.write(empty_metadata)
-            image2metadata[imageFile] = f"{source_dir}/{filename}.info"
+            image2metadata[imageFile] = f"{source_dir}/{filename}.yml"
 
 # json file creation
 jsonarray = []

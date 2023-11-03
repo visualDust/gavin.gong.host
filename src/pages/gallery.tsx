@@ -14,8 +14,15 @@ export default function GalleryPage(): React.JSX.Element {
           width: "100%",
         }}
       >
-        <h1>The Monument Valley</h1>
-        <p>text here text here text here text here </p>
+        <div style={{ marginLeft: "50px", marginRight: "50px" }}>
+          <h1>The Monument Valley</h1>
+          <p>
+            Here you can find people and things around me that I think are worth
+            remembering. These photos are either authorized by me or taken by
+            me. Since I never take selfies, the photos that include me are all
+            taken by others.
+          </p>
+        </div>
       </div>
       <GalleryComponent />
     </Layout>
