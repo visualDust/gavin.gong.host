@@ -68,9 +68,7 @@ function ComponentPersonalInfo(): JSX.Element {
           looking for PhD AI/ML, MS CS and other opportunities.
         </strong>{" "}
         You can find my full CV
-        <a href="/404">
-          {" "}
-          //todo
+        <a href="/CV-GavinGong-20231027a.pdf">
           <strong> HERE</strong>
         </a>
         .
