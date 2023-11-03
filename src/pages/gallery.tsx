@@ -17,12 +17,12 @@ export default function GalleryPage(): React.JSX.Element {
         <div style={{ marginLeft: "50px", marginRight: "50px" }}>
           <h1>The Monument Valley</h1>
           <p>
-            Here you can find people and things around me that I think are worth
-            remembering. Since I never take selfies, the photos that include me
-            are all taken by others. Click on thumbnails below to view
-            high-resolution images and their descriptions.The order of the
-            images is random and will be rearranged every time you refresh the
-            page.
+            Welcome to my electronic urn, where you can find people and things
+            around me that I think are worth remembering. Since I never take
+            selfies, the photos that include me are all taken by others. Click
+            on thumbnails below to view high-resolution images and their
+            descriptions.The order of the images is random and will be
+            rearranged every time you refresh the page.
           </p>
         </div>
       </div>
