@@ -86,7 +86,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: "Gavin Gong's Blog",
+        title: "Gavin Gong",
         logo: {
           alt: "Logo",
           src: "img/logo.svg",
@@ -98,13 +98,13 @@ const config = {
             position: "left"
           },
           {
-            href: "https://neetbox.550w.host",
-            label: "NEETBox",
+            href: "https://ml.akasaki.space",
+            label: "Deep learning Section",
             position: "left",
           },
           {
-            href: "https://ml.akasaki.space",
-            label: "Deep learning Section",
+            href: "https://neetbox.550w.host",
+            label: "NEETBox",
             position: "left",
           },
           {
