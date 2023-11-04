@@ -56,10 +56,11 @@ function ComponentPersonalInfo(): JSX.Element {
         My research interests span the broad area of computer vision, especially
         in dence prediction(i.e. semantic segmentation), Point clouds and 3D
         reconstruction, as well as fine tuning and optimizing deep learning
-        models into software systems. I enjoy doing research, experiments, and
-        building highly performant systems via software approaches. I'm also
-        interested in generative models(i.e. diffusion models), and few shot
-        learning(i.e. AutoEncoders).
+        models into software systems. My ultimate goal is autonomous driving and
+        autonomous control. I enjoy doing research, experiments, and building
+        highly performant systems via software approaches. I'm also interested
+        in generative models(i.e. diffusion models), and few shot learning(i.e.
+        AutoEncoders).
       </p>
       <p style={{ marginBottom: "5px" }}>
         I'm
