@@ -1,0 +1,40 @@
+---
+title: End-to-end autonomous driving, LLM, and the balance
+authors: [visualdust]
+tags: [deep learning,autonomous driving]
+---
+
+
+
+In the past year, I tried to launch an assisted driving project and formed a team. After a period of hard work, we created an assisted driving system from scratch with many parts, including in-vehicle edge computing devices, sensor groups (including cameras, Lidar and ultrasound), in-vehicle central control interactive applications, User backend, and user APP. Looking back at this project, I admit that our technology was very backward - at least not cutting-edge. We use multiple computer vision models to process information from sensors, including semantic segmentation (used to segment drivable areas), object detection and monocular depth estimation (used to estimate vehicle distance), and a lane line detection model, and illegal driving detector.
+
+
+
+**However, such an immature architecture makes it difficult for the project to continue to develop**. I think the reasons are as follows:
+
+1. The optimization goals between multiple modules are inconsistent, and the decision maker has to be readjusted for the adjustment of each module. At the same time, local optimization of modules does not mean global optimization. The more modules there are, the more difficult it becomes to adjust the system.
+2. The calculation of the module has considerable redundancy. Although I have optimized it from the software level, for example, dynamically allocating computing resources to required modules. But in order to ensure the real-time nature of the information, it becomes very difficult to continue optimizing, especially when our goal is to use edge computing device deployment.
+3. The input, output and intermediate processes of the entire system are very complex, and the difficulty of maintenance is gradually increasing.
+
+So I started thinking about solutions to the above problems. **I came to understand that an end-to-end approach could solve my problem from multiple perspectives**. I drew a diagram to represent the benefits of an end-to-end approach:
+
+![image-20231105002453349](./imgs/index/image-20231105002453349.png)
+
+The **end-to-end approach obviously has the following benefits**:
+
+1. Eliminate the computing redundancy just mentioned and improve system speed and performance
+2. Eliminate cumulative errors caused by the existence of multiple modules
+3. The optimization goal becomes single, and all problems can be solved in a single training session
+4. It is no longer necessary to design too many rules in the decision maker, data-driven training becomes possible
+
+<!--truncate-->
+
+However, the **end-to-end approach will also bring new challenges**:
+1. The end-to-end approach is completely black box. Reliability and security issues as well as interpretability issues become challenges
+2. Although the optimization goal seems to become "single", in fact, the end-to-end method cannot directly learn the correct reasons for decision-making. For example, the decision-making method learned at a traffic light intersection using a data-driven model is to start when the car in front starts to move, rather than when the red light ends (because the car in front will move when the red light ends)
+
+It is worth mentioning that LLM (Large Language Model) becomes  special medicine in some situations, that is, **LLM can use common sense to assist decision-making and has strong interactive capabilities. It was also able to handle unstructured data(for example, ethical and moral issues or decision-making under complex conditions) easily, and detect as well as provide feedback on driving behavior **, even other capabilities that the system I had envisioned was not capable of. Therefore, I started searching for successful cases of LLM applied to autonomous driving.
+
+
+
+(Wait, I am sorting out the papers I read)
