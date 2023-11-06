@@ -15,8 +15,8 @@ const config = {
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/logo.svg",
-  organizationName: "visualDust", // Usually your GitHub org/user name.
-  projectName: "focus.akasaki.space", // Usually your repo name.
+  organizationName: "visualDust",
+  projectName: "blog.gong.host", // Usually your repo name.
 
 
   presets: [

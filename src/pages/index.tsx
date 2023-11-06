@@ -53,22 +53,25 @@ function ComponentPersonalInfo(): JSX.Element {
         content during my undergraduate studies.
       </p>
       <p style={{ marginBottom: "5px" }}>
-        My research interests span the broad area of computer vision, especially
-        in dence prediction(i.e. semantic segmentation), Point clouds and 3D
-        reconstruction, as well as fine tuning and optimizing deep learning
-        models into software systems. My ultimate goal is autonomous driving and
-        autonomous control. I enjoy doing research, experiments, and building
-        highly performant systems via software approaches. I'm also interested
-        in generative models(i.e. diffusion models), and few shot learning(i.e.
-        AutoEncoders).
+        <strong>
+          My research interests span the broad area of computer vision
+        </strong>
+        , especially in dence prediction(i.e. semantic segmentation), point
+        clouds and 3D reconstruction, as well as fine tuning and optimizing deep
+        learning models into software systems. I'm also interested in generative
+        models(i.e. diffusion models), and few shot learning(i.e. AutoEncoders).
+      </p>
+      <p style={{ marginBottom: "5px" }}>
+        <strong>
+          My ultimate goal is autonomous driving and autonomous control
+        </strong>
+        . I enjoy doing research, experiments, and building highly performant
+        systems via software approaches.
       </p>
       <p style={{ marginBottom: "5px" }}>
         I'm
-        <strong>
-          {" "}
-          looking for PhD AI/ML, MS CS and other opportunities.
-        </strong>{" "}
-        You can find my full CV
+        <strong> looking for PhD/MS CS and other opportunities.</strong> You can
+        find my full CV
         <a href="/CV-GavinGong-20231027a.pdf">
           <strong> HERE</strong>
         </a>
@@ -169,6 +172,35 @@ function ComponentLinkDesktop(): JSX.Element {
   );
 }
 
+function ComponentNameDesktop(): JSX.Element {
+  return (
+    <div
+      style={{
+        marginTop: "25px",
+        marginBottom: "25px",
+      }}
+    >
+      <h1>Gavin Gong</h1>
+      <div>a.k.a. VisualDust</div>
+    </div>
+  );
+}
+
+function ComponentNameMobile(): JSX.Element {
+  return (
+    <div
+      style={{
+        marginTop: "25px",
+        marginBottom: "25px",
+        textAlign: "center",
+      }}
+    >
+      <h1>Gavin Gong</h1>
+      <div>a.k.a. VisualDust</div>
+    </div>
+  );
+}
+
 function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
   return (
     <div // personal information and links
@@ -196,13 +228,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
           }}
           src="/img/VisualDust.jpg"
         ></img>
-        <h1
-          style={{
-            marginTop: "25px",
-          }}
-        >
-          Gavin Gong
-        </h1>
+        <ComponentNameDesktop />
         <div>
           <ComponentLinkDesktop></ComponentLinkDesktop>
         </div>
@@ -260,13 +286,7 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
             }}
             src="/img/VisualDust.jpg"
           ></img>
-          <h1
-            style={{
-              marginTop: "25px",
-            }}
-          >
-            Gavin Gong
-          </h1>
+          <ComponentNameMobile />
         </div>
       </div>
       <ComponentPersonalInfo></ComponentPersonalInfo>
