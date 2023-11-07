@@ -1,5 +1,5 @@
 ---
-title: LLM for Autonomous Driving as a beginner
+title: LLM and Generative Models for Autonomous Driving as a beginner
 authors: [visualdust]
 tags: [deep learning,autonomous driving,large language model]
 ---
@@ -8,6 +8,7 @@ I look back at the assisted driving systems project I created during my undergra
 
 ![image-20231105213039182](./imgs/index/image-20231105213039182.png)
 
+In this page, I first review the assisted driving project I once created and explain how it was structured. Then I will introduce World Model as a novice and introduce the advantages of LLM for autonomous driving. Next, I will share a paper on how to integrate LLM into an autonomous driving system. Finally, I will share how to turn the structured output of the visual model into the input of the LLM.
 
 <!--truncate-->
 
@@ -70,7 +71,44 @@ In any case, the end-to-end approach is a topic that I cannot avoid as I continu
 
 ## The world model
 
-(Wait, I am sorting out the papers I read)
+In the context of autonomous driving, a "world model" typically refers to a representation of the environment in which the autonomous vehicle operates. A world model learns a structured representation and understanding of the environment that can be leveraged for making informed decisions when driving. **However, for a beginner, World Model is not quickly understood. In the context of autonomous driving, a "world model" is not a simple model but a complex system.** It's a comprehensive and dynamic representation of the environment in which an autonomous vehicle operates. This representation encompasses various components, including sensor data processing, object detection, map representation, localization, and more. These components work together to create a rich and detailed understanding of the vehicle's surroundings.
+
+**In order for people reading this page to quickly understand how World Model works, I will share a paper that gives a feasible implementation of World Model**: [\[2309.17080\] GAIA-1: A Generative World Model for Autonomous Driving (arxiv.org)](https://arxiv.org/abs/2309.17080) , a generative world model for autonomous driving that leverages video, text, and action inputs to generate realistic driving scenarios. 
+
+<figure>
+
+![image-20231107221817485](./imgs/index/image-20231107221817485.png)
+
+<figcaption>figure: Architecture of GAIA-1. First, the proposed model encode information from all input modalities (video, text, action) into a common representation: images, text and actions are encoded as a sequence of tokens. **The world model is an autoregressive transformer** that predicts the next image token conditioned on past image, text, and action tokens. Finally, the video decoder maps the predicted image tokens back to the pixel space, at a higher temporal resolution.</figcaption>
+</figure>
+
+**Please check the position of the World Model in the above Figure and its relationship with other components.**  As you can see, World Model in this implementation accepts multiple structured inputs and gives output tokens as output. **The input of a world model in the context of autonomous driving is typically a wide range of sensor data that provides information about the vehicle's surroundings and its own state. The primary sources of input data for a world model including but not limited to**:
+
+1. Cameras: Cameras capture visual information and are used for tasks like lane detection, object recognition, and traffic sign recognition.
+
+2. LiDAR (Light Detection and Ranging): LiDAR sensors emit laser beams to measure distances to objects and create detailed 3D point cloud representations of the environment. LiDAR data is crucial for object detection, obstacle avoidance, and mapping.
+
+3. Radar: Radar sensors use radio waves to detect the presence and speed of objects, making them valuable for tracking moving vehicles and objects, especially in adverse weather conditions.
+
+4. GPS (Global Positioning System): GPS provides information about the vehicle's absolute position and can be used for localization and route planning.
+
+5. IMU (Inertial Measurement Unit): IMU sensors measure the vehicle's acceleration and orientation, helping to estimate the vehicle's ego state.
+
+6. Wheel Encoders: These sensors track the rotation of the vehicle's wheels, aiding in estimating the vehicle's speed and distance traveled.
+
+7. High-Definition Maps: High-definition maps provide a static reference for the road geometry, lane boundaries, traffic signs, and other infrastructure. These maps are used for localization and navigation.
+
+**The world model integrates and processes data from these sensors to create a coherent representation of the environment.** The input data is processed to identify and track objects (e.g., other vehicles, pedestrians, obstacles), understand the road layout, and continuously update the vehicle's own state within the environment. This processed data is then used to make real-time decisions and enable the safe and efficient operation of the autonomous vehicle. The integration of data from various sensors is a key aspect of building an accurate and reliable world model, and it often involves sensor fusion techniques to combine the strengths of different sensor modalities.
+
+:::tip
+Therefore, a simple conclusion is that World Model accepts any input related to driving status and environment and gives any output related to driving. Since the currently popular encoders (for example, Transformer) have strong adaptability, as long as enough structured input and labels are given, a world model with the input and output you want can be trained. What ultimately determines the world model is the data itself, that is, the world model depends on what kind of data you provide. **This is a challenge, but it also provides the possibility of a data-driven approach and end to end methods.**
+:::
+
+:::warning
+If you are a real beginner, **Don't try to understand World Model and Generative Model as the same thing.** The model described in the information is considered a generative model because it has the ability to generate realistic video samples of driving scenarios. It can generate multiple plausible futures based on a given video context and can also generate frames conditioned on specific attributes such as weather or illumination. **The model mentioned above uses a world model approach, which is a predictive model of the future that learns a general representation of the world to understand the consequences of its actions**. By leveraging this world model, the model can generate driving scenarios that it has not seen in the training data, indicating its ability to extrapolate driving concepts. The model is designed to address the challenge of predicting future events in real-world scenarios and offers fine-grained control over ego-vehicle behavior and scene features. But that has nothing to do with our topic this time. I just want to use an implementation form given in this paper to let you quickly understand the location of the World Model and its relationship with other components.
+:::
+
+
 
 
 ## LLM for autonomous driving (LLM4AD)
