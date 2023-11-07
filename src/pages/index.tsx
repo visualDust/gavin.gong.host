@@ -50,7 +50,8 @@ function ComponentPersonalInfo(): JSX.Element {
         <strong> final year B.E. in Computer Science and Technology</strong>, at
         School of Computer and Information Security, Guilin University of
         Electronic Technology in China. I taught myself computer vision related
-        content during my undergraduate studies.
+        content during my undergraduate studies. I consist of Python, C#, C++,
+        Java, Kotlin, Latex, dotnet, React, PyTorch, and LaTeX.
       </p>
       <p style={{ marginBottom: "5px" }}>
         <strong>
