@@ -32,7 +32,7 @@ I structured this project in a very intuitive way. I used a traditional spot sca
 
 </figure>
 
-As you can see in the picture above, in my previous architecture, I had the various parts working separately. Especially the Edge Computing Device part, where I had to run multiple models at the same time to implement most of the assisted driving functions. Although it at least has these functions, it inevitably brings a lot of problems.
+The figure above shows that in my previously proposed architecture, I had the various parts working separately. Especially the Edge Computing Device, on which I had to run multiple models at the same time to implement most of the assisted driving functions. Although it at least has these functions, it inevitably brings a lot of problems.
 
 
 
@@ -236,8 +236,24 @@ These object-level vectors are fed into the model to generate predictions and re
 
 The paper also evaluates the perception and action prediction capabilities of the model. The results show that the pretraining stage significantly enhances the model's perception and action prediction capabilities. The pretrained model exhibits higher accuracy in perceiving and quantifying the number of cars and pedestrians and shows improvement in token predictions.
 
-## Deeper into Augmented Language Models
+## Learning to use tools and act
 
-(Under construction (I am sorting out the papers I read))
+**An Augmented Language Model (ALM) refers to a language model that is enhanced with the ability to leverage external tools and actions.** Unlike regular language models that focus on computing the probability of the next word given the previous words, ALMs consider all possible tool uses in addition to the context. This introduces a trade-off between memorizing information in the model weights and utilizing external tools.
 
-[\[2302.07842\] Augmented Language Models: a Survey (arxiv.org)](https://arxiv.org/abs/2302.07842)
+**When LLM participates in assisted driving as a decision maker, its essence is a model using tools (here the tools specifically refers to the vehicles) and interact with the users, as well as interact with the world.** In the survey [\[2302.07842\] Augmented Language Models: a Survey (arxiv.org)](https://arxiv.org/abs/2302.07842), the author reviews works in which language models (LMs) are augmented with reasoning skills and the ability to use tools. The authors refer to these models as Augmented Language Models (ALMs). The survey discusses different strategies for reasoning, such as eliciting reasoning with prompting, recursive prompting, and explicitly teaching language models to reason. **It also explores the use of tools, including calling another model (for instance, calling the vehicles' controller)**, information retrieval, computing via symbolic modules and code interpreters, **and acting on the virtual and physical world (for example, interact with road scene)**.
+
+> Additionally, we can say the LM performs an action when the tool has an effect on the external world. The possibility to easily include tools and actions in the form of special tokens is a convenient feature of language modeling coupled with transformers.
+
+The simple conclusions of the survey are:
+
+- Language models can be augmented with reasoning skills and the ability to use tools.
+- Augmented Language Models (ALMs) leverage these augmentations to expand their context processing ability.
+- ALMs can use various external modules to reason, use tools, and even act.
+
+:::tip
+
+That is to say, under ideal circumstances, the method to use LLM to control the vehicle is to add a decoder at the end of the LLM to decode the output given by the LLM into specific driving actions. There are many ways to decode, which can be based on onehot (of course, a behavior may also contain multiple actions, and there may be a better decoding method). In order to train such a decoder, it is also necessary to match an objective function (for example, using reinforcement learning)
+
+:::
+
+The survey points out that Augmented Language Models (ALMs) have the ability to run code and experiments on behalf of a user, which a vanilla Language Model (LM) cannot do. ALMs can interact with external tools, entities, and environments to improve their reasoning and decision-making abilities. This interaction allows ALMs to collect additional information and ground themselves in the real world. However, ALMs also raise ethical concerns, as their predictions based on tools may appear trustworthy and authoritative, even when they are incorrect. The use of active tools, such as letting the LM control a search engine, can lead to harmful consequences without human validation. The development of ALMs represents a shift from passive LMs that generate text in isolation to ALMs that can act in the real world. The integration of reasoning and tools in ALMs is a promising research avenue for the next generation of deep learning systems capable of complex human-machine interaction.
