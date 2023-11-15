@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/github");
-const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const lightCodeTheme = require("prism-react-renderer").themes.github;
+const darkCodeTheme = require("prism-react-renderer").themes.github;
 const math = require('remark-math');
 const katex = require('rehype-katex');
 
@@ -26,15 +26,17 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.dev/visualDust/focus.akasaki.space/blob/master/",
+          editUrl: "https://github.dev/visualDust/gavin.gong.host/blob/master/",
           remarkPlugins: [math],
           rehypePlugins: [katex],
         },
         blog: {
           showReadingTime: true,
-          editUrl: "https://github.dev/visualDust/focus.akasaki.space/blob/master/",
+          editUrl: "https://github.dev/visualDust/gavin.gong.host/blob/master/",
           blogSidebarTitle: "All posts",
           blogSidebarCount: "ALL",
+          blogTitle: "Blogs",
+          blogDescription: "Gavin's blog posts",
           remarkPlugins: [math],
           rehypePlugins: [katex],
         },

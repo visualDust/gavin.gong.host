@@ -120,6 +120,6 @@ doSomething(function(result) {
 </Tabs> 
 
 :::warning
-一定要有返回值，否则，callback 将无法获取上一个 Promise 的结果。(如果使用箭头函数，() => x 比 () => { return x; } 更简洁一些，但后一种保留 return 的写法才支持使用多个语句。）。
+一定要有返回值，否则，callback 将无法获取上一个 Promise 的结果。(如果使用箭头函数，() => x 比 () => \{ return x; \} 更简洁一些，但后一种保留 return 的写法才支持使用多个语句。）。
 :::
 

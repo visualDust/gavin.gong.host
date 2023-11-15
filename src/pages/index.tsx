@@ -4,7 +4,7 @@ import Layout from "@theme/Layout";
 import ProjectBadge from "../components/project_badge/ProjectBadge";
 import Gallery from "../components/gallery/gallery";
 import GitHubCalendar from "react-github-calendar";
-import BrowserOnly from "@docusaurus/BrowserOnly";
+import BrowserOnly from '@docusaurus/BrowserOnly';
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { useColorMode } from "@docusaurus/theme-common";
 import {
@@ -129,7 +129,7 @@ function ComponentLinkMobile(): JSX.Element {
       }}
     >
       {MyLinks.map((props, idx) => (
-        <div style={{ textAlign: "center", margin: "5px" }}>
+        <div key={idx} style={{ textAlign: "center", margin: "5px" }}>
           <Button
             style={{ whiteSpace: "nowrap" }}
             variant="outlined"
@@ -153,7 +153,7 @@ function ComponentLinkDesktop(): JSX.Element {
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {MyLinks.map((props, idx) => (
-        <div style={{ textAlign: "center", margin: "5px" }}>
+        <div key={idx} style={{ textAlign: "center", margin: "5px" }}>
           <Button
             style={{ whiteSpace: "nowrap" }}
             variant="outlined"
@@ -203,6 +203,7 @@ function ComponentNameMobile(): JSX.Element {
 }
 
 function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
+  const colorMode = useColorMode().colorMode
   return (
     <div // personal information and links
       style={{
@@ -211,6 +212,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
         flexDirection: "row",
         margin: "5%",
         alignItems: "stretch",
+        justifyContent:"space-around"
       }}
     >
       <div
@@ -246,7 +248,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
         <BrowserOnly>
           {() => (
             <GitHubCalendar
-              colorScheme={useColorMode().colorMode}
+              colorScheme={colorMode}
               username="VisualDust"
             />
           )}
@@ -328,6 +330,7 @@ function GotoGalleryBanner(): JSX.Element {
 }
 
 function HomePageMobile(): JSX.Element {
+  const colorMode = useColorMode().colorMode
   return (
     <div
       style={{
@@ -349,7 +352,7 @@ function HomePageMobile(): JSX.Element {
               marginTop: "5%",
               marginBottom: "10%",
             }}
-            colorScheme={useColorMode().colorMode}
+            colorScheme={colorMode}
             username="VisualDust"
           />
         )}

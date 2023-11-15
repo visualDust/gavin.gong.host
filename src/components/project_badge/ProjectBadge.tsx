@@ -147,8 +147,9 @@ const BadgeList: BadgeItem[] = [
 ];
 
 const renderThumbs = (array) => {
-  return array.map((x) => <img src={x.props.imgUrl} />);
+  return array.map((x, idx) => <img key={idx} src={x.props.imgUrl} />);
 };
+
 function ProjectBadgeMobile(): JSX.Element {
   return (
     <div style={{ margin: "5%" }}>
