@@ -4,7 +4,7 @@ import Layout from "@theme/Layout";
 import ProjectBadge from "../components/project_badge/ProjectBadge";
 import Gallery from "../components/gallery/gallery";
 import GitHubCalendar from "react-github-calendar";
-import BrowserOnly from '@docusaurus/BrowserOnly';
+import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import { useColorMode } from "@docusaurus/theme-common";
 import {
@@ -202,8 +202,16 @@ function ComponentNameMobile(): JSX.Element {
   );
 }
 
+function MyGitHubCalendarBrowserOnly() {
+  return <BrowserOnly>{() => <MyGitHubCalendar />}</BrowserOnly>;
+}
+
+function MyGitHubCalendar() {
+  const colorMode = useColorMode().colorMode;
+  return <GitHubCalendar colorScheme={colorMode} username="VisualDust" />;
+}
+
 function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
-  const colorMode = useColorMode().colorMode
   return (
     <div // personal information and links
       style={{
@@ -212,7 +220,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
         flexDirection: "row",
         margin: "5%",
         alignItems: "stretch",
-        justifyContent:"space-around"
+        justifyContent: "space-around",
       }}
     >
       <div
@@ -242,17 +250,11 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          overflow: "hidden",
         }}
       >
         <ComponentPersonalInfo></ComponentPersonalInfo>
-        <BrowserOnly>
-          {() => (
-            <GitHubCalendar
-              colorScheme={colorMode}
-              username="VisualDust"
-            />
-          )}
-        </BrowserOnly>
+        <MyGitHubCalendarBrowserOnly />
       </div>
     </div>
   );
@@ -330,7 +332,6 @@ function GotoGalleryBanner(): JSX.Element {
 }
 
 function HomePageMobile(): JSX.Element {
-  const colorMode = useColorMode().colorMode
   return (
     <div
       style={{
@@ -343,20 +344,16 @@ function HomePageMobile(): JSX.Element {
       }}
     >
       <ComponentPersonalInfoAndLinksMobile />
-      <BrowserOnly>
-        {() => (
-          <GitHubCalendar
-            style={{
-              marginLeft: "5%",
-              marginRight: "5%",
-              marginTop: "5%",
-              marginBottom: "10%",
-            }}
-            colorScheme={colorMode}
-            username="VisualDust"
-          />
-        )}
-      </BrowserOnly>
+      <div
+        style={{
+          marginLeft: "5%",
+          marginRight: "5%",
+          marginTop: "5%",
+          marginBottom: "10%",
+        }}
+      >
+        <MyGitHubCalendarBrowserOnly />
+      </div>
       <AkasakFeaturesMobile />
       <ProjectBadge />
     </div>
