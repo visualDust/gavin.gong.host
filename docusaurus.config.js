@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer").themes.github;
-const darkCodeTheme = require("prism-react-renderer").themes.github;
+const lightCodeTheme = require("prism-react-renderer").themes.oneLight;
+const darkCodeTheme = require("prism-react-renderer").themes.oneDark;
 const math = require('remark-math');
 const katex = require('rehype-katex');
 
@@ -82,6 +82,7 @@ const config = {
         },
       },
     ],
+    require.resolve("docusaurus-plugin-image-zoom")
   ],
 
   themeConfig:
@@ -166,6 +167,15 @@ const config = {
         darkTheme: darkCodeTheme,
         defaultMode: 'dark'
       },
+      zoom: {
+        selector: '.markdown :not(em) > img',
+        config: {
+          background: {
+            light: 'rgb(255, 255, 255)',
+            dark: 'rgb(50, 50, 50)'
+          }
+        }
+      }
     }),
 };
 
