@@ -15,7 +15,7 @@ function Year({ year, posts }) {
       </Heading>
       <ul>
         {posts.map((post) => (
-          <li key={post.metadata.date}>
+          <li key={post.metadata.date + '_' + post.metadata.title}>
             <Link to={post.metadata.permalink}>
               {post.metadata.formattedDate} - {post.metadata.title}
             </Link>
@@ -108,7 +108,7 @@ export function getGraphOf(props) {
 }
 
 export default function BlogArchivePageWrapper(props) {
-  console.log(props.archive)
+  // console.log(props.archive)
   const graph = getGraphOf(props)
   const years = listPostsByYears(props.archive.blogPosts);
   return (
