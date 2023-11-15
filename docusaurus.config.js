@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer").themes.oneLight;
-const darkCodeTheme = require("prism-react-renderer").themes.oneDark;
+const lightCodeTheme = require("prism-react-renderer").themes.nightOwlLight;
+const darkCodeTheme = require("prism-react-renderer").themes.nightOwl;
 const math = require('remark-math');
 const katex = require('rehype-katex');
 
@@ -82,7 +82,7 @@ const config = {
         },
       },
     ],
-    require.resolve("docusaurus-plugin-image-zoom")
+    require.resolve("docusaurus-plugin-image-zoom"),
   ],
 
   themeConfig:
