@@ -36,6 +36,7 @@ export default function BlogRelationGraph({ graph }) {
       ],
       series: [
         {
+          name:"click to view:",
           type: "graph",
           layout: "force",
           data: graph.nodes,
@@ -47,11 +48,23 @@ export default function BlogRelationGraph({ graph }) {
           },
           force: {
             repulsion: 100,
+            gravity: 0.2,
+            layoutAnimation: true,
+            friction:.1,
           },
           lineStyle: {
             curveness: Math.random() * 0.5,
           },
+          autoCurveness:true,
           draggable: true,
+          scaleLimit: {
+            min: 1,
+            max: 10,
+          },
+          itemStyle:{
+            shadowColor: '#666',
+            shadowBlur: 3
+          }
         },
       ],
     };

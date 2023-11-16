@@ -101,14 +101,24 @@ const config = {
             position: "left"
           },
           {
+            to: "/blog/archive",
+            label: "Archive",
+            position: "left"
+          },
+          {
+            to: "/gallery",
+            label: "Gallery",
+            position: "left"
+          },
+          {
             href: "https://ml.akasaki.space",
             label: "Deep learning Section",
-            position: "left",
+            position: "right",
           },
           {
             href: "https://neetbox.550w.host",
             label: "NEETBox",
-            position: "left",
+            position: "right",
           },
           {
             href: "/about",

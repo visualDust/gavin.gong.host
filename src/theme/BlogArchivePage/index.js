@@ -1,10 +1,7 @@
 import React from 'react';
 import Layout from "@theme/Layout";
-import BlogArchivePage from '@theme-original/BlogArchivePage';
 import BlogRelationGraph from '@site/src/components/blogPostRelationGraph';
 import Link from '@docusaurus/Link';
-import { translate } from '@docusaurus/Translate';
-import { PageMetadata } from '@docusaurus/theme-common';
 import Heading from '@theme/Heading';
 
 function Year({ year, posts }) {
@@ -52,7 +49,7 @@ function listPostsByYears(blogPosts) {
   }));
 }
 
-export function getGraphOf(props) {
+export function getTagGraphOf(props) {
   // some hyper params
   const _base_node_size = 5
 
@@ -107,15 +104,80 @@ export function getGraphOf(props) {
   return graph
 }
 
+function sortDictByKey(dict) {
+
+  var sorted = [];
+  for (var key in dict) {
+    sorted[sorted.length] = key;
+  }
+  sorted.sort();
+
+  var tempDict = {};
+  for (var i = 0; i < sorted.length; i++) {
+    tempDict[sorted[i]] = dict[sorted[i]];
+  }
+
+  return tempDict;
+}
+
+export function ListOfTags({ posts }) {
+  var tag2link = new Map(posts.flatMap(x => x.metadata.tags.map(x => [x.label, x.permalink])));
+  console.log(tag2link.entries())
+
+  // tag2link = sortDictByKey(tag2link)
+  return (
+    <div>
+      {
+        [...tag2link].map(([key, value]) => <a className='colored-tag-button button button--primary' style={{
+          background: "rgb(" + Math.floor(Math.random() * 50 + 100)
+            + "," + Math.floor(Math.random() * 50 + 100) + ","
+            + Math.floor(Math.random() * 50 + 100) + ")"
+        }} key={key} href={value}>{key}</a>)
+      }
+    </div>
+  )
+}
+
 export default function BlogArchivePageWrapper(props) {
   // console.log(props.archive)
-  const graph = getGraphOf(props)
+  const graph = getTagGraphOf(props)
   const years = listPostsByYears(props.archive.blogPosts);
   return (
     <Layout title="Posts relations">
-      <main>{years.length > 0 && <YearsSection years={years} />}</main>
-      <div>
-        <BlogRelationGraph graph={graph} />
+      <div
+        className="hero hero--primary"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          width: "100%",
+        }}
+      >
+        <h1>Archive Overview</h1>
+      </div>
+      <div className='outer' style={{
+        display: 'flex',
+        flexDirection: 'column',
+        marginTop: '30px',
+        marginBottom: '30px',
+        gap: '30px'
+      }}>
+        <div className='by_tags' style={{ alignSelf: 'center', marginLeft: "10px", marginRight: "10px", }}>
+          <h2 style={{ textAlign: 'center' }}>View By Tags</h2>
+          <div style={{ textAlign: 'center', maxWidth: '1000px' }}>
+            <ListOfTags posts={props.archive.blogPosts} />
+          </div>
+        </div>
+        <div className='by_years'>
+          <h2 style={{ textAlign: 'center', marginLeft: "20px", marginRight: "20px" }}>View By Years</h2>
+          <main>{years.length > 0 && <YearsSection years={years} />}</main>
+        </div>
+        <div className='by_graph'>
+          <h2 style={{ textAlign: 'center', marginLeft: "20px", marginRight: "20px" }}>View By Graph</h2>
+          <div style={{ width: "100%" }}>
+            <BlogRelationGraph graph={graph} />
+          </div>
+        </div>
       </div>
     </Layout>
   );
