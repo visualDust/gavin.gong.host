@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Layout from "@theme/Layout";
 import BlogRelationGraph from '@site/src/components/blogPostRelationGraph';
 import Link from '@docusaurus/Link';
@@ -58,7 +58,7 @@ export function getTagGraphOf(props) {
   const blogPosts = props.archive.blogPosts
   // set of tags
   const _tags = new Map(blogPosts.flatMap(x => x.metadata.tags.map(x => [x.label, x])));
-  const _tagNames = [..._tags.keys()]
+  const _tagNames = [..._tags.keys()].sort() // sort by name
   // initialize tag->posts mapping
   var _tag2posts = {}
   _tagNames.forEach(x => _tag2posts[x] = [])
@@ -79,8 +79,11 @@ export function getTagGraphOf(props) {
       "id": x.metadata.title,
       "name": x.metadata.title,
       "symbolSize": _base_node_size, // default symbol size for node of post
-      "permalink": x.metadata.permalink // jump to this link on click
-      // "category": 0, // default category for node of post
+      "permalink": x.metadata.permalink, // jump to this link on click
+      // "category": 0, // posts do not have category
+      "itemStyle": {
+        "color": "#b3b3b3"
+      }
     })
   })
   // add catagories
@@ -91,7 +94,7 @@ export function getTagGraphOf(props) {
     _nodes.push({
       "id": x,
       "name": x,
-      "symbolSize": _tag2posts[x].length*_symbol_scale_factor + _base_node_size, // node size based on num of posts with the tag
+      "symbolSize": _tag2posts[x].length * _symbol_scale_factor + _base_node_size, // node size based on num of posts with the tag
       "category": _catagory_indexer++, // use different catagory for node of tag
       "permalink": _tags.get(x).permalink
     })
@@ -107,33 +110,27 @@ export function getTagGraphOf(props) {
   return graph
 }
 
-function sortDictByKey(dict) {
-
-  var sorted = [];
-  for (var key in dict) {
-    sorted[sorted.length] = key;
-  }
-  sorted.sort();
-
-  var tempDict = {};
-  for (var i = 0; i < sorted.length; i++) {
-    tempDict[sorted[i]] = dict[sorted[i]];
-  }
-
-  return tempDict;
+/**
+ * 
+ * @param {Map} dict 
+ */
+function dictItemsSortedByKey(dict) {
+  return [...dict].sort((a, b) => {
+    return a[0] > b[0] ? 1 : -1
+  })
 }
 
 export function ListOfTags({ posts }) {
+  const [count, setCount] = useState(0); // force render on client
+  useEffect(() => { setCount(1) }, []) // force render on client
   var tag2link = new Map(posts.flatMap(x => x.metadata.tags.map(x => [x.label, x.permalink])));
-  console.log(tag2link.entries())
-  // color_list = []
-  // tag2link = sortDictByKey(tag2link)
+  const tag2link_items = dictItemsSortedByKey(tag2link)
   const brightness = useColorMode().colorMode == 'dark' ? 70 : 40
-  const base_color = Math.floor(Math.random() * 360)
+  const [base_color] = useState((Date.now() / 100) % 360)
   return (
     <div>
       {
-        [...tag2link].map(([key, value], idx) => <Link className='colored-tag-button button' style={{
+        tag2link_items.map(([key, value], idx) => <Link className='colored-tag-button button' style={{
           background: "hsl(" + (idx * 15 + base_color) % 360
             + "," + 90 + "% ,"
             + brightness + "%)"
