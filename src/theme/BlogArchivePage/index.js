@@ -4,6 +4,7 @@ import BlogRelationGraph from '@site/src/components/blogPostRelationGraph';
 import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import { useColorMode } from "@docusaurus/theme-common";
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
 function Year({ year, posts }) {
   return (
@@ -121,12 +122,10 @@ function dictItemsSortedByKey(dict) {
 }
 
 export function ListOfTags({ posts }) {
-  const [count, setCount] = useState(0); // force render on client
-  useEffect(() => { setCount(1) }, []) // force render on client
   var tag2link = new Map(posts.flatMap(x => x.metadata.tags.map(x => [x.label, x.permalink])));
   const tag2link_items = dictItemsSortedByKey(tag2link)
   const brightness = useColorMode().colorMode == 'dark' ? 70 : 40
-  const [base_color] = useState((Date.now() / 100) % 360)
+  const base_color = (Date.now() / 100) % 360
   return (
     <div>
       {
@@ -167,7 +166,7 @@ export default function BlogArchivePageWrapper(props) {
         <div className='by_tags' style={{ alignSelf: 'center', marginLeft: "10px", marginRight: "10px", }}>
           <h2 style={{ textAlign: 'center' }}>View By Tags</h2>
           <div style={{ textAlign: 'center', maxWidth: '1000px' }}>
-            <ListOfTags posts={props.archive.blogPosts} />
+            <BrowserOnly children={() => <ListOfTags posts={props.archive.blogPosts} />} />
           </div>
         </div>
         <div className='by_years'>
