@@ -13,7 +13,7 @@ interface GraphNode {
 }
 
 export default function BlogRelationGraph({ graph }) {
-  const refContainer = useRef();
+  const refContainer = useRef<HTMLDivElement>();
   const history = useHistory();
   const colorMode = useColorMode();
 
@@ -32,11 +32,12 @@ export default function BlogRelationGraph({ graph }) {
           data: graph.categories.map(function (a: { name: string }) {
             return a.name;
           }),
+          width: "1000px",
         },
       ],
       series: [
         {
-          name:"click to view:",
+          name: "click to view:",
           type: "graph",
           layout: "force",
           data: graph.nodes,
@@ -47,24 +48,25 @@ export default function BlogRelationGraph({ graph }) {
             position: "right",
           },
           force: {
-            repulsion: 100,
+            repulsion: 300,
             gravity: 0.2,
             layoutAnimation: true,
-            friction:.1,
+            friction: 0.1,
           },
           lineStyle: {
-            curveness: Math.random() * 0.5,
+            curveness: Math.random() * 0.3,
+            width: 2,
           },
-          autoCurveness:true,
+          autoCurveness: true,
           draggable: true,
           scaleLimit: {
             min: 1,
             max: 10,
           },
-          itemStyle:{
-            shadowColor: '#666',
-            shadowBlur: 3
-          }
+          itemStyle: {
+            shadowColor: "#666",
+            shadowBlur: 3,
+          },
         },
       ],
     };
@@ -78,7 +80,22 @@ export default function BlogRelationGraph({ graph }) {
       }
     });
 
-    const handleResize = () => myChart.resize();
+    const updateWidth = () => {
+      const width = refContainer.current!.clientWidth;
+      myChart.setOption({
+        legend: [
+          {
+            width: width > 1000 ? "980px" : width - 20 + "px",
+          },
+        ],
+      });
+    };
+    updateWidth();
+
+    const handleResize = () => {
+      myChart.resize();
+      updateWidth();
+    };
     window.addEventListener("resize", handleResize);
     return () => {
       myChart.dispose();
@@ -93,7 +110,6 @@ export default function BlogRelationGraph({ graph }) {
         alignItems: "center",
         flexDirection: "column",
         width: "100%",
-        maxWidth: "1000px",
         height: "80vh",
         overflow: "hidden",
         margin: "0 auto",

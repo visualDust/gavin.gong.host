@@ -3,6 +3,7 @@ import Layout from "@theme/Layout";
 import BlogRelationGraph from '@site/src/components/blogPostRelationGraph';
 import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
+import { useColorMode } from "@docusaurus/theme-common";
 
 function Year({ year, posts }) {
   return (
@@ -51,7 +52,8 @@ function listPostsByYears(blogPosts) {
 
 export function getTagGraphOf(props) {
   // some hyper params
-  const _base_node_size = 5
+  const _base_node_size = 10
+  const _symbol_scale_factor = 1.5
 
   const blogPosts = props.archive.blogPosts
   // set of tags
@@ -66,6 +68,7 @@ export function getTagGraphOf(props) {
     // add posts into tag->posts mapping
     x.metadata.tags.forEach(t => {
       _tag2posts[t.label].push(x)
+      // add edge between tag and post
       _links.push({
         "source": t.label,
         "target": x.metadata.title
@@ -88,7 +91,7 @@ export function getTagGraphOf(props) {
     _nodes.push({
       "id": x,
       "name": x,
-      "symbolSize": _tag2posts[x].length + _base_node_size, // node size based on num of posts with the tag
+      "symbolSize": _tag2posts[x].length*_symbol_scale_factor + _base_node_size, // node size based on num of posts with the tag
       "category": _catagory_indexer++, // use different catagory for node of tag
       "permalink": _tags.get(x).permalink
     })
@@ -123,16 +126,18 @@ function sortDictByKey(dict) {
 export function ListOfTags({ posts }) {
   var tag2link = new Map(posts.flatMap(x => x.metadata.tags.map(x => [x.label, x.permalink])));
   console.log(tag2link.entries())
-
+  // color_list = []
   // tag2link = sortDictByKey(tag2link)
+  const brightness = useColorMode().colorMode == 'dark' ? 70 : 40
+  const base_color = Math.floor(Math.random() * 360)
   return (
     <div>
       {
-        [...tag2link].map(([key, value]) => <a className='colored-tag-button button button--primary' style={{
-          background: "rgb(" + Math.floor(Math.random() * 50 + 100)
-            + "," + Math.floor(Math.random() * 50 + 100) + ","
-            + Math.floor(Math.random() * 50 + 100) + ")"
-        }} key={key} href={value}>{key}</a>)
+        [...tag2link].map(([key, value], idx) => <Link className='colored-tag-button button' style={{
+          background: "hsl(" + (idx * 15 + base_color) % 360
+            + "," + 90 + "% ,"
+            + brightness + "%)"
+        }} key={key} href={value}>{key}</Link>)
       }
     </div>
   )

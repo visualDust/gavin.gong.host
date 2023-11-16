@@ -1,7 +1,7 @@
 ---
 title: 论文阅读手札：Global Filter Networks for Image Classification
 authors: [visualdust]
-tags: [computer vision, deep learning, paper reading]
+tags: [computer vision, deep learning, paper]
 ---
 
 论文作者：Yongming Rao, Wenliang Zhao, Zheng Zhu Jiwen Lu, Jie Zhou。论文原文点此[URL](http://arxiv.org/abs/2107.00645)。
