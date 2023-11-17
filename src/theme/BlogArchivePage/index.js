@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Layout from "@theme/Layout";
 import BlogRelationGraph from '@site/src/components/blogPostRelationGraph';
 import Link from '@docusaurus/Link';
@@ -122,12 +122,21 @@ function dictItemsSortedByKey(dict) {
 }
 
 export function ListOfTags({ posts }) {
-  var tag2link = new Map(posts.flatMap(x => x.metadata.tags.map(x => [x.label, x.permalink])));
-  const tag2link_items = dictItemsSortedByKey(tag2link)
+  const tag2link_items = useMemo(() => {
+    var tag2link = new Map(posts.flatMap(x => x.metadata.tags.map(x => [x.label, x.permalink])));
+    return dictItemsSortedByKey(tag2link)
+  });
   const brightness = useColorMode().colorMode == 'dark' ? 70 : 40
-  const base_color = (Date.now() / 100) % 360
+  const [base_color, set_base_color] = useState(0)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      set_base_color((base_color - 3) % 360)
+    }, 100);
+    return () => clearTimeout(timer)
+  }, [base_color]);
+
   return (
-    <div>
+    <div style={{ willChange: 'transform' }}>
       {
         tag2link_items.map(([key, value], idx) => <Link className='colored-tag-button button' style={{
           background: "hsl(" + (idx * 15 + base_color) % 360
