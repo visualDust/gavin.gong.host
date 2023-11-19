@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Layout from "@theme/Layout";
 import clsx from "clsx";
 import arrayShuffle from "array-shuffle";
-import BrowserOnly from '@docusaurus/BrowserOnly';
-import styles from './about.module.css'
+import BrowserOnly from "@docusaurus/BrowserOnly";
+import styles from "./about.module.css";
 
 function About() {
   return (
@@ -11,15 +11,21 @@ function About() {
       <Friends />
       <BrowserOnly>
         {() => {
-          useEffect(()=>{
-            const Sakana = require('../plugins/sakana')
+          useEffect(() => {
+            const Sakana = require("../plugins/sakana");
             //@ts-ignore
-            Sakana.init({el: '.sakana-box', scale: .5, canSwitchCharacter: true} as any)
-          },[])
-          return <div className="sakana-box" style={{ height: 0 }}></div>
+            Sakana.init({
+              el: ".sakana-box",
+              scale: 0.5,
+              canSwitchCharacter: true,
+            } as any);
+          }, []);
+          return <div className="sakana-box" style={{ height: 0 }}></div>;
         }}
       </BrowserOnly>
-      <p style={{ paddingLeft: '20px' }}>The list is random. try to refresh the page.</p>
+      <p style={{ paddingLeft: "20px" }}>
+        The list is random. try to refresh the page.
+      </p>
     </Layout>
   );
 }
@@ -96,7 +102,8 @@ var friendsData: FriendData[] = [
   {
     pic: githubPic("breezeshane"),
     name: "Breeze Shane",
-    intro: "一个专注理论但学不懂学不会的锈钢废物，但是他很擅长产出Bug，可能是因为他体表有源石结晶分布，但也可能仅仅是因为他是Bug本体。",
+    intro:
+      "一个专注理论但学不懂学不会的锈钢废物，但是他很擅长产出Bug，可能是因为他体表有源石结晶分布，但也可能仅仅是因为他是Bug本体。",
     url: "https://breezeshane.github.io/",
     note: "一代传奇，手撸GAN的老单。",
   },
@@ -112,7 +119,7 @@ var friendsData: FriendData[] = [
 function Friends() {
   const [friends, setFriends] = useState<FriendData[]>(friendsData);
   useEffect(() => {
-    setFriends(arrayShuffle(friends))
+    setFriends(arrayShuffle(friends));
   }, []);
   const [current, setCurrent] = useState(0);
   const [previous, setPrevious] = useState(0);
@@ -129,11 +136,11 @@ function Friends() {
     };
   }, [current]);
   return (
-    <div className="friends" lang="zh-cn">
+    <div className={styles.friends} lang="zh-cn">
       <div style={{ position: "relative" }}>
-        <div className={styles['friend-columns']}>
+        <div className={styles["friend-columns"]}>
           {/* Big card showing current selected */}
-          <div className={styles['friend-card-outer']}>
+          <div className={styles["friend-card-outer"]}>
             {[
               previous != current && (
                 <FriendCard key={previous} data={friends[previous]} fadeout />
@@ -142,11 +149,11 @@ function Friends() {
             ]}
           </div>
 
-          <div className={styles['friend-list']}>
+          <div className={styles["friend-list"]}>
             {friends.map((x, i) => (
               <div
                 key={x.name}
-                className={clsx(styles['friend-item'], {
+                className={clsx(styles["friend-item"], {
                   current: i == current,
                 })}
                 onClick={() => setCurrent(i)}
@@ -164,7 +171,9 @@ function Friends() {
 function FriendCard(props: { data: FriendData; fadeout?: boolean }) {
   const { data, fadeout = false } = props;
   return (
-    <div className={clsx(styles['friend-card'], { fadeout })}>
+    <div
+      className={clsx(styles["friend-card"], { [styles["fadeout"]]: fadeout })}
+    >
       <div className="card">
         <div className="card__image">
           <img
