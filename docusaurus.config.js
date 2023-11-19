@@ -34,7 +34,7 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           editUrl: "https://github.dev/visualDust/gavin.gong.host/blob/master/",
           remarkPlugins: [math],
-          rehypePlugins: [katex],
+          rehypePlugins: [[katex, { strict: false }]],
         },
         blog: {
           showReadingTime: true,
@@ -44,7 +44,7 @@ const config = {
           blogTitle: "Blogs",
           blogDescription: "Gavin's blog posts",
           remarkPlugins: [math],
-          rehypePlugins: [katex],
+          rehypePlugins: [[katex, { strict: false }]],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
