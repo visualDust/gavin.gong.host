@@ -3,74 +3,52 @@
  * and scoped locally.
  */
 
-.swiper-wrapper {
-  /* Center slide text vertically */
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  align-items: center;
+.goto-banner {
+  background-color: var(--ifm-color-emphasis-300);
+  color: var(--ifm-color-emphasis-900);
+  transition: all 300ms;
+  cursor: pointer;
 }
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+.goto-banner:hover {
+  background-color: var(--ifm-color-emphasis-600);
+  color: var(--ifm-color-emphasis-100);
 }
 
-@media screen and (max-width: 966px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+.goto-arrow {
+  transform: translate(50px, -2px) rotate(-90deg);
+  cursor: pointer;
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.goto-arrow span {
+  display: block;
+  width: 15px;
+  height: 15px;
+  border-bottom: 5px solid var(--ifm-color-primary);
+  border-right: 5px solid var(--ifm-color-primary);
+  transform: rotate(45deg);
+  margin: -10px;
+  animation: arrowAnime 2s infinite;
 }
 
-.centerChild {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.goto-arrow span:nth-child(2) {
+  animation-delay: -0.2s;
 }
 
-.focusin {
-  animation: focusin 3s;
+.goto-arrow span:nth-child(3) {
+  animation-delay: -0.4s;
 }
 
-@keyframes focusin {
-  from {
-    filter: blur(10px);
-  }
-
-  to {
-    filter: blur(0px);
-  }
-}
-
-.randomImage {
-  opacity: 0;
-}
-
-.randomImage.loaded {
-  animation: fadein .5s;
-  opacity: 1;
-}
-
-@keyframes fadein {
-  from {
+@keyframes arrowAnime {
+  0% {
     opacity: 0;
+    transform: rotate(45deg) translate(-20px, -20px);
   }
-
-  to {
+  50% {
     opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(20px, 20px);
   }
 }

@@ -3,6 +3,7 @@ import Layout from "@theme/Layout";
 import clsx from "clsx";
 import arrayShuffle from "array-shuffle";
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import styles from './about.module.css'
 
 function About() {
   return (
@@ -130,9 +131,9 @@ function Friends() {
   return (
     <div className="friends" lang="zh-cn">
       <div style={{ position: "relative" }}>
-        <div className="friend-columns">
+        <div className={styles['friend-columns']}>
           {/* Big card showing current selected */}
-          <div className="friend-card-outer">
+          <div className={styles['friend-card-outer']}>
             {[
               previous != current && (
                 <FriendCard key={previous} data={friends[previous]} fadeout />
@@ -141,11 +142,11 @@ function Friends() {
             ]}
           </div>
 
-          <div className="friend-list">
+          <div className={styles['friend-list']}>
             {friends.map((x, i) => (
               <div
                 key={x.name}
-                className={clsx("friend-item", {
+                className={clsx(styles['friend-item'], {
                   current: i == current,
                 })}
                 onClick={() => setCurrent(i)}
@@ -163,7 +164,7 @@ function Friends() {
 function FriendCard(props: { data: FriendData; fadeout?: boolean }) {
   const { data, fadeout = false } = props;
   return (
-    <div className={clsx("friend-card", { fadeout })}>
+    <div className={clsx(styles['friend-card'], { fadeout })}>
       <div className="card">
         <div className="card__image">
           <img

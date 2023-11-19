@@ -2,7 +2,6 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Layout from "@theme/Layout";
 import ProjectBadge from "../components/project_badge/ProjectBadge";
-import Gallery from "../components/gallery/gallery";
 import GitHubCalendar from "react-github-calendar";
 import BrowserOnly from "@docusaurus/BrowserOnly";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -28,6 +27,8 @@ import SwiperCore, {
   Zoom,
   EffectCreative,
 } from "swiper";
+import styles from "./index.module.css";
+
 
 SwiperCore.use([
   Zoom,
@@ -303,7 +304,7 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
 function GotoGalleryBanner(): JSX.Element {
   return (
     <Link
-      className="goto-banner"
+      className={styles['goto-banner']}
       href="/gallery"
       style={{
         height: "100px",
@@ -321,7 +322,7 @@ function GotoGalleryBanner(): JSX.Element {
         <strong>Gallery</strong>
       </div>
       <div>
-        <div style={{ height: "50%" }} className="goto-arrow">
+        <div style={{ height: "50%" }} className={styles['goto-arrow']}>
           <span />
           <span />
           <span />

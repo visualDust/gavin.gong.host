@@ -4,7 +4,9 @@ import BlogRelationGraph from '@site/src/components/blogPostRelationGraph';
 import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import { useColorMode } from "@docusaurus/theme-common";
+import clsx from 'clsx';
 import BrowserOnly from '@docusaurus/BrowserOnly';
+import styles from './index.module.css'
 
 function Year({ year, posts }) {
   return (
@@ -138,7 +140,7 @@ export function ListOfTags({ posts }) {
   return (
     <div style={{ willChange: 'transform' }}>
       {
-        tag2link_items.map(([key, value], idx) => <Link className='colored-tag-button button' style={{
+        tag2link_items.map(([key, value], idx) => <Link className={clsx(styles['colored-tag-button'], 'button')} style={{
           background: "hsl(" + (idx * 15 + base_color) % 360
             + "," + 90 + "% ,"
             + brightness + "%)"

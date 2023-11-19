@@ -63,7 +63,7 @@ export function FeatureDesktop({
   buttonText,
 }: FeatureItem) {
   return (
-    <div className="feature-card" style={{ display: 'flex', flexDirection: 'row', alignItems: "stretch" }}>
+    <div className={styles['feature-card']} style={{ display: 'flex', flexDirection: 'row', alignItems: "stretch" }}>
       <div style={{
         display: "flex",
         margin: "30px",
@@ -73,7 +73,7 @@ export function FeatureDesktop({
         <div className="text--center">
           <img className={styles.featureSvg} alt={title} src={image} />
         </div>
-        <div className="text--center feature-card-text">
+        <div className={clsx("text--center",styles['feature-card-text'])}>
           <h3>{title}</h3>
           <p>{description}</p>
         </div>
