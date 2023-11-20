@@ -140,7 +140,7 @@ export function ListOfTags({ posts }) {
   return (
     <div style={{ willChange: 'transform' }}>
       {
-        tag2link_items.map(([key, value], idx) => <Link className={clsx(styles['colored-tag-button'], 'button')} style={{
+        tag2link_items.map(([key, value], idx) => <Link className={clsx("colored-button", 'button')} style={{
           background: "hsl(" + (idx * 15 + base_color) % 360
             + "," + 90 + "% ,"
             + brightness + "%)"

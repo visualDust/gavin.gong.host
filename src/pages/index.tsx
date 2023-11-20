@@ -29,7 +29,6 @@ import SwiperCore, {
 } from "swiper";
 import styles from "./index.module.css";
 
-
 SwiperCore.use([
   Zoom,
   Navigation,
@@ -95,6 +94,7 @@ import { IoMail } from "react-icons/io5";
 import { FaLink } from "react-icons/fa6";
 import { BsTelegram } from "react-icons/bs";
 import Link from "@docusaurus/Link";
+import clsx from "clsx";
 
 const MyLinks: LinkProps[] = [
   {
@@ -120,6 +120,14 @@ const MyLinks: LinkProps[] = [
 ];
 
 function ComponentLinkMobile(): JSX.Element {
+  const brightness = useColorMode().colorMode == "dark" ? 70 : 40;
+  const [base_color, set_base_color] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      set_base_color((base_color - 3) % 360);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [base_color]);
   return (
     <div
       style={{
@@ -127,13 +135,23 @@ function ComponentLinkMobile(): JSX.Element {
         flexWrap: "wrap",
         justifyContent: "center",
         marginTop: "5%",
+        willChange: "transform",
       }}
     >
       {MyLinks.map((props, idx) => (
-        <div key={idx} style={{ textAlign: "center", margin: "5px" }}>
-          <Button
-            style={{ whiteSpace: "nowrap" }}
-            variant="outlined"
+        <div key={idx} style={{ textAlign: "center", margin: "0px" }}>
+          <Link
+            className={clsx("colored-button", "button")}
+            style={{
+              background:
+                "hsl(" +
+                ((idx * 15 + base_color) % 360) +
+                "," +
+                90 +
+                "% ," +
+                brightness +
+                "%)",
+            }}
             href={props.url}
           >
             {props.icon && (
@@ -143,7 +161,7 @@ function ComponentLinkMobile(): JSX.Element {
               </>
             )}
             {props.text}
-          </Button>
+          </Link>
         </div>
       ))}
     </div>
@@ -151,13 +169,30 @@ function ComponentLinkMobile(): JSX.Element {
 }
 
 function ComponentLinkDesktop(): JSX.Element {
+  const brightness = useColorMode().colorMode == "dark" ? 70 : 40;
+  const [base_color, set_base_color] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      set_base_color((base_color - 3) % 360);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, [base_color]);
   return (
-    <div style={{ display: "flex", flexWrap: "wrap" }}>
+    <div style={{ display: "flex", flexWrap: "wrap", willChange: "transform" }}>
       {MyLinks.map((props, idx) => (
-        <div key={idx} style={{ textAlign: "center", margin: "5px" }}>
-          <Button
-            style={{ whiteSpace: "nowrap" }}
-            variant="outlined"
+        <div key={idx} style={{ textAlign: "center", margin: "0px" }}>
+          <Link
+            className={clsx("colored-button", "button")}
+            style={{
+              background:
+                "hsl(" +
+                ((idx * 15 + base_color) % 360) +
+                "," +
+                90 +
+                "% ," +
+                brightness +
+                "%)",
+            }}
             href={props.url}
           >
             {props.icon && (
@@ -167,7 +202,7 @@ function ComponentLinkDesktop(): JSX.Element {
               </>
             )}
             {props.text}
-          </Button>
+          </Link>
         </div>
       ))}
     </div>
@@ -304,7 +339,7 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
 function GotoGalleryBanner(): JSX.Element {
   return (
     <Link
-      className={styles['goto-banner']}
+      className={styles["goto-banner"]}
       href="/gallery"
       style={{
         height: "100px",
@@ -322,7 +357,7 @@ function GotoGalleryBanner(): JSX.Element {
         <strong>Gallery</strong>
       </div>
       <div>
-        <div style={{ height: "50%" }} className={styles['goto-arrow']}>
+        <div style={{ height: "50%" }} className={styles["goto-arrow"]}>
           <span />
           <span />
           <span />

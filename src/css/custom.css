@@ -14,12 +14,14 @@
   --ifm-color-primary-lightest: rgb(19, 84, 181);
   --ifm-code-font-size: 95%;
   --floating-card-background: rgb(240, 240, 240);
+  --ifm-navbar-background-color-desktop-only: rgba(255, 255, 255, 0.6);
   scroll-behavior: smooth;
 }
 
 html[data-theme="dark"] {
   --ifm-color-primary: rgb(126, 177, 254);
   --floating-card-background: rgb(53, 53, 53);
+  --ifm-navbar-background-color-desktop-only: rgba(36, 37, 38, 0.6);
 }
 
 ::selection {
@@ -69,3 +71,25 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   }
 }
 
+@media (min-width: 997px) {
+  .navbar {
+    background-color: var(--ifm-navbar-background-color-desktop-only);
+    backdrop-filter: blur(45px);
+  }
+}
+
+.colored-button {
+  border: none;
+  text-align: center;
+  display: inline-block;
+  border-radius: 5px;
+  margin: 3px;
+  padding: 5px 10px;
+  transition-duration: 1s;
+  transition-property: filter;
+}
+.colored-button:hover {
+  text-decoration: none;
+  filter: brightness(0.7);
+  transition-duration: 0.3s;
+}
