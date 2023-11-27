@@ -110,6 +110,13 @@ function BadgeMobile({
 
 const BadgeList: BadgeItem[] = [
   {
+    imgUrl: "/img/projectBadgeImgs/neetbox-screenshot.jpg",
+    title: "NEETBOX",
+    text: "NEETBOX is a great tool for Logging/Debugging/Tracing/Managing/Facilitating long-running python code, especially for deep learning training. NEETBOX is a all-in-one python package consists of client, server and frontend. NEETBOX provides easy decorators for functions and launches a dashboard for monitoring all the connected projects.",
+    buttonLink: "https://github.com/visualdust/neetbox",
+    buttonText: "See the project",
+  },
+  {
     imgUrl: "/img/projectBadgeImgs/depth_estimation.gif",
     title: "Vehicle Distance Detection",
     text: "Vehicle distance detection while driving built from target detection and depth estimation ensures driving security. The composite model allows inputs from both monodepth estimation models and phisical sensors such as lidar. The model is optimized for edge computing devices with fast inference speed with our visualization UI support.",
