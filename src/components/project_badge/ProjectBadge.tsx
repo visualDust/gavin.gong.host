@@ -183,7 +183,7 @@ function ProjectBadgeDesktop(): JSX.Element {
       <h3>Cool Things</h3>
       <Carousel
         showArrows={false}
-        autoPlay={true}
+        autoPlay={false}
         renderThumbs={renderThumbs}
         showIndicators={false}
         infiniteLoop={true}
