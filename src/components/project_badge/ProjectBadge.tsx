@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
-import style from "./carousel.module.css";
-import { useMediaQuery } from "react-responsive";
+import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import useIsMobile from "../../hooks/useIsMobile";
-import { Button } from "@mui/material";
 
 type BadgeItem = {
   imgUrl: string;
@@ -110,13 +107,6 @@ function BadgeMobile({
 
 const BadgeList: BadgeItem[] = [
   {
-    imgUrl: "/img/projectBadgeImgs/neetbox-screenshot.jpg",
-    title: "NEETBOX",
-    text: "NEETBOX is a great tool for Logging/Debugging/Tracing/Managing/Facilitating long-running python code, especially for deep learning training. NEETBOX is a all-in-one python package consists of client, server and frontend. NEETBOX provides easy decorators for functions and launches a dashboard for monitoring all the connected projects.",
-    buttonLink: "https://github.com/visualdust/neetbox",
-    buttonText: "See the project",
-  },
-  {
     imgUrl: "/img/projectBadgeImgs/depth_estimation.gif",
     title: "Vehicle Distance Detection",
     text: "Vehicle distance detection while driving built from target detection and depth estimation ensures driving security. The composite model allows inputs from both monodepth estimation models and phisical sensors such as lidar. The model is optimized for edge computing devices with fast inference speed with our visualization UI support.",
@@ -160,7 +150,7 @@ const renderThumbs = (array) => {
 function ProjectBadgeMobile(): JSX.Element {
   return (
     <div style={{ margin: "5%" }}>
-      <h3>Cool Things</h3>
+      <h3 style={{textAlign:"center"}}>Cool Things</h3>
       <Carousel
         showArrows={true}
         autoPlay={true}
@@ -183,7 +173,7 @@ function ProjectBadgeDesktop(): JSX.Element {
       <h3>Cool Things</h3>
       <Carousel
         showArrows={false}
-        autoPlay={false}
+        autoPlay={true}
         renderThumbs={renderThumbs}
         showIndicators={false}
         infiniteLoop={true}

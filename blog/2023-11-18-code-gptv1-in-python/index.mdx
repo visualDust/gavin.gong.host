@@ -1,7 +1,430 @@
 ---
-title: Code GPTv1 in Pytorch
+title: Code Single File GPTv1 in Pytorch
 authors: [visualdust]
-tags: [deep learning,large language model,pytorch,python]
+tags: [deep learning, transformer, pytorch, python]
 ---
 
-# blog under construction
+## Abstract
+
+This page allows you:
+
+- [x] get full code (data preparation, model architecture, model training and predicting)
+- [x] understand the general architecture of transformer with a few illustrations
+- [x] understand how self regressive training works
+- [x] understand how to load very large text dataset into limited memory (OpenWebTextCorpus)
+- [x] train a simple GPT variant and observe the training procedure
+- [x] code a simple ask-and-answer interactive script
+
+## Code the module
+
+file `GPTv1.py`:
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+
+class SelfAttentionHead(nn.Module):
+    def __init__(
+        self, head_size, block_size, n_embed, dropout_rate=0.2, **kwargs
+    ) -> None:
+        super().__init__(**kwargs)
+        self.key = nn.Linear(n_embed, head_size, bias=False)
+        self.value = nn.Linear(n_embed, head_size, bias=False)
+        self.query = nn.Linear(n_embed, head_size, bias=False)
+        self.register_buffer(
+            "tril", torch.tril(torch.ones(block_size, block_size))
+        )  # no-look-ahead-mask
+        self.dropout = nn.Dropout(dropout_rate)
+
+    def forward(self, x):
+        # input of size (batch, time-step, channels)
+        # output of size (batch, time-step, head_size)
+        B, T, C = x.shape
+        # T is actually block size
+        k = self.key(x)
+        q = self.query(x)
+        # conpute self attention scores:
+        # dot product, and then scaling by 1/sqrt{length of a row in the keys or queries matrix}
+        weighted_attention: torch.Tensor = q @ k.transpose(-2, -1) * k.shape[-1] ** -0.5
+        # = (B,T,head_size)@(B,T,head_size).transpose(-2,-1)
+        # = (B,T,head_size)@(B,head_size,T) -> (B,T,T)
+        weighted_attention = weighted_attention.masked_fill(
+            self.tril[:T, :T] == 0, float("-inf")
+        )  # B,T,T, here T is block size
+        weighted_attention = F.softmax(weighted_attention, dim=-1)
+        weighted_attention = self.dropout(weighted_attention)
+        # perform weighted aggregation of the values
+        v = self.value(x)  # (B,T,head_size)
+        out = weighted_attention @ v  # (B,T,T)@(B,T,head_size) -> (B,T,head_size)
+        return out
+
+
+class MultiHeadAttention(nn.Module):
+    def __init__(
+        self, n_head, head_size, block_size, n_embed, dropout_rate=0.2, **kwargs
+    ) -> None:
+        super().__init__(**kwargs)
+        self.heads = (
+            nn.ModuleList(  # using ModuleList so that Heads are running in parallel
+                [
+                    SelfAttentionHead(
+                        head_size=head_size, block_size=block_size, n_embed=n_embed
+                    )
+                    for _ in range(n_head)
+                ]
+            )
+        )
+        self.projection = nn.Linear(head_size * n_head, n_embed)
+        self.dropout = nn.Dropout(dropout_rate)
+
+    def forward(self, x):
+        out = torch.cat([h(x) for h in self.heads], dim=-1)
+        out = self.projection(out)
+        out = self.dropout(out)
+        return out
+
+
+class FeedForward(nn.Module):
+    def __init__(self, n_embed, dropout_rate=0.2, **kwargs) -> None:
+        super().__init__(**kwargs)
+        self.net = nn.Sequential(
+            nn.Linear(n_embed, 4 * n_embed),
+            nn.ReLU(),
+            nn.Linear(4 * n_embed, n_embed),
+            nn.Dropout(dropout_rate),
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+
+class SelfAttentionBlock(nn.Module):
+    def __init__(self, n_head, block_size, n_embed, **kwargs) -> None:
+        super().__init__(**kwargs)
+        head_size = n_embed // n_head
+        self.sa = MultiHeadAttention(
+            n_head=n_head, block_size=block_size, head_size=head_size, n_embed=n_embed
+        )
+        self.ffwd = FeedForward(n_embed)
+        self.ln1 = nn.LayerNorm(n_embed)
+        self.ln2 = nn.LayerNorm(n_embed)
+
+    def forward(self, x):
+        y = self.sa(x)  # multi head attention
+        x = self.ln1(x + y)  # residual (add and norm)
+        y = self.ffwd(x)  # feedforward
+        x = self.ln2(x + y)  # residual (add and norm)
+        return x
+
+
+class GPTLangModel(nn.Module):
+    def __init__(
+        self, vocabulary_size, n_decoder, n_embed, n_head, block_size, **kwargs
+    ) -> None:
+        super().__init__(**kwargs)
+        self.block_size = block_size
+        self.token_embedding_table = nn.Embedding(vocabulary_size, n_embed)
+        self.position_embedding_table = nn.Embedding(block_size, n_embed)
+        self.blocks = nn.Sequential(
+            *[
+                SelfAttentionBlock(
+                    n_head=n_head, block_size=block_size, n_embed=n_embed
+                )
+                for _ in range(n_decoder)
+            ]
+        )
+
+        self.ln_f = nn.LayerNorm(n_embed)
+        self.lm_head = nn.Linear(n_embed, vocabulary_size)
+
+    def _int_weights(self, module):
+        if isinstance(module, nn.Linear):
+            nn.init.normal_(module.weight, mean=0.0, std=0.02)
+            if module.bias is not None:
+                nn.init.zeros_(module.bias)
+        elif isinstance(module, nn.Embedding):
+            nn.init.normal_(module.weight, mean=0.0, std=0.02)
+
+    def forward(self, index, target=None):
+        B, T = index.shape
+        token_embedding = self.token_embedding_table(index)
+        position_embedding = self.position_embedding_table(
+            torch.arange(T, device=device)
+        )
+        x = token_embedding + position_embedding
+        x = self.blocks(x)
+        x = self.ln_f(x)
+        logits = self.lm_head(x)
+        # if training, calculate loss
+        if target is None:
+            loss = None
+        else:
+            B, T, C = logits.shape
+            logits = logits.view(B * T, C)
+            targets = target.view(B * T)
+            loss = F.cross_entropy(logits, targets)
+        return logits, loss
+
+    def generate(self, index, max_new_tokens):
+        # index is (B,T) array of indices in the current context
+        for _ in range(max_new_tokens):
+            # crop idx to the last block_size tokens
+            index_cond = index[:, -self.block_size :]
+            # get the prediction
+            logits, loss = self.forward(index_cond)
+            # focus only on the last time step
+            logits = logits[:, -1, :]  # becomes (B, C)
+            # apply softmax to get probabilities
+            probs = F.softmax(logits, dim=-1)  # (B,C)
+            # get the index(sample from the distribution)
+            index_next = torch.multinomial(probs, num_samples=1)  # (B, 1)
+            # append sampled index to the running sequence
+            index = torch.cat((index, index_next), dim=1)  # (B, T+1)
+        return index
+
+```
+
+### Prepare data
+
+```python
+import math
+import lzma
+from neetbox.logging import logger
+from neetbox.utils import ResourceLoader
+
+from concurrent.futures import ThreadPoolExecutor
+
+dataset_folder = "E:\datasets\OpenWebText"
+output_file = "./data/output{}.txt"
+vocabulary_file = "./data/vocab.voc"
+xz_loder = ResourceLoader(folder=dataset_folder, file_types=["xz"], sub_dirs=False)
+xz_files = xz_loder.get_file_list()
+total_xz_files = len(xz_files)
+max_files_in_memory = (
+    5000  # it controls how many xz files will be decoded and written into .txt files.
+)
+
+vocabulary_set = set()
+logger.log("Converting xz files...")
+waves = math.ceil(total_xz_files / max_files_in_memory)
+waves = 1 if waves == 0 else waves
+
+
+def convert_xz_into_txt(xz_file_list, txt_id):
+    with open(output_file.format(txt_id), "w", encoding="utf-8") as outfile:
+        for count, file_path in enumerate(xz_file_list[:max_files_in_memory]):
+            if count >= max_files_in_memory:
+                break
+            with lzma.open(file_path, "rt", encoding="utf-8") as current_xz:
+                text = current_xz.read()
+                outfile.write(text)
+                characters = set(text)
+                vocabulary_set.update(characters)
+            xz_file_list = xz_file_list[max_files_in_memory:]
+    logger.ok(f"TXT id {txt_id} convertion complete.")
+
+
+def multi_thread_convert(max_workers=12):
+    with ThreadPoolExecutor(max_workers) as executor:
+        for i in range(waves):
+            start_index = i * max_files_in_memory
+            end_index = (
+                total_xz_files
+                if (i + 1) * max_files_in_memory > total_xz_files
+                else (i + 1) * max_files_in_memory
+            )
+            future = executor.submit(
+                convert_xz_into_txt, xz_files[start_index:end_index], i
+            )
+            logger.log(f"submitted task reading in range [{start_index}, {end_index})")
+
+# do convert
+multi_thread_convert(max_workers=12)
+# write vocabulary into text file
+with open(vocabulary_file,'w',encoding='utf-8') as voc_file:
+    for char in vocabulary_set:
+        voc_file.write(char + '\n')
+```
+
+## Code for training
+
+in `train.ipynb` or another .py file you would like:
+
+```python
+import os
+import mmap
+import torch
+from gptv1 import GPTLangModel
+import pickle
+from random import randint
+from tqdm import tqdm
+import matplotlib.pyplot as plt
+from neetbox.logging import logger
+from neetbox.utils import ResourceLoader
+```
+
+```python
+device = "cuda" if torch.cuda.is_available() else "cpu"
+```
+
+### The vocabulary table
+
+```python
+vocabulary = ""
+
+with open("data/vocab.voc",'r',encoding='utf-8') as f:
+    text = f.read()
+    vocabulary = sorted(list(set(text)))
+
+string2int = {ch:i for i,ch in enumerate(vocabulary)}
+int2string = {i:ch for i,ch in enumerate(vocabulary)}
+encode = lambda s:[string2int[c] for c in s]
+decode = lambda l: ''.join([int2string[i] for i in l])
+decode(encode('you should see decode after encode'))
+```
+
+### data loader
+
+```python
+# Please run 'convert_data.py' first.
+
+block_size = 128
+batch_size = 64
+
+txt_loader = ResourceLoader(folder="./data", file_types=["txt"], force_rescan=True)
+train_txts = [txt for txt in txt_loader.get_file_list() if "test.txt" not in txt]
+test_txt = [txt for txt in txt_loader.get_file_list() if "test.txt" in txt][0]
+
+
+def get_random_text_chunk(which="train"):
+    random_file = (
+        train_txts[randint(0, len(train_txts) - 1)] if which == "train" else test_txt
+    )
+    with open(random_file, "rb") as f:
+        with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ) as mm:
+            # using memory mapping
+            # determine the file size and a random position to start with
+            filesize = len(mm)
+            pos_start = randint(0, filesize - block_size * batch_size)
+            # seek to the random position and read the block into memory
+            mm.seek(pos_start)
+            mem_block = mm.read(block_size * batch_size - 1)
+            # decode the block into a string, ignoring any invalid sequences
+            block_decoded = mem_block.decode("utf-8", errors="ignore").replace('\r', '')
+            data = torch.tensor(encode(block_decoded), dtype=torch.long)
+    return data
+
+def get_batch(data): # generate a each-time-random batch with batchsize
+    # ix indicates random index in the text. Its size is batch_size that you can use it to sample batch_size times.
+    ix = torch.randint(len(data) - block_size, (batch_size,))
+    # print(ix) # ix is random location(index) in text
+    x = torch.stack([data[i : i + block_size] for i in ix])
+    y = torch.stack([data[i + 1 : i + block_size + 1] for i in ix])
+    x,y = x.to(device),y.to(device)
+    return x,y
+
+x,y = get_batch(get_random_text_chunk()) # test
+print(f'x,y on {device}')
+print(f'training set x size: {x.shape}')
+print(f'training set y size: {y.shape}')
+
+```
+
+### Get the model
+
+```python
+model = GPTLangModel(
+    vocabulary_size=len(vocabulary),
+    n_decoder=8,
+    n_head=8,
+    n_embed=384,
+    block_size=block_size,
+)
+# try load model weight from file
+try:
+    if os.path.exists("model.pkl"):
+        with open("model.pkl", "rb") as f:
+            model = pickle.load(f)
+            logger.log("model loaded from existing pkl file")
+except:
+    logger.err("Error occured while loading from existing weight. Using new one anyway")
+# move model to target device
+model = model.to(device)
+logger.ok(f"{model.__class__} now on {device}")
+```
+
+### Define test method
+
+```python
+# define how to test
+@torch.no_grad()
+def test(epoch):
+    _out = {}
+    model.eval()
+    for which in ['train','test']:
+        _loss = torch.zeros(epoch)
+        for i in range(epoch):
+            test_x,test_y = get_batch(get_random_text_chunk(which))
+            logits,loss = model(test_x,test_y)
+            _loss[i] = loss.item()
+        _out[which] = _loss.mean().item()
+    model.train()
+    return _out
+```
+
+### Start training
+
+```python
+learning_rate = 1e-4
+max_iter = 10000
+eval_per_iter = max_iter / 10
+loss_history_train = []
+loss_history_test = []
+
+# define optimizer
+optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate)
+
+current_loss = 114514.0
+for iter in tqdm(range(max_iter)):
+    # random batch data
+    xb, yb = get_batch(get_random_text_chunk())
+    # get predict and loss
+    logits, loss = model.forward(xb, yb)
+    optimizer.zero_grad(set_to_none=True)
+    loss.backward()
+    if iter and iter % eval_per_iter == 0:
+        _out = test(10)
+        loss_history_train.append(_out["train"])
+        loss_history_test.append(_out["test"])
+        if _out["test"] <= current_loss:
+            with open("model.pkl", "wb") as f:
+                pickle.dump(model, f)
+                logger.log("model saved to pkl file")
+            current_loss = _out["test"]
+    optimizer.step()
+```
+
+## Result
+
+### Check training history
+
+```python
+plt.plot(loss_history_train, color="black", linestyle="--", label="train loss")
+plt.plot(loss_history_test, color="red", label="test loss")
+plt.legend()
+plt.show()
+```
+
+### Predict
+
+```
+# test model
+prompt = 'Hello! Can you see me?'
+context = torch.tensor(encode(prompt), dtype=torch.long, device=device)
+generated_chars = decode(model.generate(context.unsqueeze(0), max_new_tokens=100)[0].tolist())
+print(generated_chars)
+```

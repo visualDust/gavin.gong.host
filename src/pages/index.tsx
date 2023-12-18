@@ -95,6 +95,7 @@ import { FaLink } from "react-icons/fa6";
 import { BsTelegram } from "react-icons/bs";
 import Link from "@docusaurus/Link";
 import clsx from "clsx";
+import CurrentlyMaintaining from "../components/project_badge/CurrentlyMaintaining";
 
 const MyLinks: LinkProps[] = [
   {
@@ -391,6 +392,7 @@ function HomePageMobile(): JSX.Element {
         <MyGitHubCalendarBrowserOnly />
       </div>
       <AkasakFeaturesMobile />
+      <CurrentlyMaintaining />
       <ProjectBadge />
     </div>
   );
@@ -415,6 +417,7 @@ function HomePageDesktop(): JSX.Element {
         <ComponentPersonalInfoAndLinksDesktop />
       </div>
       <AkasakFeaturesDesktop />
+      <CurrentlyMaintaining />
       <ProjectBadge />
     </div>
   );

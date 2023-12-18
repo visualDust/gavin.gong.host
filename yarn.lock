@@ -3304,18 +3304,6 @@
     path-browserify "^1.0.0"
     url-parse "~1.5.4"
 
-"@jupyterlab/coreutils@^6.1.0-alpha.3":
-  version "6.1.0-alpha.3"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/coreutils/-/coreutils-6.1.0-alpha.3.tgz#9e717ee005029699c5dcdef3097fcd6b711723ac"
-  integrity sha512-NMrSmJZ1DCyePVbYEKk8xcoMF8tSh2Ejr7jUFYujyBU3/Ups9i7g19auFAKw18eoCJs9/3Xe9AMdC979mwo+MA==
-  dependencies:
-    "@lumino/coreutils" "^2.1.2"
-    "@lumino/disposable" "^2.1.2"
-    "@lumino/signaling" "^2.1.2"
-    minimist "~1.2.0"
-    path-browserify "^1.0.0"
-    url-parse "~1.5.4"
-
 "@jupyterlab/docmanager@4.0.0-alpha.18":
   version "4.0.0-alpha.18"
   resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/docmanager/-/docmanager-4.0.0-alpha.18.tgz#1b39442d88fb5eee0e885259493e7bf89dcb47c2"
@@ -3741,13 +3729,6 @@
   dependencies:
     "@lumino/coreutils" "^2.1.2"
 
-"@jupyterlab/nbformat@^4.1.0-alpha.3":
-  version "4.1.0-alpha.3"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/nbformat/-/nbformat-4.1.0-alpha.3.tgz#aceb9fe441bd83d4bca7b8e6198315daaf3c0db7"
-  integrity sha512-YNv0GGDDFyYrrRgV7A5O7981jHfzjAW2jBDP26uzdx1S7QqeEnlSXIg398rkU7mQuoIlMHm5hZ73lINTg/tN4g==
-  dependencies:
-    "@lumino/coreutils" "^2.1.2"
-
 "@jupyterlab/notebook@4.0.0-alpha.18":
   version "4.0.0-alpha.18"
   resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/notebook/-/notebook-4.0.0-alpha.18.tgz#28efb78dc5b5ac7220ebf3c8c22dc84bdb542913"
@@ -4105,15 +4086,15 @@
     ws "^8.11.0"
 
 "@jupyterlab/services@^7.0.9":
-  version "7.1.0-alpha.3"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/services/-/services-7.1.0-alpha.3.tgz#d478a526e1fa579dda4fefaced84978c5582886c"
-  integrity sha512-pkS/ojhyg2aURXo/pA/fSO1B3GxIrF2Y4hL8ZRyUxIaqQ9wBESSq7dnRAb4lMtaylmXGGHq7lkzUGdlUVE2jUg==
+  version "7.0.9"
+  resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/services/-/services-7.0.9.tgz#2631d7fa726e4cd49b1922b6963f770a5fefb183"
+  integrity sha512-nsW22kSymW6kBxb6YWf1rgY1TKBrSymsvYNF03D5xZ/5OJphrBDdCfGYqxknWHXqdK+yXwgSp+MyaVZ3VoywpQ==
   dependencies:
     "@jupyter/ydoc" "^1.1.1"
-    "@jupyterlab/coreutils" "^6.1.0-alpha.3"
-    "@jupyterlab/nbformat" "^4.1.0-alpha.3"
-    "@jupyterlab/settingregistry" "^4.1.0-alpha.3"
-    "@jupyterlab/statedb" "^4.1.0-alpha.3"
+    "@jupyterlab/coreutils" "^6.0.9"
+    "@jupyterlab/nbformat" "^4.0.9"
+    "@jupyterlab/settingregistry" "^4.0.9"
+    "@jupyterlab/statedb" "^4.0.9"
     "@lumino/coreutils" "^2.1.2"
     "@lumino/disposable" "^2.1.2"
     "@lumino/polling" "^2.1.2"
@@ -4162,21 +4143,6 @@
     ajv "^8.12.0"
     json5 "^2.2.3"
 
-"@jupyterlab/settingregistry@^4.1.0-alpha.3":
-  version "4.1.0-alpha.3"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/settingregistry/-/settingregistry-4.1.0-alpha.3.tgz#34b1ec9cb6e4c18242d7cc1f6c4eddbb5a6d448e"
-  integrity sha512-HR07U0Hkm1AJoiJevcDmVmFiMIj3E5t+gwxic06XY2lGo/aFoZrNgnWqmRaMgvfAtVt0+6TD5M+M9ahg637xDw==
-  dependencies:
-    "@jupyterlab/nbformat" "^4.1.0-alpha.3"
-    "@jupyterlab/statedb" "^4.1.0-alpha.3"
-    "@lumino/commands" "^2.1.3"
-    "@lumino/coreutils" "^2.1.2"
-    "@lumino/disposable" "^2.1.2"
-    "@lumino/signaling" "^2.1.2"
-    "@rjsf/utils" "^5.13.2"
-    ajv "^8.12.0"
-    json5 "^2.2.3"
-
 "@jupyterlab/shared-models@^3.6.6":
   version "3.6.6"
   resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/shared-models/-/shared-models-3.6.6.tgz#c4e62569537c16f59e1a621b6cafdc8a350e2e8c"
@@ -4211,17 +4177,6 @@
   version "4.0.9"
   resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/statedb/-/statedb-4.0.9.tgz#076ce0c458caf6c0124452158c691dab2064b9d4"
   integrity sha512-8zrDKaeg8mwqol/Aicylmbnv5tEuLAeUC/h+g7rZQzVj9LcMCiF44sse9VOQYLvOhykzQHJ1E1Iodo5FLbDzng==
-  dependencies:
-    "@lumino/commands" "^2.1.3"
-    "@lumino/coreutils" "^2.1.2"
-    "@lumino/disposable" "^2.1.2"
-    "@lumino/properties" "^2.0.1"
-    "@lumino/signaling" "^2.1.2"
-
-"@jupyterlab/statedb@^4.1.0-alpha.3":
-  version "4.1.0-alpha.3"
-  resolved "https://mirrors.huaweicloud.com/repository/npm/@jupyterlab/statedb/-/statedb-4.1.0-alpha.3.tgz#a8019d40f8c00f9f22030175f891832002a71e0e"
-  integrity sha512-GJyN+b2UYXE+GvBE5cV+Co6vdyzfn9Wvt+W+L0qX/ITLa0xvxREPRsgblgYqkBSwHnRWH1DzgRbAq4ouxPfQmw==
   dependencies:
     "@lumino/commands" "^2.1.3"
     "@lumino/coreutils" "^2.1.2"
@@ -5504,7 +5459,7 @@
     nanoid "^3.3.6"
     prop-types "^15.8.1"
 
-"@rjsf/utils@^5.1.0", "@rjsf/utils@^5.13.2":
+"@rjsf/utils@^5.1.0":
   version "5.14.2"
   resolved "https://mirrors.huaweicloud.com/repository/npm/@rjsf/utils/-/utils-5.14.2.tgz#efb26f581a846346136f414ff272fcf4c655d836"
   integrity sha512-NyVrYEKYm9gXtnn06TDDUK6hWKs8LVBP1AZWfGeDoyFcBitj+kxMYIt8sB5GuM/lje8BrBM+cBLWi4p/SNymzg==
