@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { Suspense, useEffect, useMemo, useState } from 'react';
 import Layout from "@theme/Layout";
-import BlogRelationGraph from '@site/src/components/blogPostRelationGraph';
 import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import { useColorMode } from "@docusaurus/theme-common";
 import clsx from 'clsx';
 import BrowserOnly from '@docusaurus/BrowserOnly';
-import styles from './index.module.css'
+
+const BlogRelationGraph = React.lazy(() => import('@site/src/components/blogPostRelationGraph'));
 
 function Year({ year, posts }) {
   return (
@@ -187,7 +187,7 @@ export default function BlogArchivePageWrapper(props) {
         <div className='by_graph'>
           <h2 style={{ textAlign: 'center', marginLeft: "20px", marginRight: "20px" }}>View By Graph</h2>
           <div style={{ width: "100%" }}>
-            <BlogRelationGraph graph={graph} />
+            <BrowserOnly children={() => <Suspense><BlogRelationGraph graph={graph} /></Suspense>} />
           </div>
         </div>
       </div>
