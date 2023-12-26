@@ -274,7 +274,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
             maxWidth: "250px",
             borderRadius: "10px 10px 10px 10px",
           }}
-          src="/img/VisualDust.jpg"
+          src="/img/visualdust.jpg"
         ></img>
         <ComponentNameDesktop />
         <div>
@@ -326,7 +326,7 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
               marginTop: "10%",
               borderRadius: "10px 10px 10px 10px",
             }}
-            src="/img/VisualDust.jpg"
+            src="/img/visualdust.jpg"
           ></img>
           <ComponentNameMobile />
         </div>
