@@ -25,7 +25,7 @@ function BadgeDesktop({
           flex: "1",
           flexDirection: "column",
           textAlign: "left",
-          paddingRight: "3%",
+          paddingRight: "1%",
         }}
       >
         <div>
@@ -40,17 +40,25 @@ function BadgeDesktop({
           </div>
         ) : null}
       </div>
-      <Carousel
-        showArrows={true}
-        autoPlay={true}
-        showIndicators={false}
-        swipeable={false}
-        infiniteLoop={true}
+      <div
+        style={{
+          display: "flex",
+          flex: "1",
+          paddingLeft: "1%",
+        }}
       >
-        {imgUrls.map((src, idx) => (
-          <img key={idx} style={{ objectFit: "fill" }} src={src} />
-        ))}
-      </Carousel>
+        <Carousel
+          showArrows={true}
+          autoPlay={true}
+          showIndicators={false}
+          swipeable={false}
+          infiniteLoop={true}
+        >
+          {imgUrls.map((src, idx) => (
+            <img key={idx} style={{ objectFit: "fill" }} src={src} />
+          ))}
+        </Carousel>
+      </div>
     </div>
   );
 }
@@ -66,7 +74,7 @@ function BadgeMobile({
     <div
       style={{
         backgroundColor: "var(--floating-card-background)",
-        borderRadius: "0 0 20px 20px",
+        borderRadius: "20px",
       }}
     >
       <div
@@ -82,7 +90,11 @@ function BadgeMobile({
           infiniteLoop={true}
         >
           {imgUrls.map((src, idx) => (
-            <img key={idx} style={{ objectFit: "fill" }} src={src} />
+            <img
+              key={idx}
+              style={{ objectFit: "fill", borderRadius: "20px 20px 0 0" }}
+              src={src}
+            />
           ))}
         </Carousel>
         <h3
@@ -113,6 +125,7 @@ function BadgeMobile({
               bottom: "5%",
               textAlign: "center",
               overflow: "hidden",
+              margin: "20px",
             }}
           >
             <a href={buttonLink} className="button button--primary">
@@ -139,7 +152,7 @@ const badgeItem: BadgeItem = {
 function ProjectBadgeMobile(): JSX.Element {
   return (
     <div style={{ margin: "5%" }}>
-      <h3 style={{textAlign:"center"}}>Recently Maintaining</h3>
+      <h3 style={{ textAlign: "center" }}>Recently Maintaining</h3>
       <BadgeMobile {...badgeItem} />
     </div>
   );
@@ -147,8 +160,8 @@ function ProjectBadgeMobile(): JSX.Element {
 
 function ProjectBadgeDesktop(): JSX.Element {
   return (
-    <div style={{ margin: "5%", maxWidth: "1000px" }}>
-      <h3 style={{textAlign:"end"}}>Recently Maintaining</h3>
+    <div style={{ maxWidth: "1000px", marginTop: "50px" }}>
+      <h3 style={{ textAlign: "end" }}>Recently Maintaining</h3>
       <BadgeDesktop {...badgeItem} />
     </div>
   );

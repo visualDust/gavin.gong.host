@@ -71,7 +71,7 @@ function BadgeMobile({
             top: "5%",
             width: "100%",
             textAlign: "left",
-            textShadow: 'var(--ifm-color-emphasis-0) 1px 0 10px',
+            textShadow: "var(--ifm-color-emphasis-0) 1px 0 10px",
           }}
         >
           {title}
@@ -150,7 +150,7 @@ const renderThumbs = (array) => {
 function ProjectBadgeMobile(): JSX.Element {
   return (
     <div style={{ margin: "5%" }}>
-      <h3 style={{textAlign:"center"}}>Cool Things</h3>
+      <h3 style={{ textAlign: "center" }}>Cool Things</h3>
       <Carousel
         showArrows={true}
         autoPlay={true}
@@ -169,7 +169,7 @@ function ProjectBadgeMobile(): JSX.Element {
 
 function ProjectBadgeDesktop(): JSX.Element {
   return (
-    <div style={{ margin: "5%", maxWidth: "1000px" }}>
+    <div style={{ maxWidth: "1000px" }}>
       <h3>Cool Things</h3>
       <Carousel
         showArrows={false}

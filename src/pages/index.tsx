@@ -55,28 +55,20 @@ function ComponentPersonalInfo(): JSX.Element {
       </p>
       <p style={{ marginBottom: "5px" }}>
         <strong>
-          My research interests span the broad area of computer vision
+          My research interests span the broad area of Computer Vision, Larg
+          Language Models, Generative Models and Unsupervised Learning
         </strong>
-        , especially in dence prediction(i.e. semantic segmentation), point
-        clouds and 3D reconstruction, as well as fine tuning and optimizing deep
-        learning models into software systems. I'm also interested in generative
-        models(i.e. diffusion models), and few shot learning(i.e. AutoEncoders).
+        , as well as fine tuning and optimizing deep learning models into
+        software systems. I'm also interested in generative models(i.e.
+        diffusion models), and few shot learning(i.e. AutoEncoders).
       </p>
       <p style={{ marginBottom: "5px" }}>
         <strong>
           My ultimate goal is autonomous driving and autonomous control
         </strong>
         . I enjoy doing research, experiments, and building highly performant
-        systems via software approaches.
-      </p>
-      <p style={{ marginBottom: "5px" }}>
-        I'm
-        <strong> looking for PhD/MS CS and other opportunities.</strong> You can
-        find my full CV
-        <a href="/resume-cv.pdf">
-          <strong> HERE</strong>
-        </a>
-        .
+        systems via software approaches. I'm
+        <strong> looking for PhD/MS CS and other opportunities.</strong>
       </p>
     </div>
   );
