@@ -5,13 +5,13 @@
  */
 
 :root {
-  --ifm-color-primary: rgb(76, 104, 215);
-  --ifm-color-primary-dark: rgb(87, 184, 255);
-  --ifm-color-primary-darker: rgb(251, 177, 60);
+  --ifm-color-primary: rgb(204, 0, 0);
+  --ifm-color-primary-dark: rgb(233, 33, 33);
+  --ifm-color-primary-darker: rgb(255, 105, 105);
   --ifm-color-primary-darkest: rgb(255, 90, 95);
-  --ifm-color-primary-light: rgb(52, 119, 219);
-  --ifm-color-primary-lighter: rgb(11, 90, 209);
-  --ifm-color-primary-lightest: rgb(19, 84, 181);
+  --ifm-color-primary-light: rgb(181, 0, 0);
+  --ifm-color-primary-lighter: rgb(255, 0, 111);
+  --ifm-color-primary-lightest: rgb(255, 106, 151);
   --ifm-code-font-size: 95%;
   --floating-card-background: rgb(240, 240, 240);
   --ifm-navbar-background-color-desktop-only: rgba(255, 255, 255, 0.6);
@@ -19,7 +19,7 @@
 }
 
 html[data-theme="dark"] {
-  --ifm-color-primary: rgb(126, 177, 254);
+  --ifm-color-primary: rgb(254, 126, 126);
   --floating-card-background: rgb(53, 53, 53);
   --ifm-navbar-background-color-desktop-only: rgba(36, 37, 38, 0.6);
 }

@@ -117,11 +117,6 @@ const config = {
             position: "left"
           },
           {
-            href: "https://ml.akasaki.space",
-            label: "Deep learning Section",
-            position: "right",
-          },
-          {
             href: "https://neetbox.550w.host",
             label: "NEETBox",
             position: "right",

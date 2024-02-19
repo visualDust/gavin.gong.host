@@ -46,29 +46,30 @@ function ComponentPersonalInfo(): JSX.Element {
       }}
     >
       <p style={{ marginBottom: "5px" }}>
-        I'm currently a
-        <strong> final year B.E. in Computer Science and Technology</strong>, at
-        School of Computer and Information Security, Guilin University of
-        Electronic Technology in China. I taught myself computer vision related
-        content during my undergraduate studies. I consist of Python, C#, C++,
-        Java, Kotlin, Latex, dotnet, React, PyTorch, and LaTeX.
+        <strong>I'm currently a final year bachelor in Computer Science</strong>
+        , at School of Computer and Information Security,{" "}
+        <strong>Guilin University of Electronic Technology</strong>. I taught
+        myself computer vision and large language model related content during
+        my undergraduate studies. I consist of Python, C#, C++, CUDA, Java,
+        Kotlin, Latex, dotnet, React, PyTorch, and LaTeX.
       </p>
       <p style={{ marginBottom: "5px" }}>
-        <strong>
-          My research interests span the broad area of Computer Vision, Larg
-          Language Models, Generative Models and Unsupervised Learning
-        </strong>
-        , as well as fine tuning and optimizing deep learning models into
-        software systems. I'm also interested in generative models(i.e.
-        diffusion models), and few shot learning(i.e. AutoEncoders).
+        My research topic mainly focuses on secured machine learning and
+        learning privacy, especially on Homomorphic Encryption for learning. My
+        research interests span the broad area of Computer Vision, Large
+        Language Models, Generative Models and Unsupervised Learning, as well as
+        fine-tuning and optimizing deep learning models into software systems.
       </p>
       <p style={{ marginBottom: "5px" }}>
+        I have recently received{" "}
+        <strong>Doctor of Philosophy (Ph.D.) Computer Science</strong> Offer
+        from{" "}
         <strong>
-          My ultimate goal is autonomous driving and autonomous control
+          <span style={{ color: "var(--ifm-color-primary)" }}>
+            North Carolina State University
+          </span>
         </strong>
-        . I enjoy doing research, experiments, and building highly performant
-        systems via software approaches. I'm
-        <strong> looking for PhD/MS CS and other opportunities.</strong>
+        , I will start my PhD learning in fall 2024.
       </p>
     </div>
   );
@@ -85,6 +86,7 @@ import { IoLogoGithub } from "react-icons/io5";
 import { IoMail } from "react-icons/io5";
 import { FaLink } from "react-icons/fa6";
 import { BsTelegram } from "react-icons/bs";
+import { TbDeviceDesktopCog } from "react-icons/tb";
 import Link from "@docusaurus/Link";
 import clsx from "clsx";
 import CurrentlyMaintaining from "../components/project_badge/CurrentlyMaintaining";
@@ -96,7 +98,7 @@ const MyLinks: LinkProps[] = [
     icon: <IoMail />,
   },
   {
-    url: "https://t.me/VisualDust",
+    url: "https://t.me/VisualDusts",
     text: "Telegram",
     icon: <BsTelegram />,
   },
@@ -106,9 +108,14 @@ const MyLinks: LinkProps[] = [
     icon: <IoLogoGithub />,
   },
   {
-    url: "http://gavin.gong.host/about",
+    url: "https://gavin.gong.host/about",
     text: "Friends",
     icon: <FaLink />,
+  },
+  {
+    url: "https://browser.geekbench.com/user/423425",
+    text: "GeekBench",
+    icon: <TbDeviceDesktopCog />,
   },
 ];
 
@@ -269,8 +276,15 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
           src="/img/visualdust.jpg"
         ></img>
         <ComponentNameDesktop />
-        <div>
-          <ComponentLinkDesktop></ComponentLinkDesktop>
+        <div style={{ display: "flex", justifyContent: "left" }}>
+          <img
+            style={{ width: "30%", paddingRight: "5%" }}
+            src="/img/logo-ncsu.svg"
+          />
+          <img
+            style={{ width: "30%", paddingRight: "5%" }}
+            src="/img/logo-guet.svg"
+          />
         </div>
       </div>
       <div
@@ -282,7 +296,8 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
           overflow: "hidden",
         }}
       >
-        <ComponentPersonalInfo></ComponentPersonalInfo>
+        <ComponentPersonalInfo />
+        <ComponentLinkDesktop />
         <MyGitHubCalendarBrowserOnly />
       </div>
     </div>
@@ -324,6 +339,16 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
         </div>
       </div>
       <ComponentPersonalInfo></ComponentPersonalInfo>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <img
+          style={{ width: "30%", paddingRight: "3%" }}
+          src="/img/logo-ncsu.svg"
+        />
+        <img
+          style={{ width: "30%", paddingLeft: "3%" }}
+          src="/img/logo-guet.svg"
+        />
+      </div>
       <ComponentLinkMobile></ComponentLinkMobile>
     </div>
   );

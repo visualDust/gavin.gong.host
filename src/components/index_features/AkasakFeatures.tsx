@@ -7,7 +7,6 @@
 import React from "react";
 import clsx from "clsx";
 import styles from "./AkasakiFeatures.module.css";
-import useIsMobile from "../../hooks/useIsMobile";
 
 type FeatureItem = {
   title: string;
@@ -19,19 +18,7 @@ type FeatureItem = {
 
 export const FeatureList: FeatureItem[] = [
   {
-    title: "As a CV Learner",
-    image: "/img/illustrations/teaching.svg",
-
-    description: (
-      <>
-        Self taught learning materials by me and my friends. Focusing on Deep learning technique for Computer Vision.
-      </>
-    ),
-    buttonLink: "https://ml.akasaki.space/",
-    buttonText: "Join Together",
-  },
-  {
-    title: "As a Programmer",
+    title: "Blogs",
     image: "/img/illustrations/startup_life.svg",
 
     description: (
@@ -40,10 +27,22 @@ export const FeatureList: FeatureItem[] = [
       </>
     ),
     buttonLink: "/blog/",
-    buttonText: "Random Blogs",
+    buttonText: "Visit Blogs (EN)",
   },
   {
-    title: "As a researcher",
+    title: "CV Tutorial",
+    image: "/img/illustrations/teaching.svg",
+
+    description: (
+      <>
+        Self taught learning materials by me and my friends. Focusing on Deep learning technique for Computer Vision.
+      </>
+    ),
+    buttonLink: "https://ml.akasaki.space/",
+    buttonText: "Visit (CN only)",
+  },
+  {
+    title: "CV Paper Reading Notes",
     image: "/img/illustrations/researching.svg",
     description: (
       <>
@@ -51,7 +50,7 @@ export const FeatureList: FeatureItem[] = [
       </>
     ),
     buttonLink: "https://ml.akasaki.space/blog",
-    buttonText: "Paper Reading Blogs",
+    buttonText: "Visit (CN only)",
   },
 ];
 
