@@ -1,6 +1,6 @@
 ---
 title: A Quick(?) Toturial on CUDA Programming
-authors: [visualdust]
+authors: [visualdust, keter]
 tags: [cuda, c, cpp]
 ---
 
@@ -9,6 +9,7 @@ tags: [cuda, c, cpp]
 CUDA (Compute Unified Device Architecture) is a parallel computing platform and application programming interface (API) model created by NVIDIA. It enables developers to utilize the immense computational power of NVIDIA GPUs (Graphics Processing Units) for general-purpose processing tasks beyond graphics rendering.
 
 Key features of CUDA programming include:
+
 1. Parallelism: CUDA enables developers to exploit parallelism at multiple levels, including thread-level, instruction-level, and data-level parallelism, allowing for efficient computation on GPUs.
 2. CUDA C/C++ Language Extensions: CUDA extends the C/C++ programming languages with additional keywords and constructs to facilitate programming for GPU architectures, making it easier to write parallel code.
 3. CUDA Runtime API: The CUDA Runtime API provides a set of functions for managing GPU devices, memory allocation, data transfer between CPU and GPU, and launching kernel functions (the functions executed on the GPU).
@@ -19,7 +20,7 @@ CUDA programming allows developers to harness the massive parallel processing po
 
 :::danger
 **BEFORE YOU CONTINUE**  
-This is a short version of the first five chapters of [Professional CUDA C Programming](https://www.cs.utexas.edu/~rossbach/cs380p/papers/cuda-programming.pdf), summarized by [VisualDust](https://gavin.gong.host). The content on this page does not completely refer to the content in the book, but adds additional new content to facilitate understanding. Please refer to the original document for more accurate information. 
+This page is a mixture of the first five chapters of [Professional CUDA C Programming](https://www.cs.utexas.edu/~rossbach/cs380p/papers/cuda-programming.pdf), and [NVIDIA's official CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html), and [Keter's CUDA Tutorial](https://cuda.keter.top) as well as other source of knowledge about CUDA programming, summarized by [VisualDust](https://gavin.gong.host). The content on this page does not completely refer to the source of reference, but adds additional new content to facilitate understanding. Please refer to the original document for more accurate information. 
 :::
 
 <!--truncate-->
@@ -27,7 +28,7 @@ This is a short version of the first five chapters of [Professional CUDA C Progr
 ## Prerequisites
 
 Before you get get started with CUDA programming, please make sure:
-- You have at least one NVIDIA GPU on your computer 
+- You have at least one NVIDIA GPU on your computer(Pascal or newer)
 - [NVIDIA Driver](https://www.nvidia.com/download/index.aspx) is installed
 - [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) is installed, please also make sure you select also install [nsight](https://developer.nvidia.com/nsight-systems) when installing CUDA on windows, or install cuda-tools(which should include nsight system) separately when installing on linux.
 - [`nvcc` Compiler](https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html) is ready (which should be ready itself after you have CUDA installed)
@@ -43,7 +44,7 @@ Build cuda_12.3.r12.3/compiler.33567101_0
 ```
 
 :::success
-The version of your `nvcc` compiler could vary from different environment you are using. Don't worry if your GPU is old, this tutorial should work on most microarchitecture of NVIDIA GPUs, even for GPUs with Kepler microarchitecture such as GTX 780.
+The version of your `nvcc` compiler could vary from different environment you are using. Don't worry if your GPU is old, this tutorial should work on most microarchitecture of NVIDIA GPUs, even date back to Pascal GPUs.
 :::
 
 Besides, you should know the basics and fundamental knowledge about C/C++ programming.
@@ -361,7 +362,7 @@ A kernel function **must have a `void` return type**. Besides, The following res
 The `__device__` and `__host__` qualifiers can be used together, in which case the function is compiled for both the host and the device.
 :::
 
-### Organizing Threads
+### Threads Hierarchy
 
 CUDA programming is about to do a lot of work on data, and that's all about multi-threading. Fortunately, one of CUDA’s distinguishing features is that it exposes a two-level thread hierarchy through the programming model, and its relatively easier.
 
@@ -598,10 +599,13 @@ kernel_name<<<4, 8>>>(argument list);
 
 ![](./imgs/index/0a808afeeb997181c4aac4010.png)
 
-Then you can access the correct data in kernel function via `blockDim` and `threadIdx`. Here's an example CUDA code that demonstrates copying values of array `a` and `b` from CPU to GPU, performing an addition operation (`add`) on the GPU, and then copying the result `c` back from GPU to CPU and printing it to the console.
+Then you can access the correct data in kernel function via `blockDim` and `threadIdx`. 
 
-In this example, we have 1000 values in array `a` and `b`, we use 1000 threads to calculate each of the sum of the elements from `a` and `b`:
+## Example: Summing Matrices with a 1D Grid and 1D Blocks
 
+Here's an example CUDA code that demonstrates copying values of array `a` and `b` from CPU to GPU, performing an addition operation (`add`) on the GPU, and then copying the result `c` back from GPU to CPU and printing it to the console. In this example, we have 1000 values in array `a` and `b`, we use 1000 threads to calculate each of the sum of the elements from `a` and `b`:
+
+File `add-with-1d-grid-1d-block.cu`:
 ```cpp
 #include <stdio.h>
 
@@ -666,7 +670,18 @@ int main() {
 }
 
 ```
-output:
+
+### Run the code
+
+In terminal, move to your working directory, and type:
+```bash
+nvcc add-with-1d-grid-1d-block.cu -o add
+```
+Wait for `nvcc` complete, and run the generated executable:
+```bash
+./add
+```
+The output should be:
 ```
 0 + 1000 = 1000
 1 + 999 = 1000
@@ -693,7 +708,13 @@ It's important to note that after calling `cudaDeviceReset()`, any subsequent CU
 If you forget to reset the CUDA device at the end of your program, it may result in various issues, depending on the specifics of your program and the environment it's running in. Potential consequences include Resource Leakage, Resource Contention, System Instability and things like that. While forgetting to reset the CUDA device at the end of your program may not always cause immediate or catastrophic failures, it can lead to long-term issues such as resource leaks, performance degradation, and unpredictable behavior. It's good practice to properly clean up CUDA resources by calling `cudaDeviceReset()` at the end of your CUDA program to ensure proper resource management and system stability.
 :::
 
-### How many thread do you need
+## Organizing Threads
+
+Wait bro, you should systematically understand the concepts of Thread, Block, and Grid in CUDA programming before you continue. Your NVIDIA GPU generally contains many SM(Stream Processor). Each SM is the basic computing unit in the CUDA architecture. It can be divided into several (such as 2~3) grids, and each grid contains several (such as 65535) Thread blocks, each thread block contains a number (such as 512) threads.
+
+Among them, a Grid can contain multiple Blocks. The distribution mode of Blocks can be one-dimensional, two-dimensional, or three-dimensional; a Block contains multiple Threads, and the distribution mode of Threads can also be one-dimensional, two-dimensional, or three-dimensional.
+
+### How many thread do you need?
 
 Since you already know, in CUDA programming, data is divided into many parts, and each part is processed by a separate thread. So it is important that you know how many thread will it take to launch the kernel in order to perform computation on specific data. 
 
@@ -749,8 +770,199 @@ Example above uses a 1D grid and 1D blocks to illustrate that when the block siz
 
 Each call to the CUDA kernel creates a new grid consisting of multiple blocks. Each block consists of up to 1024 individual threads. These constants can be found in the CUDA Programming Guide. Threads within the same block can access the same shared memory area (SMEM).
 
-## The example of matrix multiplication
+### Thread ID with different Grid/Block Dimension
 
+You may have seen the code line to get the thread id:
+```cpp
+const uint threadId = blockIdx.x * blockDim.x + threadIdx.x;
+```
+The code assume that the units in Block and Grid here are organized in a one-dimensional form, so when calculating tid, we only need the built-in variables with the .x suffix.
+
+For two-dimensional and three-dimensional Block and Grid as well as other different sets of Block-Grid dimentions, the index of each thread is calculated as follows:
+
+- 1 dimentional Grid and 1 dimentional Block:
+```cpp
+int threadId = blockIdx.x *blockDim.x + threadIdx.x; 
+```
+- 1 dimentional Grid and 2 dimentional Block：
+```cpp
+int threadId = blockIdx.x * blockDim.x * blockDim.y + 
+              threadIdx.y * blockDim.x + threadIdx.x;  
+```
+- 1 dimentional Grid and 3 dimentional Block：
+```cpp
+int threadId = blockIdx.x * blockDim.x * blockDim.y * blockDim.z + 
+              threadIdx.z * blockDim.y * blockDim.x +
+              threadIdx.y * blockDim.x + threadIdx.x;  
+```
+- 2 dimentional Grid and 2 dimentional Block：
+```cpp
+int blockId = blockIdx.x + blockIdx.y * gridDim.x;  
+int threadId = blockId * (blockDim.x * blockDim.y)  
+                       + (threadIdx.y * blockDim.x) + threadIdx.x;  
+```
+- 3 dimentional Grid and 3 dimentional Block：
+```cpp
+int blockId = blockIdx.x + blockIdx.y * gridDim.x  
+             + gridDim.x * gridDim.y * blockIdx.z;  
+
+int threadId = blockId * (blockDim.x * blockDim.y * blockDim.z)  
+                       + (threadIdx.z * (blockDim.x * blockDim.y))  
+                       + (threadIdx.y * blockDim.x) + threadIdx.x;     
+```
+Those are only examples and you should calculate the thread id properly depending on your situation.
+
+### Example: Summing Matrices with a 2D Grid and 2D Blocks
+
+In this section, you will write a matrix addition kernel that uses a 2D grid with 2D blocks.
+
+File `add-with-2d-grid-2d-block.cu`:
+```cpp
+#include <cstdlib>
+#include <stdio.h>
+
+// Function to initialize data in a float array
+void initialDataFloat(float *src, size_t nElem) {
+  // Loop through the array and assign each element a value based on its index
+  for (int i = 0; i < nElem; i++)
+    src[i] = static_cast<float>(i); // Cast index to float and store in array
+}
+
+// Kernel function to perform element-wise addition of two matrices on the GPU
+__global__ void sumMatrixOnGPU2D(float *MatA, float *MatB, float *MatC, int nx,
+                                 int ny) {
+  // Calculate the global indices in 2D grid
+  unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x; // Column index
+  unsigned int iy = threadIdx.y + blockIdx.y * blockDim.y; // Row index
+  unsigned int idx = iy * nx + ix; // Global index in 1D array
+
+  // Check if the calculated indices are within the matrix dimensions
+  if (ix < nx && iy < ny)
+    // Perform matrix addition and store result in MatC
+    MatC[idx] = MatA[idx] + MatB[idx];
+}
+
+int main(int argc, char **argv) {
+  // Define matrix dimensions (nx x ny)
+  int nx = 1 << 5; // 2^5 = 32
+  int ny = 1 << 5; // 2^5 = 32
+  int nxy = nx * ny; // Total number of elements in the matrix
+  int nBytes = nxy * sizeof(float); // Total memory required for one matrix in bytes
+  printf("Matrix size: nx %d ny %d\n", nx, ny);
+
+  // Allocate memory for host-side matrices (MatA, MatB, MatC)
+  float *h_A, *h_B, *h_C;
+  h_A = (float *)malloc(nBytes);
+  h_B = (float *)malloc(nBytes);
+  h_C = (float *)malloc(nBytes);
+
+  // Initialize data in host-side matrices (MatA, MatB)
+  initialDataFloat(h_A, nxy); // Initialize MatA
+  initialDataFloat(h_B, nxy); // Initialize MatB
+  memset(h_C, 0, nBytes); // Initialize MatC to zero
+
+  // Allocate memory for device-side matrices (d_MatA, d_MatB, d_MatC)
+  float *d_MatA, *d_MatB, *d_MatC;
+  cudaMalloc((void **)&d_MatA, nBytes);
+  cudaMalloc((void **)&d_MatB, nBytes);
+  cudaMalloc((void **)&d_MatC, nBytes);
+
+  // Transfer data from host to device
+  cudaMemcpy(d_MatA, h_A, nBytes, cudaMemcpyHostToDevice);
+  cudaMemcpy(d_MatB, h_B, nBytes, cudaMemcpyHostToDevice);
+
+  // Configure grid and block dimensions for GPU kernel execution
+  int dimx = 32;
+  int dimy = 32;
+  dim3 block(dimx, dimy); // 2D block of threads
+  dim3 grid((nx + block.x - 1) / block.x, (ny + block.y - 1) / block.y); // 2D grid of blocks
+
+  // Launch kernel for matrix addition on GPU
+  sumMatrixOnGPU2D<<<grid, block>>>(d_MatA, d_MatB, d_MatC, nx, ny);
+
+  // Wait for kernel to finish execution
+  cudaDeviceSynchronize();
+
+  // Copy result (MatC) from device to host
+  cudaMemcpy(h_C, d_MatC, nBytes, cudaMemcpyDeviceToHost);
+
+  // Print result (MatC)
+  for (size_t i = 0; i < nxy; i++) {
+    printf("%f + %f = %f\n", h_A[i], h_B[i], h_C[i]); // Print element-wise addition
+  }
+
+  // Print kernel launch configuration
+  printf("sumMatrixOnGPU2D <<<(%d,%d), (%d,%d)>>>\n", grid.x, grid.y, block.x,
+         block.y);
+
+  // Free device memory
+  cudaFree(d_MatA);
+  cudaFree(d_MatB);
+  cudaFree(d_MatC);
+
+  // Free host memory
+  free(h_A);
+  free(h_B);
+  free(h_C);
+
+  // Reset device
+  cudaDeviceReset();
+
+  return (0);
+}
+```
+
+Have a look at those three lines:
+```cpp
+int nx = 1 << 5; // 2^5 = 32
+int ny = 1 << 5; // 2^5 = 32
+int nxy = nx * ny; // Total number of elements in the matrix
+```
+it defines that the size of the matrices is $32\times 32$. Therefore, when you run the program, the output would be:
+```
+...
+1021.000000 + 1021.000000 = 2042.000000
+1022.000000 + 1022.000000 = 2044.000000
+1023.000000 + 1023.000000 = 2046.000000
+sumMatrixOnGPU2D <<<(1,1), (32,32)>>>
+```
+
+If you change `nx` and `ny` from `1 << 5` to `1 << 6`, you're essentially increasing the size of the matrices from $32 \times 32$ to $64 \times 64$, and your output would be:
+```
+...
+4093.000000 + 4093.000000 = 8186.000000
+4094.000000 + 4094.000000 = 8188.000000
+4095.000000 + 4095.000000 = 8190.000000
+sumMatrixOnGPU2D <<<(2,2), (32,32)>>>
+```
+
+You can see an increment of grid size from $(1,1)$ to $(2,2)$ when you changed `nx` and `ny` from `1 << 5` to `1 << 6`. We should know the reason.
+
+In CUDA programming, the launch configuration for kernels involves specifying the number of blocks and threads per block. These parameters are crucial for efficiently utilizing the computational resources of the GPU. In code above, the launch configuration for the kernel is determined as follows:
+
+```cpp
+dim3 grid((nx + block.x - 1) / block.x, (ny + block.y - 1) / block.y);
+```
+
+Here, `grid` represents the number of blocks in each dimension. The number of blocks is calculated by dividing the total number of elements in each dimension by the number of threads per block in that dimension. The expression `(nx + block.x - 1) / block.x` calculates the number of blocks needed to cover the `nx` elements with `block.x` threads in the x-dimension. Similarly, `(ny + block.y - 1) / block.y` calculates the number of blocks needed in the y-dimension.
+
+When `nx` and `ny` change from `1 << 5` to `1 << 6`, the total number of elements in each dimension doubles. Consequently, the number of blocks required to cover these elements also doubles in each dimension. Therefore, the `grid` dimensions change accordingly.
+
+Before the change (`1 << 5`):
+- Total elements in each dimension: \(32\)
+- Number of blocks needed in each dimension: \(1\)
+
+After the change (`1 << 6`):
+- Total elements in each dimension: \(64\)
+- Number of blocks needed in each dimension: \(2\)
+
+As a result, the `grid` configuration changes from `<<<(1,1), (32,32)>>>` to `<<<(2,2), (32,32)>>>`. This means that the kernel will now be executed with a grid consisting of \(2 \times 2\) blocks, where each block contains \(32 \times 32\) threads. This adjustment ensures that the kernel is applied to all elements of the matrices while utilizing the available computational resources effectively.
+
+## Example: Matrix Mmultiplication
+
+So far we have already talked about the basics of operating data with CUDA. Now we are going to have another example of matrix multiplication.
+
+File name `matmul.cu`:
 ```cpp
 #include <cstddef>
 #include <stdio.h>
@@ -825,8 +1037,7 @@ int main(int argc, char **argv) {
   return 0;
 }
 ```
-
-Code above computes the result of multiplication of $32\times 1$ matrix `A` and $1\times 32$ matrix `B`, the result is $32\times 32$ matrix `C`.
+The output should be a $32\times 32$ float array.
 
 ### Breakdown the code of kernel function `matmal`
 
@@ -877,7 +1088,6 @@ __global__ void matmal(int M, int N, int K, float alpha, const float *A,
 
 Overall, the `matmal` function implements a basic matrix multiplication algorithm using CUDA, leveraging parallelism offered by the GPU to compute the result efficiently.
 
-
 ### Breakdown the code of main function
 
 - Memory is allocated for the input and output matrices on both the CPU and GPU.
@@ -889,33 +1099,7 @@ Overall, the `matmal` function implements a basic matrix multiplication algorith
 - The result matrix is printed using the `printMatrix` function.
 - Memory allocated on both the CPU and GPU is freed, and resources are released using `cudaDeviceReset()`.
 
-
 ## Debugging and error handling
-
-### Verifying result of kernel function
-
-Besides many useful debugging tools, there is a very basic but useful means by
-which you can verify your kernel code, that is, you can write a host function that has the same functionality to verify the result from the kernel by comparing the result of the kernel function and the regular host function:
-
-```cpp
-void checkResult(float *hostRef, float *gpuRef, const int N) {
-  double epsilon = 1.0E-8;
-  int match = 1;
-  for (int i = 0; i < N; i++) {
-    if (abs(hostRef[i] - gpuRef[i]) > epsilon) {
-      match = 0;
-      printf("Arrays do not match!\n");
-      printf("host %5.2f gpu %5.2f at current %d\n", hostRef[i], gpuRef[i], i);
-      break;
-    }
-  }
-  if (match)
-    printf("Arrays match.\n\n");
-  return;
-}
-```
-
-Besides many useful debugging tools, you can also set the execution configuration to `<<<1,1>>>`, so you force the kernel to run with only one block and one thread. This emulates a sequential implementation. This is useful for debugging and verifying correct results. Also, this helps you verify that numeric results are bitwise exact from run-to-run if you encounter order of operations issues.
 
 ### Checking Errors
 
@@ -949,14 +1133,350 @@ CHECK(cudaDeviceSynchronize());
 This technique should be used just for debugging purposes, because adding this check point after kernel launches will block the host thread and make that point a global barrier.
 :::
 
-# TO BE CONTINUED
-NOT FINISHED YET
+### Check your device
 
-### Time it
+If you got errors about device such as `invalid device ordinal`, you can check and change the device your CUDA program is using. To check `device 0`, you can use `CHECK` mentioned above:
+
+```cpp
+// set up device
+int dev = 0;
+cudaDeviceProp deviceProp;
+CHECK(cudaGetDeviceProperties(&deviceProp, dev));
+printf("Using Device %d: %s\n", dev, deviceProp.name);
+CHECK(cudaSetDevice(dev));
+```
+
+Since I'm using RTX 3090 at the time, my output is:
+```
+Using Device 0: NVIDIA GeForce RTX 3090
+```
+Your output could varies depending on the GPU model you are using. If your CUDA device(your NVIDIA GPU) is not `device 0`, you can change the value of `dev`, such as changing the line from `int dev = 0;` to `int dev = 1;` to check `device 1` until you get the valid result.
+
+:::success
+You can always add those lines at the begining of your every CUDA program to ensure your program is running on the right device.
+:::
+
+Besides, NVIDIA provides several means by which you can query and manage GPU devices. You can use the Runtime API to query GPU information:
+```cpp
+cudaError_t cudaGetDeviceProperties(cudaDeviceProp* prop, int device);
+```
+The properties of the GPU device are returned in the [cudaDeviceProp](https://docs.nvidia.com/cuda/cuda-runtime-api/structcudaDeviceProp.html#structcudaDeviceProp) structure. Here is the example code to get your CUDA device information:
+
+File `check-device-info.cu`
+```cpp
+#include <cuda_runtime.h>
+#include <stdio.h>
+
+int main(int argc, char **argv) {
+  int deviceCount = 0;
+  cudaError_t error_id = cudaGetDeviceCount(&deviceCount);
+  if (error_id != cudaSuccess) {
+    printf("cudaGetDeviceCount returned %d\n-> %s\n", (int)error_id,
+           cudaGetErrorString(error_id));
+    printf("Result = FAIL\n");
+    exit(EXIT_FAILURE);
+  }
+  if (deviceCount == 0) {
+    printf("There are no available device(s) that support CUDA\n");
+  } else {
+    printf("Detected %d CUDA Capable device(s)\n", deviceCount);
+  }
+  int dev, driverVersion = 0, runtimeVersion = 0;
+  dev = 0;
+  cudaSetDevice(dev);
+  cudaDeviceProp deviceProp;
+  cudaGetDeviceProperties(&deviceProp, dev);
+  printf("Device %d: \"%s\"\n", dev, deviceProp.name);
+  cudaDriverGetVersion(&driverVersion);
+  cudaRuntimeGetVersion(&runtimeVersion);
+  printf(" CUDA Driver Version / Runtime Version % d.% d / % d.%d\n ",
+         driverVersion / 1000, (driverVersion % 100) / 10,
+         runtimeVersion / 1000, (runtimeVersion % 100) / 10);
+  printf(" CUDA Capability Major/Minor version number:% d.%d\n ",
+         deviceProp.major, deviceProp.minor);
+  printf(" Total amount of global memory:% .2f MBytes(%llu bytes)\n",
+         (float)deviceProp.totalGlobalMem / (pow(1024.0, 3)),
+         (unsigned long long)deviceProp.totalGlobalMem);
+  printf(" GPU Clock rate:% .0f MHz(% 0.2f GHz)\n ",
+         deviceProp.clockRate * 1e-3f, deviceProp.clockRate * 1e-6f);
+  printf(" Memory Clock rate:% .0f Mhz\n ", deviceProp.memoryClockRate * 1e-3f);
+  printf(" Memory Bus Width:% d bit\n ", deviceProp.memoryBusWidth);
+  if (deviceProp.l2CacheSize) {
+    printf(" L2 Cache Size:% d bytes\n ", deviceProp.l2CacheSize);
+  }
+  printf(" Max Texture Dimension Size (x,y,z): 1D = (% d), 2D = (% d, % d), 3D "
+         "= (% d, % d, % d)\n ",
+         deviceProp.maxTexture1D, deviceProp.maxTexture2D[0],
+         deviceProp.maxTexture2D[1], deviceProp.maxTexture3D[0],
+         deviceProp.maxTexture3D[1], deviceProp.maxTexture3D[2]);
+  printf(" Max Layered Texture Size (dim) x layers: 1D = (% d) x % d, 2D = (% "
+         "d, % d) x % d\n ",
+         deviceProp.maxTexture1DLayered[0], deviceProp.maxTexture1DLayered[1],
+         deviceProp.maxTexture2DLayered[0], deviceProp.maxTexture2DLayered[1],
+         deviceProp.maxTexture2DLayered[2]);
+  printf(" Total amount of constant memory: %lu bytes\n ",
+         deviceProp.totalConstMem);
+  printf(" Total amount of shared memory per block: %lu bytes\n ",
+         deviceProp.sharedMemPerBlock);
+  printf(" Total number of registers available per block: %d\n",
+         deviceProp.regsPerBlock);
+  printf(" Warp size: %d\n", deviceProp.warpSize);
+  printf(" Maximum number of threads per multiprocessor: %d\n",
+         deviceProp.maxThreadsPerMultiProcessor);
+  printf(" Maximum number of threads per block: %d\n",
+         deviceProp.maxThreadsPerBlock);
+  printf(" Maximum sizes of each dimension of a block: %d x %d x %d\n",
+         deviceProp.maxThreadsDim[0], deviceProp.maxThreadsDim[1],
+         deviceProp.maxThreadsDim[2]);
+  printf(" Maximum sizes of each dimension of a grid: %d x %d x %d\n",
+         deviceProp.maxGridSize[0], deviceProp.maxGridSize[1],
+         deviceProp.maxGridSize[2]);
+  printf(" Maximum memory pitch: %lu bytes\n", deviceProp.memPitch);
+
+  exit(EXIT_SUCCESS);
+}
+```
+Output on my computer:
+```
+Detected 1 CUDA Capable device(s)
+Device 0: "NVIDIA GeForce RTX 3090"
+ CUDA Driver Version / Runtime Version  12. 3 /  12.3
+  CUDA Capability Major/Minor version number: 8.6
+  Total amount of global memory: 23.67 MBytes(25414860800 bytes)
+ GPU Clock rate: 1860 MHz( 1.86 GHz)
+  Memory Clock rate: 9751 Mhz
+  Memory Bus Width: 384 bit
+  L2 Cache Size: 6291456 bytes
+  Max Texture Dimension Size (x,y,z): 1D = ( 131072), 2D = ( 131072,  65536), 3D = ( 16384,  16384,  16384)
+  Max Layered Texture Size (dim) x layers: 1D = ( 32768) x  2048, 2D = ( 32768,  32768) x  2048
+  Total amount of constant memory: 65536 bytes
+  Total amount of shared memory per block: 49152 bytes
+  Total number of registers available per block: 65536
+ Warp size: 32
+ Maximum number of threads per multiprocessor: 1536
+ Maximum number of threads per block: 1024
+ Maximum sizes of each dimension of a block: 1024 x 1024 x 64
+ Maximum sizes of each dimension of a grid: 2147483647 x 65535 x 65535
+ Maximum memory pitch: 2147483647 bytes
+```
+You should get different output depending on the GPU model you are using.
+
+### Verifying result of kernel function
+
+Besides many useful debugging tools, there is a very basic but useful means by
+which you can verify your kernel code, that is, you can write a host function that has the same functionality to verify the result from the kernel by comparing the result of the kernel function and the regular host function:
+
+```cpp
+void checkResult(float *hostRef, float *gpuRef, const int N) {
+  double epsilon = 1.0E-8;
+  int match = 1;
+  for (int i = 0; i < N; i++) {
+    if (abs(hostRef[i] - gpuRef[i]) > epsilon) {
+      match = 0;
+      printf("Arrays do not match!\n");
+      printf("host %5.2f gpu %5.2f at current %d\n", hostRef[i], gpuRef[i], i);
+      break;
+    }
+  }
+  if (match)
+    printf("Arrays match.\n\n");
+  return;
+}
+```
+
+Besides many useful debugging tools, you can also set the execution configuration to `<<<1,1>>>`, so you force the kernel to run with only one block and one thread. This emulates a sequential implementation. This is useful for debugging and verifying correct results. Also, this helps you verify that numeric results are bitwise exact from run-to-run if you encounter order of operations issues.
+
+## Timer and Analysis
+
+Knowing how long a kernel takes to execute is helpful and critical during the performance turning of kernels. There are several ways to measure kernel performance.
+
+### Using a CPU timer
+
+The simplest method is to use a CPU timer to measure kernel executions from the host side.
+
+```cpp
+#include <sys/time.h>
+double cpuSecond() {
+  struct timeval tp;
+  gettimeofday(&tp, NULL);
+  return ((double)tp.tv_sec + (double)tp.tv_usec * 1.e-6);
+}
+```
+Code above allows you to get the time from CPU. Basically, you can measure running time of any code using a CPU timer:
+```cpp
+double iStart = cpuSecond();
+... things you want to measure
+double iElaps = cpuSecond() - iStart;
+```
+
+If you want to time a CUDA kernel launch, you can:
+```cpp
+double iStart = cpuSecond();
+kernel_name<<<grid, block>>>(argument list);
+cudaDeviceSynchronize();
+double iElaps = cpuSecond() - iStart;
+```
+:::danger
+Don't forget to add `cudaDeviceSynchronize()` when time it with a CPU timer. Although all GPU-related tasks placed in one stream (which is the default behavior) are executed sequentially on GPU side, CUDA kernel launches are asynchronous to CPU, so the code just goes to the next line when you start the kernel at the line `kernel_name<<<grid, block>>>(argument list);`. `cudaDeviceSynchronize()` ensures your CPU timer will record the right time running the kernel.
+:::
+
+For the example of `matmul` we have already mentioned above, in the main function, add a CPU timer here:
+
+```cpp
+...
+double iStart = cpuSecond();
+matmal<<<grid_dim, block_dim>>>(M, N, K, alpha, d_a, d_b, beta, d_c);
+cudaDeviceSynchronize();
+double iElaps = cpuSecond() - iStart;
+printf("Time used: %f", iElaps);
+...
+```
+My output is:
+```
+Time used: 0.000072
+```
+Your output should be a different value. Besides, if you want to measure time cost while doing memory copy between CPU and GPU, you should also include related code lines between `iStart` and `iElaps`.
+
+
+### The `nvprof` command
+
+`nvprof` is a command-line profiling tool provided by NVIDIA for analyzing the performance of CUDA applications. It provides detailed information about kernel execution times, memory operations, and other metrics related to GPU performance.
+
+:::danger
+If you have a GPU with [compute capability](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#compute-capabilities) 8.0 and higher, `nvprof` command won't work and you will get the error:
+```
+======== Warning: nvprof is not supported on devices with compute capability 8.0 and higher.
+                  Use NVIDIA Nsight Systems for GPU tracing and CPU sampling and NVIDIA Nsight Compute for GPU profiling.
+                  Refer https://developer.nvidia.com/tools-overview for more details.
+```
+If you see this error, please jump to the next section(NVIDIA Nsight).
+:::
+
+It's very simple to use `nvprof`, just type `nvprof your_program` and see the result. `your programm` should be an executable file compiled with `nvcc`. For example, using `nvprof` to measure an `add` kernel:
+
+```
+==33356== Profiling application: ./add
+==33356== Profiling result:
+            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
+ GPU activities:   92.23%  570.25ms         1  570.25ms  570.25ms  570.25ms  add_kernel(float*, float*, float*, int)
+                    4.79%  29.586ms         1  29.586ms  29.586ms  29.586ms  [CUDA memcpy DtoH]
+                    2.99%  18.459ms         2  9.2297ms  9.2245ms  9.2349ms  [CUDA memcpy HtoD]
+      API calls:   56.06%  619.64ms         3  206.55ms  9.4402ms  600.73ms  cudaMemcpy
+                   43.58%  481.72ms         3  160.57ms  359.50us  481.00ms  cudaMalloc
+                    0.16%  1.7937ms       101  17.759us     239ns  933.68us  cuDeviceGetAttribute
+                    0.09%  1.0061ms         3  335.36us  278.68us  444.81us  cudaFree
+                    0.09%  956.79us         1  956.79us  956.79us  956.79us  cuDeviceTotalMem
+                    0.01%  132.25us         1  132.25us  132.25us  132.25us  cuDeviceGetName
+                    0.00%  50.300us         1  50.300us  50.300us  50.300us  cudaLaunchKernel
+                    0.00%  14.994us         1  14.994us  14.994us  14.994us  cudaDeviceSynchronize
+                    0.00%  10.974us         1  10.974us  10.974us  10.974us  cuDeviceGetPCIBusId
+                    0.00%  3.0460us         3  1.0150us     421ns  2.1590us  cuDeviceGetCount
+                    0.00%  1.7330us         2     866ns     328ns  1.4050us  cuDeviceGet
+                    0.00%     543ns         1     543ns     543ns     543ns  cuDeviceGetUuid
+```
+
+Here's a basic guide on how to read `nvprof` output:
+
+1. **Kernel Execution Times**: `nvprof` typically displays kernel execution times, including the total time each kernel takes to execute on the GPU. Look for the kernel names and their corresponding execution times.
+2. **CUDA API Calls**: It also shows CUDA API calls made by the application, along with the time taken by each API call.
+3. **Memory Operations**: `nvprof` provides information about memory operations such as memory copies between host and device, memory allocations, and deallocations. This helps in identifying memory bottlenecks in your application.
+4. **Utilization Metrics**: It may include GPU utilization metrics, such as compute utilization, memory utilization, and PCIe utilization, which give insight into how efficiently the GPU resources are being utilized.
+5. **Memory Transfer Bandwidth**: You can also see the bandwidth of memory transfers between host and device. This helps in optimizing data transfer operations between CPU and GPU.
+6. **Concurrency Metrics**: `nvprof` may display information about concurrent kernel execution, memory copies, and compute activities. Understanding concurrency can help in maximizing GPU throughput.
+7. **Profiler Output Options**: `nvprof` provides various options to customize the output, such as selecting specific metrics to display, filtering results based on criteria like kernel name or CUDA API call, and exporting data to files for further analysis.
+
+When interpreting `nvprof` output, it's essential to focus on areas that are critical for optimizing your CUDA application's performance, such as identifying performance bottlenecks, improving memory access patterns, optimizing kernel configurations, and reducing unnecessary memory transfers. Additionally, comparing `nvprof` outputs before and after optimization efforts can help evaluate the effectiveness of performance improvements.
+
+## Go Deeper into GPU Architecture
+
+The GPU architecture is built around a scalable array of **Streaming Multiprocessors (SM)**. GPU hardware parallelism is achieved through the replication of this architectural building block. 
+
+Each SM in a GPU is designed to support concurrent execution of hundreds of threads, and there are generally multiple SMs per GPU, so it is possible to have thousands of threads executing concurrently on a single GPU. When a kernel grid is launched, the thread blocks of that kernel grid are distributed among available SMs for execution. Once scheduled on an SM, the threads of a thread block execute concurrently only on that assigned SM. Multiple thread blocks may be assigned to the same SM at once and are scheduled based on the availability of SM resources. Instructions within a single thread are pipelined to leverage instruction-level parallelism, in addition to the thread-level parallelism you are already familiar with in CUDA.
+
+Key components of a Fermi SM are:
+- CUDA Cores
+- Shared Memory/L1 Cache
+- Register File
+- Load/Store Units
+- Special Function Units
+- Warp Scheduler
+
+![](./imgs/index/0a808afeeb997181c4aac4017.png)
+Figure: Key components of a Fermi(a GPU architecture) SM
+
+**Each CUDA core has a fully pipelined integer arithmetic logic unit (ALU) and a floating-point unit (FPU) that executes one integer or floating-point instruction per clock cycle.**
+
+For figure above(but not for all GPUs), each multiprocessor has 16 load/store units(LD/ST), allowing source and destination addresses to be calculated for 16 threads (a half-warp) per clock cycle. Special function units (SFUs) execute intrinsic instructions such as sine, cosine, square root, and interpolation. Each SFU can execute one intrinsic instruction per thread per clock cycle. Each SM features two warp schedulers and two instruction dispatch units. When a thread block is assigned to an SM, all threads in a thread block are divided into warps. The two warp schedulers select two warps and issue one instruction from each warp to a group of 16 CUDA cores, 16 load/store units, or 4 special function units. 
+
+![](./imgs/index/0a808afeeb997181c4aac401a.png)
+Figure: The two warp schedulers select two warps and issue one instruction from each warp to a group of 16 CUDA cores, 16 load/store units, or 4 special function units
+
+The Fermi architecture(a famous GPU architecture developed by NVIDIA, compute capability 2.x), can simultaneously handle 48 warps per SM for a total of 1,536 threads resident in a single SM at a time.
+
+CUDA employs a Single Instruction Multiple Thread (SIMT) architecture to manage and execute threads in groups of 32 called warps. All threads in a warp execute the same instruction at the same time. Each thread has its own instruction address counter and register state, and carries out the cur- rent instruction on its own data. Each SM partitions the thread blocks assigned to it into 32-thread warps that it then schedules for execution on available hardware resources.
+
+:::success
+The SIMT architecture is similar to the SIMD (Single Instruction, Multiple Data) architecture. Both SIMD and SIMT implement parallelism by broadcasting the same instruction to multiple execution units. A key difference is that SIMD requires that all vector elements in a vector execute together in a unifi ed synchronous group, whereas SIMT allows multiple threads in the same warp to execute independently. The SIMT model includes three key features that SIMD does not:
+
+- Each thread has its own instruction address counter.
+- Each thread has its own register state.
+- Each thread can have an independent execution path.
+
+Even though all threads in a warp start together at the same program address, it is possible for individual threads to have different behavior. SIMT enables you to write thread-level parallel code for independent, scalar threads, as well as data-parallel code for coordinated threads. 
+:::
+
+In CUDA programming, the number **32** is often referred to as a "magic number" because it holds special significance in terms of thread block size and warp size.
+1. **Thread Blocks**: In CUDA, computations are organized into grids, which contain blocks, which in turn contain threads. The size of a block is specified during kernel launch and must be a multiple of 32 threads. Therefore, the number 32 is often used as a fundamental building block for determining the size of thread blocks.
+2. **Warps**: In NVIDIA GPU architectures, threads are grouped into units called warps, typically consisting of 32 threads. Instructions in CUDA are executed at the warp level, meaning that each instruction is executed simultaneously across all threads within a warp. Therefore, understanding the warp size (32 threads) is crucial for optimizing performance in CUDA programs.
+3. **Memory Access and Coalescing**: CUDA programs often benefit from memory coalescing, where threads within a warp access memory in a contiguous and coalesced manner. This means that when threads in a warp access memory, it is advantageous for them to access consecutive memory locations. The warp size of 32 threads aligns well with memory access patterns and helps achieve efficient memory access.
+
+![](./imgs/index/0a808afeeb997181c4aac4018.png)
+Figure: The corresponding components from the logical view and hardware view of CUDA programming.
+
+Therefore, the number 32 is considered a "magic number" in CUDA programming because it forms the basis for thread block sizes, warp sizes, and many optimization techniques, contributing to efficient parallel execution on NVIDIA GPUs.
+
+Sharing data among parallel threads may cause a race condition: Multiple threads accessing the same data with an undefined ordering, which results in unpredictable program behavior. CUDA provides a means to synchronize threads within a thread block to ensure that all threads reach certain points in execution before making further progress. However, no primitives are provided for inter-block synchronization.
+
+Warps, the basic execution units, can be scheduled in any order within an SM. When a warp idles, another warp can be scheduled with no overhead. SM resources like registers and shared memory are limited and shared among threads. Understanding SM hardware helps optimize thread organization for performance.
+
+### The Fermi Architecture
+
+The Fermi architecture developed by NVIDIA, is the first complete GPU computing architecture to deliver the features required for the most demanding HPC applications. Fermi has been widely adopted(NVIDIA use it in GeForce, Quadro, and Tesla GPU product lines) for accelerating production workloads.
+
+:::danger
+NVIDIA's GPU architectures have progressed through several generations beyond Fermi, including Kepler, Maxwell, Pascal, Volta, Turing, and Ampere. Each generation typically introduces advancements in core architecture, memory technologies, performance, and power efficiency. 
+We are talking about the Fermi architecture here because it's the very first generation of a complete GPU micro-architecture, and later architectures applyed several improvements on their previous ones. Understanding the Fermi architecture helps you to understand most of them.
+For the most accurate and up-to-date information on the core counts and specifications of specific GPU models within these newer architectures, it's best to refer to the official documentation provided by NVIDIA or reputable hardware review sources.
+:::
+
+![](./imgs/index/0a808afeeb997181c4aac4019.png)
+Figure: logical block diagram of the Fermi architecture focused on GPU computing with graphics-specific components largely omitted. 
+
+Fermi includes a coherent 768 KB L2 cache, shared by all 16 SMs. Each SM is represented by a vertical rectangular strip containing:
+- Execution units (CUDA cores)
+- Scheduler and dispatcher units that schedule warps
+- Shared memory, the register file, and L1 cache
+
+:::success
+For other achitecture and innovations, you can refer to NVIDIA official documentation for up-to-date information.
+:::
+
+## CUDA Execution Model
+
+Through the few examples provided before, you learned how to organize threads into grids and blocks to deliver the best performance. While you can find the best execution configuration through trial-and-error, you might be left wondering why the selected execution configuration outperforms others. You might want to know if there are some guidelines for selecting grid and block configurations.
+
+Therefore, we are going to talk about the CUDA execution model. In general, an execution model provides an operational view of how instructions are executed on a specific computing architecture. The CUDA execution model exposes an abstract view of the GPU parallel architecture, allowing you to reason about thread concurrency. 
 
 
 
-## Unified Memory
+
+
+## Advanced Memory Management
+
+As a C programmer, when writing code just for correctness you can safely ignore the cache line size; however, when tuning code for peak performance, you must consider cache characteristics in your code structure. This is true for CUDA C programming as well. As a CUDA C programmer, you must have some understanding of hardware resources if you are to improve kernel
+performance. If you do not understand the hardware architecture, the CUDA compiler will still do a good job of optimizing your kernel, but it can only do so much. Even basic knowledge of the GPU architecture will enable you to write much better code and fully exploit the capability of your device.
+
+### Unified Memory
 
 Previously, one of the most common mistakes made by those learning to program in CUDA C is to improperly dereference the different memory spaces. For the memory allocated on the GPU, the device pointers may not be dereferenced in the host code. If you improperly use an assignment, for example:
 ```cpp
@@ -972,11 +1492,65 @@ To help avoid these types of mistakes, Unified Memory was introduced with CUDA 6
 
 ![](./imgs/index/0a808afeeb997181c4aac4014.png)
 
+## Performance and Optimization
+
+### Profile-Driven Optimization
+
+Profiling is the act of analyzing program performance by measuring:
+- The space (memory) or time complexity of application code
+- The use of particular instructions
+- The frequency and duration of function calls
+
+Profiling is a critical step in program development, especially for optimizing HPC application code. Profiling often requires a basic understanding of the execution model of a platform to help make application optimization decisions.
+
+To identify the performance bottleneck of a kernel, it is important to choose appropriate performance metrics and compare measured performance to theoretical peak performance.  There are three common limiters to performance for a kernel that you may encounter:
+- Memory bandwidth
+- Compute resources
+- Instruction and memory latency
 
 
 
-## CUDA Execution Model
+:::success
+In CUDA profiling, an event is a countable activity that corresponds to a hardware counter collected during kernel execution. A metric is a characteristic of a kernel calculated from one or more events. Keep in mind the following concepts about events and metrics:
+- Most counters are reported per streaming multiprocessor but not the entire GPU.
+- A single run can only collect a few counters. The collection of some counters is mutually exclusive. Multiple profiling runs are often needed to gather all relevant counters.
+- Counter values may not be exactly the same across repeated runs due to variations in GPU execution (such as thread block and warp scheduling order).
+:::
 
+### NVIDIA Nsight Compute
+
+Profiling tools provide deep insight into kernel performance and help you identify bottlenecks in kernels. Nsight Compute focuses on low-level performance analysis of CUDA (Compute Unified Device Architecture) kernels. It enables developers to profile CUDA kernels at a granular level, revealing information such as instruction throughput, memory access patterns, occupancy, and warp divergence. Nsight Compute helps optimize kernel performance and identify opportunities for parallelization and optimization.
+
+:::success
+Nsight Compute is optional in CUDA installation package on Windows, once it is installed, it shoud appear in your start up menu. If you're using some Linux distributions, you should check [NVIDIA official nsight systems guide](https://developer.nvidia.com/nsight-systems/get-started) and install it manually.
+
+Specially, if you are using Arch Linux (I'm using Arch Linux at the time) then you should be able to get things ready using pacman:
+```bash
+# archlinux with pacman only
+sudo pacman -S nvidia cuda cudnn cuda-tools
+```
+The command line above should install NVIDIA driver, CUDA, CUDNN, as well as NVIDIA's GPU programming toolkit (extra tools: nvvp, nsight) all together.
+:::
+
+You can start Nsight Compute Graphical interface from start up menu on windows or type `ncu-ui` in terminal on Arch Linux if you installed `cuda-tools` package. For other Linux distributions, you can find out how to launch it by your self.
+
+![](./imgs/index/0a808afeeb997181c4aac4016.png)
+Figure: How NVIDIA Nsight Compute grapical interface looks like
+
+Performance optimization revolves around four basic strategies:
+
+- Maximize parallel execution to achieve maximum utilization;
+- Optimize memory usage to achieve maximum memory throughput;
+- Optimize instruction usage to achieve maximum instruction throughput;
+- Minimize memory thrashing.
+
+## Other things you should know
+
+### Managing Devices
+
+## Frequently Asked Questions
+
+- [When to call cudaDeviceSynchronize?](https://stackoverflow.com/questions/11888772/when-to-call-cudadevicesynchronize)
 
 ## References
 

@@ -1,5 +1,11 @@
 visualdust:
   name: VisualDust
   title: Ordinary Magician | Half stack developer
-  url: https://gavin.gong.host
+  url: https://www.gong.host
   image_url: https://github.yuuza.net/visualDust.png
+
+keter:
+  name: Keter
+  title: HPC Engineer
+  url: https://space.keter.top
+  image_url: https://github.yuuza.net/AndSonder.png
