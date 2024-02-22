@@ -1,6 +1,6 @@
 ---
-title: A Quick(?) Toturial on CUDA Programming
-authors: [visualdust, keter]
+title: CUDA Programming as Beginner
+authors: [visualdust, sonder]
 tags: [cuda, c, cpp]
 ---
 
@@ -17,11 +17,6 @@ Key features of CUDA programming include:
 5. CUDA Toolkit: The CUDA Toolkit includes compilers, debuggers, profilers, and other development tools necessary for CUDA programming.
 
 CUDA programming allows developers to harness the massive parallel processing power of GPUs to accelerate a wide range of computational tasks, including scientific simulations, image and video processing, machine learning, and more.
-
-:::danger
-**BEFORE YOU CONTINUE**  
-This page is a mixture of the first five chapters of [Professional CUDA C Programming](https://www.cs.utexas.edu/~rossbach/cs380p/papers/cuda-programming.pdf), and [NVIDIA's official CUDA C++ Programming Guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html), and [Keter's CUDA Tutorial](https://cuda.keter.top) as well as other source of knowledge about CUDA programming, summarized by [VisualDust](https://gavin.gong.host). The content on this page does not completely refer to the source of reference, but adds additional new content to facilitate understanding. Please refer to the original document for more accurate information. 
-:::
 
 <!--truncate-->
 
@@ -393,6 +388,10 @@ function_name (argument list);
 ```
 
 Then, the CUDA kernel call semantics `<<<...>>>` are a specific syntax used to specify the execution configuration of a kernel function when launching it from the CPU. This syntax defines how the GPU threads are organized into a grid of thread blocks and how those thread blocks are organized into a grid of blocks.
+
+:::success
+A grid effectively represents a kernel launch, i.e., it contains all the blocks (and, thus, threads) that are to be run for one particular kernel launch.
+:::
 
 A CUDA kernel call is a direct extension to the C function syntax that adds a kernel’s execution configuration inside triple-angle-brackets:
 ```cpp
@@ -1387,166 +1386,6 @@ Here's a basic guide on how to read `nvprof` output:
 
 When interpreting `nvprof` output, it's essential to focus on areas that are critical for optimizing your CUDA application's performance, such as identifying performance bottlenecks, improving memory access patterns, optimizing kernel configurations, and reducing unnecessary memory transfers. Additionally, comparing `nvprof` outputs before and after optimization efforts can help evaluate the effectiveness of performance improvements.
 
-## Go Deeper into GPU Architecture
-
-The GPU architecture is built around a scalable array of **Streaming Multiprocessors (SM)**. GPU hardware parallelism is achieved through the replication of this architectural building block. 
-
-Each SM in a GPU is designed to support concurrent execution of hundreds of threads, and there are generally multiple SMs per GPU, so it is possible to have thousands of threads executing concurrently on a single GPU. When a kernel grid is launched, the thread blocks of that kernel grid are distributed among available SMs for execution. Once scheduled on an SM, the threads of a thread block execute concurrently only on that assigned SM. Multiple thread blocks may be assigned to the same SM at once and are scheduled based on the availability of SM resources. Instructions within a single thread are pipelined to leverage instruction-level parallelism, in addition to the thread-level parallelism you are already familiar with in CUDA.
-
-Key components of a Fermi SM are:
-- CUDA Cores
-- Shared Memory/L1 Cache
-- Register File
-- Load/Store Units
-- Special Function Units
-- Warp Scheduler
-
-![](./imgs/index/0a808afeeb997181c4aac4017.png)
-Figure: Key components of a Fermi(a GPU architecture) SM
-
-**Each CUDA core has a fully pipelined integer arithmetic logic unit (ALU) and a floating-point unit (FPU) that executes one integer or floating-point instruction per clock cycle.**
-
-For figure above(but not for all GPUs), each multiprocessor has 16 load/store units(LD/ST), allowing source and destination addresses to be calculated for 16 threads (a half-warp) per clock cycle. Special function units (SFUs) execute intrinsic instructions such as sine, cosine, square root, and interpolation. Each SFU can execute one intrinsic instruction per thread per clock cycle. Each SM features two warp schedulers and two instruction dispatch units. When a thread block is assigned to an SM, all threads in a thread block are divided into warps. The two warp schedulers select two warps and issue one instruction from each warp to a group of 16 CUDA cores, 16 load/store units, or 4 special function units. 
-
-![](./imgs/index/0a808afeeb997181c4aac401a.png)
-Figure: The two warp schedulers select two warps and issue one instruction from each warp to a group of 16 CUDA cores, 16 load/store units, or 4 special function units
-
-The Fermi architecture(a famous GPU architecture developed by NVIDIA, compute capability 2.x), can simultaneously handle 48 warps per SM for a total of 1,536 threads resident in a single SM at a time.
-
-CUDA employs a Single Instruction Multiple Thread (SIMT) architecture to manage and execute threads in groups of 32 called warps. All threads in a warp execute the same instruction at the same time. Each thread has its own instruction address counter and register state, and carries out the cur- rent instruction on its own data. Each SM partitions the thread blocks assigned to it into 32-thread warps that it then schedules for execution on available hardware resources.
-
-:::success
-The SIMT architecture is similar to the SIMD (Single Instruction, Multiple Data) architecture. Both SIMD and SIMT implement parallelism by broadcasting the same instruction to multiple execution units. A key difference is that SIMD requires that all vector elements in a vector execute together in a unifi ed synchronous group, whereas SIMT allows multiple threads in the same warp to execute independently. The SIMT model includes three key features that SIMD does not:
-
-- Each thread has its own instruction address counter.
-- Each thread has its own register state.
-- Each thread can have an independent execution path.
-
-Even though all threads in a warp start together at the same program address, it is possible for individual threads to have different behavior. SIMT enables you to write thread-level parallel code for independent, scalar threads, as well as data-parallel code for coordinated threads. 
-:::
-
-In CUDA programming, the number **32** is often referred to as a "magic number" because it holds special significance in terms of thread block size and warp size.
-1. **Thread Blocks**: In CUDA, computations are organized into grids, which contain blocks, which in turn contain threads. The size of a block is specified during kernel launch and must be a multiple of 32 threads. Therefore, the number 32 is often used as a fundamental building block for determining the size of thread blocks.
-2. **Warps**: In NVIDIA GPU architectures, threads are grouped into units called warps, typically consisting of 32 threads. Instructions in CUDA are executed at the warp level, meaning that each instruction is executed simultaneously across all threads within a warp. Therefore, understanding the warp size (32 threads) is crucial for optimizing performance in CUDA programs.
-3. **Memory Access and Coalescing**: CUDA programs often benefit from memory coalescing, where threads within a warp access memory in a contiguous and coalesced manner. This means that when threads in a warp access memory, it is advantageous for them to access consecutive memory locations. The warp size of 32 threads aligns well with memory access patterns and helps achieve efficient memory access.
-
-![](./imgs/index/0a808afeeb997181c4aac4018.png)
-Figure: The corresponding components from the logical view and hardware view of CUDA programming.
-
-Therefore, the number 32 is considered a "magic number" in CUDA programming because it forms the basis for thread block sizes, warp sizes, and many optimization techniques, contributing to efficient parallel execution on NVIDIA GPUs.
-
-Sharing data among parallel threads may cause a race condition: Multiple threads accessing the same data with an undefined ordering, which results in unpredictable program behavior. CUDA provides a means to synchronize threads within a thread block to ensure that all threads reach certain points in execution before making further progress. However, no primitives are provided for inter-block synchronization.
-
-Warps, the basic execution units, can be scheduled in any order within an SM. When a warp idles, another warp can be scheduled with no overhead. SM resources like registers and shared memory are limited and shared among threads. Understanding SM hardware helps optimize thread organization for performance.
-
-### The Fermi Architecture
-
-The Fermi architecture developed by NVIDIA, is the first complete GPU computing architecture to deliver the features required for the most demanding HPC applications. Fermi has been widely adopted(NVIDIA use it in GeForce, Quadro, and Tesla GPU product lines) for accelerating production workloads.
-
-:::danger
-NVIDIA's GPU architectures have progressed through several generations beyond Fermi, including Kepler, Maxwell, Pascal, Volta, Turing, and Ampere. Each generation typically introduces advancements in core architecture, memory technologies, performance, and power efficiency. 
-We are talking about the Fermi architecture here because it's the very first generation of a complete GPU micro-architecture, and later architectures applyed several improvements on their previous ones. Understanding the Fermi architecture helps you to understand most of them.
-For the most accurate and up-to-date information on the core counts and specifications of specific GPU models within these newer architectures, it's best to refer to the official documentation provided by NVIDIA or reputable hardware review sources.
-:::
-
-![](./imgs/index/0a808afeeb997181c4aac4019.png)
-Figure: logical block diagram of the Fermi architecture focused on GPU computing with graphics-specific components largely omitted. 
-
-Fermi includes a coherent 768 KB L2 cache, shared by all 16 SMs. Each SM is represented by a vertical rectangular strip containing:
-- Execution units (CUDA cores)
-- Scheduler and dispatcher units that schedule warps
-- Shared memory, the register file, and L1 cache
-
-:::success
-For other achitecture and innovations, you can refer to NVIDIA official documentation for up-to-date information.
-:::
-
-## CUDA Execution Model
-
-Through the few examples provided before, you learned how to organize threads into grids and blocks to deliver the best performance. While you can find the best execution configuration through trial-and-error, you might be left wondering why the selected execution configuration outperforms others. You might want to know if there are some guidelines for selecting grid and block configurations.
-
-Therefore, we are going to talk about the CUDA execution model. In general, an execution model provides an operational view of how instructions are executed on a specific computing architecture. The CUDA execution model exposes an abstract view of the GPU parallel architecture, allowing you to reason about thread concurrency. 
-
-
-
-
-
-## Advanced Memory Management
-
-As a C programmer, when writing code just for correctness you can safely ignore the cache line size; however, when tuning code for peak performance, you must consider cache characteristics in your code structure. This is true for CUDA C programming as well. As a CUDA C programmer, you must have some understanding of hardware resources if you are to improve kernel
-performance. If you do not understand the hardware architecture, the CUDA compiler will still do a good job of optimizing your kernel, but it can only do so much. Even basic knowledge of the GPU architecture will enable you to write much better code and fully exploit the capability of your device.
-
-### Unified Memory
-
-Previously, one of the most common mistakes made by those learning to program in CUDA C is to improperly dereference the different memory spaces. For the memory allocated on the GPU, the device pointers may not be dereferenced in the host code. If you improperly use an assignment, for example:
-```cpp
-gpuRef = d_C
-```
-instead of using:
-```cpp
-cudaMemcpy(gpuRef, d_C, nBytes, cudaMemcpyDeviceToHost)
-```
-the application will crash at runtime.
-
-To help avoid these types of mistakes, Unified Memory was introduced with CUDA 6, which lets you access both CPU and GPU memory by using a single pointer. 
-
-![](./imgs/index/0a808afeeb997181c4aac4014.png)
-
-## Performance and Optimization
-
-### Profile-Driven Optimization
-
-Profiling is the act of analyzing program performance by measuring:
-- The space (memory) or time complexity of application code
-- The use of particular instructions
-- The frequency and duration of function calls
-
-Profiling is a critical step in program development, especially for optimizing HPC application code. Profiling often requires a basic understanding of the execution model of a platform to help make application optimization decisions.
-
-To identify the performance bottleneck of a kernel, it is important to choose appropriate performance metrics and compare measured performance to theoretical peak performance.  There are three common limiters to performance for a kernel that you may encounter:
-- Memory bandwidth
-- Compute resources
-- Instruction and memory latency
-
-
-
-:::success
-In CUDA profiling, an event is a countable activity that corresponds to a hardware counter collected during kernel execution. A metric is a characteristic of a kernel calculated from one or more events. Keep in mind the following concepts about events and metrics:
-- Most counters are reported per streaming multiprocessor but not the entire GPU.
-- A single run can only collect a few counters. The collection of some counters is mutually exclusive. Multiple profiling runs are often needed to gather all relevant counters.
-- Counter values may not be exactly the same across repeated runs due to variations in GPU execution (such as thread block and warp scheduling order).
-:::
-
-### NVIDIA Nsight Compute
-
-Profiling tools provide deep insight into kernel performance and help you identify bottlenecks in kernels. Nsight Compute focuses on low-level performance analysis of CUDA (Compute Unified Device Architecture) kernels. It enables developers to profile CUDA kernels at a granular level, revealing information such as instruction throughput, memory access patterns, occupancy, and warp divergence. Nsight Compute helps optimize kernel performance and identify opportunities for parallelization and optimization.
-
-:::success
-Nsight Compute is optional in CUDA installation package on Windows, once it is installed, it shoud appear in your start up menu. If you're using some Linux distributions, you should check [NVIDIA official nsight systems guide](https://developer.nvidia.com/nsight-systems/get-started) and install it manually.
-
-Specially, if you are using Arch Linux (I'm using Arch Linux at the time) then you should be able to get things ready using pacman:
-```bash
-# archlinux with pacman only
-sudo pacman -S nvidia cuda cudnn cuda-tools
-```
-The command line above should install NVIDIA driver, CUDA, CUDNN, as well as NVIDIA's GPU programming toolkit (extra tools: nvvp, nsight) all together.
-:::
-
-You can start Nsight Compute Graphical interface from start up menu on windows or type `ncu-ui` in terminal on Arch Linux if you installed `cuda-tools` package. For other Linux distributions, you can find out how to launch it by your self.
-
-![](./imgs/index/0a808afeeb997181c4aac4016.png)
-Figure: How NVIDIA Nsight Compute grapical interface looks like
-
-Performance optimization revolves around four basic strategies:
-
-- Maximize parallel execution to achieve maximum utilization;
-- Optimize memory usage to achieve maximum memory throughput;
-- Optimize instruction usage to achieve maximum instruction throughput;
-- Minimize memory thrashing.
-
-## Other things you should know
-
-### Managing Devices
 
 ## Frequently Asked Questions
 
@@ -1554,6 +1393,6 @@ Performance optimization revolves around four basic strategies:
 
 ## References
 
-https://www.cs.utexas.edu/~rossbach/cs380p/papers/cuda-programming.pdf
-https://docs.nvidia.com/cuda/cuda-c-programming-guide
-https://cuda.keter.top/prev_concept
+https://www.cs.utexas.edu/~rossbach/cs380p/papers/cuda-programming.pdf  
+https://docs.nvidia.com/cuda/cuda-c-programming-guide  
+https://cuda.keter.top/prev_concept  
