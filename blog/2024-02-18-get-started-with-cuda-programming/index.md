@@ -370,6 +370,7 @@ Figure: CUDA exposes a thread hierarchy abstraction to enable you to organize yo
 Figure above shows a simple kenel launched with $2\times 3$ blocks in each grids and $3\times 5$ threads in each block. Usually, a grid is organized as a 2D array of blocks, and a block is organized as a 3D array of threads. Both grids and blocks use the `dim3` type with three unsigned integer fields. The unused fields will be initialized to 1 and ignored.
 ![](./imgs/index/0a808afeeb997181c4aac4013.png)
 Figure: How it really looks like with grid and block size managed as `dim3` type.
+Remember, Thread blocks can be configured to be one-, two-, or three-dimensional. **However, from the hardware perspective, all threads are arranged one-dimensionally.**
 :::
 
 Because the grid and block dimensionality of a kernel launch affect performance, exposing this simple abstraction provides the programmer with an additional avenue for optimization. There are several restrictions on the dimensions of grids and blocks. One of the major limiting factors on block size is available compute resources, such as registers, shared memory, and so on. Some limits can be retrieved by querying the GPU device.
@@ -1348,7 +1349,7 @@ If you have a GPU with [compute capability](https://docs.nvidia.com/cuda/cuda-c-
                   Use NVIDIA Nsight Systems for GPU tracing and CPU sampling and NVIDIA Nsight Compute for GPU profiling.
                   Refer https://developer.nvidia.com/tools-overview for more details.
 ```
-If you see this error, please jump to the next section(NVIDIA Nsight).
+If you see this error, It means that your CUDA device is pretty a new one, and you should use a more powerful tool called Nsight Compute to analyse your program. Hopefully I will include Nsight Compute in my next post.
 :::
 
 It's very simple to use `nvprof`, just type `nvprof your_program` and see the result. `your programm` should be an executable file compiled with `nvcc`. For example, using `nvprof` to measure an `add` kernel:

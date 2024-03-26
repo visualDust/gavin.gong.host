@@ -12,7 +12,7 @@ tags: [cuda, c, cpp]
 
 The GPU architecture is built around a scalable array of **Streaming Multiprocessors (SM)**. GPU hardware parallelism is achieved through the replication of this architectural building block. 
 
-Each SM in a GPU is designed to support concurrent execution of hundreds of threads, and there are generally multiple SMs per GPU, so it is possible to have thousands of threads executing concurrently on a single GPU. When a kernel grid is launched, the thread blocks of that kernel grid are distributed among available SMs for execution. Once schedul需要的义务就全听老板的，一般就是搞研究搞研究搞研究。我所在的实验室因为系里提供了四年的助教机会，所以助研的机会可能会用于把学生ed on an SM, the threads of a thread block execute concurrently only on that assigned SM. Multiple thread blocks may be assigned to the same SM at once and are scheduled based on the availability of SM resources. Instructions within a single thread are pipelined to leverage instruction-level parallelism, in addition to the thread-level parallelism you are already familiar with in CUDA.
+Each SM in a GPU is designed to support concurrent execution of hundreds of threads, and there are generally multiple SMs per GPU, so it is possible to have thousands of threads executing concurrently on a single GPU. When a kernel grid is launched, the thread blocks of that kernel grid are distributed among available SMs for execution. Once scheduled on an SM, the threads of a thread block execute concurrently only on that assigned SM. Multiple thread blocks may be assigned to the same SM at once and are scheduled based on the availability of SM resources. Instructions within a single thread are pipelined to leverage instruction-level parallelism, in addition to the thread-level parallelism you are already familiar with in CUDA.
 
 Key components of a Fermi SM are:
 - CUDA Cores
@@ -24,6 +24,8 @@ Key components of a Fermi SM are:
 
 ![](./imgs/index/0a808afeeb997181c4aac4017.png)
 Figure: Key components of a Fermi(a GPU architecture) SM
+
+<!--truncate-->
 
 **Each CUDA core has a fully pipelined integer arithmetic logic unit (ALU) and a floating-point unit (FPU) that executes one integer or floating-point instruction per clock cycle.**
 
