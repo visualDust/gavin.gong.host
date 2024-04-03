@@ -46,7 +46,7 @@ const config = {
           rehypePlugins: [[katex, { strict: false }]],
         },
         gtag: {
-          trackingID: "G-WSGY7XE4JP",
+          trackingID: "G-8L21D1SXCL",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -54,7 +54,6 @@ const config = {
       }),
     ],
   ],
-
   stylesheets: [
     {
       href: "https://fastly.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css",
