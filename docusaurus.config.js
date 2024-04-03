@@ -3,8 +3,8 @@
 
 const lightCodeTheme = require("prism-react-renderer").themes.nightOwlLight;
 const darkCodeTheme = require("prism-react-renderer").themes.nightOwl;
-const math = require('remark-math');
-const katex = require('rehype-katex');
+const math = require("remark-math");
+const katex = require("rehype-katex");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -18,17 +18,16 @@ const config = {
   organizationName: "visualDust",
   projectName: "blog.gong.host", // Usually your repo name.
 
-
   presets: [
     [
       "@docusaurus/preset-classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         sitemap: {
-          changefreq: 'weekly',
+          changefreq: "weekly",
           priority: 0.5,
-          ignorePatterns: ['/tags/**'],
-          filename: 'sitemap.xml',
+          ignorePatterns: ["/tags/**"],
+          filename: "sitemap.xml",
         },
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
@@ -46,6 +45,9 @@ const config = {
           remarkPlugins: [math],
           rehypePlugins: [[katex, { strict: false }]],
         },
+        gtag: {
+          trackingID: "G-WSGY7XE4JP",
+        },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
@@ -55,11 +57,11 @@ const config = {
 
   stylesheets: [
     {
-      href: 'https://fastly.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css',
-      type: 'text/css',
+      href: "https://fastly.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css",
+      type: "text/css",
       integrity:
-        'sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM',
-      crossorigin: 'anonymous',
+        "sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM",
+      crossorigin: "anonymous",
     },
   ],
 
@@ -104,17 +106,17 @@ const config = {
           {
             to: "/blog",
             label: "Blogs",
-            position: "left"
+            position: "left",
           },
           {
             to: "/blog/archive",
             label: "Archive",
-            position: "left"
+            position: "left",
           },
           {
             to: "/gallery",
             label: "Gallery",
-            position: "left"
+            position: "left",
           },
           {
             href: "https://neetbox.550w.host",
@@ -130,63 +132,67 @@ const config = {
       },
       footer: {
         style: "dark",
-        links: [{
-          title: "Pages",
-          items: [{
-            label: "Blogs",
-            to: "/blog",
+        links: [
+          {
+            title: "Pages",
+            items: [
+              {
+                label: "Blogs",
+                to: "/blog",
+              },
+              {
+                label: "About",
+                to: "/about",
+              },
+              {
+                label: "ML.akasaki.space",
+                to: "https://ml.akasaki.space",
+              },
+            ],
           },
           {
-            label: "About",
-            to: "/about",
-          }, {
-            label: "ML.akasaki.space",
-            to: "https://ml.akasaki.space",
-          },
-          ],
-        },
-        {
-          title: "Community",
-          items: [{
-            label: "NEET CV",
-            href: "https://github.com/neet-cv",
+            title: "Community",
+            items: [
+              {
+                label: "NEET CV",
+                href: "https://github.com/neet-cv",
+              },
+              {
+                label: "Sanyuan Kexie",
+                href: "https://hello.kexie.space",
+              },
+            ],
           },
           {
-            label: "Sanyuan Kexie",
-            href: "https://hello.kexie.space",
+            title: "More",
+            items: [
+              {
+                label: "Github",
+                href: "https://github.com/VisualDust",
+              },
+              {
+                label: "Powered by docusaurus",
+                href: "https://github.com/facebook/docusaurus",
+              },
+            ],
           },
-          ],
-        },
-        {
-          title: "More",
-          items: [
-            {
-              label: "Github",
-              href: "https://github.com/VisualDust",
-            },
-            {
-              label: "Powered by docusaurus",
-              href: "https://github.com/facebook/docusaurus",
-            },
-          ],
-        },
         ],
         copyright: `@VisualDust ${new Date().getFullYear()} all rights reserved | <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2021025239号</a>`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        defaultMode: 'dark'
+        defaultMode: "dark",
       },
       zoom: {
-        selector: '.markdown :not(em) > img',
+        selector: ".markdown :not(em) > img",
         config: {
           background: {
-            light: 'rgb(255, 255, 255)',
-            dark: 'rgb(50, 50, 50)'
-          }
-        }
-      }
+            light: "rgb(255, 255, 255)",
+            dark: "rgb(50, 50, 50)",
+          },
+        },
+      },
     }),
 };
 

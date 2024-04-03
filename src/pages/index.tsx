@@ -48,10 +48,14 @@ function ComponentPersonalInfo(): JSX.Element {
       <p style={{ marginBottom: "5px" }}>
         <strong>I'm currently a final year bachelor in Computer Science</strong>
         , at School of Computer and Information Security,{" "}
-        <strong>Guilin University of Electronic Technology</strong>. I taught
-        myself computer vision and large language model related content during
-        my undergraduate studies. I consist of Python, C#, C++, CUDA, Java,
-        Kotlin, Latex, dotnet, React, PyTorch, and LaTeX.
+        <strong>
+          <span style={{ color: "rgb(0, 59, 122)" }}>
+            Guilin University of Electronic Technology
+          </span>
+        </strong>
+        . I taught myself computer vision and large language model related
+        content during my undergraduate studies. I consist of Python, C#, C++,
+        CUDA, Java, Kotlin, Latex, dotnet, React, PyTorch, and LaTeX.
       </p>
       <p style={{ marginBottom: "5px" }}>
         My research topic mainly focuses on secured machine learning and
@@ -93,7 +97,7 @@ import CurrentlyMaintaining from "../components/project_badge/CurrentlyMaintaini
 
 const MyLinks: LinkProps[] = [
   {
-    url: "mailto:gavin@gong.host",
+    url: "mailto:zgong6@ncsu.edu",
     text: "Email",
     icon: <IoMail />,
   },
