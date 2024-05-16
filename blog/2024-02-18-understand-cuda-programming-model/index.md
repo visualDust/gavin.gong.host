@@ -1,5 +1,5 @@
 ---
-title: CUDA Programming as Beginner
+title: Get Started With CUDA Programming Model
 authors: [visualdust, sonder]
 tags: [cuda, c, cpp]
 ---
@@ -23,12 +23,14 @@ CUDA programming allows developers to harness the massive parallel processing po
 ## Prerequisites
 
 Before you get get started with CUDA programming, please make sure:
+
 - You have at least one NVIDIA GPU on your computer(Pascal or newer)
 - [NVIDIA Driver](https://www.nvidia.com/download/index.aspx) is installed
 - [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit) is installed, please also make sure you select also install [nsight](https://developer.nvidia.com/nsight-systems) when installing CUDA on windows, or install cuda-tools(which should include nsight system) separately when installing on linux.
 - [`nvcc` Compiler](https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/index.html) is ready (which should be ready itself after you have CUDA installed)
 
 To **verify `nvcc`** (Nvidia CUDA Compiler, a proprietary compiler by Nvidia intended for use with CUDA) is ready, type `nvcc -V` in terminal and check the output:
+
 ```
 > nvcc -v
 nvcc: NVIDIA (R) Cuda compiler driver
@@ -150,7 +152,8 @@ __global__ void matmal(int M, int N, int K, float alpha, const float *A,
   }
 }
 ```
-This above CUDA kernel function `matmal` is designed to perform matrix multiplication with certain optimizations to leverage parallel processing using the GPU. 
+
+This above CUDA kernel function `matmal` is designed to perform matrix multiplication with certain optimizations to leverage parallel processing using the GPU.
 :::success
 DON'T worry if you do not understand the code, it was left here just for making an impression on how CUDA kernel function code would look like.
 :::
@@ -173,6 +176,7 @@ You do not have to understand what is happening in the code above, we are going 
 ## Intention of Parallelism
 
 In most prevalent cases, the purposes of applying parallelism are:
+
 - Decrease latency
 - Increase bandwidth
 - Increase throughput
@@ -183,6 +187,7 @@ Memory latency is the huge part of a computation process for most modern compute
 Figure: The calculation process of $Z = \alpha X + Y$, during which CPU loads the value of $X$ and $Y$ from memory, and do multiplication and plus operation. For those simple operations, CPU has to wait more time while reading from memory than doing operations on data. Most applications (approximately about $\frac{3}{4}$ of them) are reaching the limitation of memory speed (both latency of bancwidth), instead of running out of cores.
 
 For CPUs and GPUs, they are two different extremes on the way of improving memory performance:
+
 - CPU are expected to reduce memory latency. The expectation to CPU is to do a lot of work using a single thread, and it's really expensive to switch between those threads due to context switching. So CPUs are not expected to "wait" for coming data in the process of handling a lot of instructions, and they are designed to reduce the latency to run things fast, instead of adding more threads.
 - GPUs typically have much higher bandwidth as well as much higher latency. The principle here is that the GPU is designed to run a lot of tasks at the same time so that it has much more threads available than regular processors. The key of CUDA device is to perform parallel computation on a large amount of data, and they read chunk of data from memory at once. Therefore, it's really important to do data parallel on GPU.
 
@@ -196,9 +201,9 @@ CPUs and GPUs use different types of physical memory. The key difference here is
 
 ### Data Parallelism
 
-Data parallel is a fundamental and one of the most important aspect of improving effeciency and make full use of memory bandwidth to reach the processor's peak performance. **Typically, you can run a lot of tasks symotenuously to keep memory busy.** Compilers may optimize pipline(e.g. loop unrolling) for better efficiency, but pipelining could be limited due to the archetecture, or the optimization clould be done by the programmer manually to achieve both paralelism and concurrency. 
+Data parallel is a fundamental and one of the most important aspect of improving effeciency and make full use of memory bandwidth to reach the processor's peak performance. **Typically, you can run a lot of tasks symotenuously to keep memory busy.** Compilers may optimize pipline(e.g. loop unrolling) for better efficiency, but pipelining could be limited due to the archetecture, or the optimization clould be done by the programmer manually to achieve both paralelism and concurrency.
 
-The first step in designing a data parallel program is to partition data across threads, with each thread working on a portion of the data. 
+The first step in designing a data parallel program is to partition data across threads, with each thread working on a portion of the data.
 
 In general, there are two approaches to partitioning data: block partitioning and cyclic partitioning. In block partitioning, many consecutive elements of data are chunked together. Each chunk is assigned to a single thread in any order, and threads generally process only one chunk at a time. In cyclic partitioning, fewer data elements are chun- ked together. Neighboring threads receive neighboring chunks, and each thread can handle more than one chunk. Selecting a new chunk for a thread to process implies jumping ahead as many chunks as there are threads.
 
@@ -207,17 +212,18 @@ Figure: Examples of block partitioning and cyclic partitioning.
 
 :::success
 Specifically, for a machine consists of both CPU and GPU as well as their own memory, the topic of transfering data between physical memory of CPU and GPU is very important for the entire machine to util both CPU and GPU to do heterogeneous computing. There are typically two different types of data operation between devices:
+
 - Host(CPU) $\leftarrow\rightarrow$ Device(GPU), via PCIE
 - Device(GPU) $\leftarrow\rightarrow$ Device(GPU), via PCIE or NVLink
-:::
+  :::
 
 ### Heterogeneous Computing
 
-So far we know that CPUs and GPUs are designed for different purpose and they have their own advantages and disadvantages. Why don't let them cooperate for better efficiency? 
+So far we know that CPUs and GPUs are designed for different purpose and they have their own advantages and disadvantages. Why don't let them cooperate for better efficiency?
 
 Therefore, [Heterogeneous computing](https://en.wikipedia.org/wiki/Heterogeneous_computing) refers to systems that use more than one kind of processor or core. These systems gain performance or energy efficiency not just by adding the same type of processors, but by adding dissimilar coprocessors, usually incorporating specialized processing capabilities to handle particular tasks.
 
-Thats how a system with both CPU and GPU looks like. For a regular computer with NVIDIA GPU, CUDA devices refer to the GPUs installed on PCIE slot. 
+Thats how a system with both CPU and GPU looks like. For a regular computer with NVIDIA GPU, CUDA devices refer to the GPUs installed on PCIE slot.
 
 ![](./imgs/index/0a808afeeb997181c4aac4008.svg)
 Figure: How a modern computer system hardware consists, in which all the components communicate via host bus.
@@ -231,10 +237,12 @@ When writing a program, you should also consider whether the transfer of data be
 :::
 
 A heterogeneous environment consists of CPUs complemented by GPUs, each with its own memory separated by a PCI-Express bus. Therefore, you should note the following distinction:
+
 - Host: the CPU and its memory (host memory)
 - Device: the GPU and its memory (device memory)
 
 Since CPU cores and CUDA cores have their own cache and physical memory, they of course run different code on their own, but they can transfer/share data via PCIE to cooperate a complex task. Since we are talking about CUDA programming here, so the key terms of a heterogeneous application consists of two parts:
+
 - Host code (runs on CPU)
 - Device code (runs on GPU)
 
@@ -246,18 +254,20 @@ Now that you already know, in CUDA programming, data is divided into many parts,
 
 The CUDA programming model provides the following special features to harness the computing power of
 GPU architectures.
--  A way to organize threads on the GPU through a hierarchy structure
+
+- A way to organize threads on the GPU through a hierarchy structure
 - A way to access memory on the GPU through a hierarchy structure
 
 A typical processing flow of a CUDA program follows this pattern:
+
 1. Copy data from CPU memory to GPU memory.
 2. Invoke kernels to operate on the data stored in GPU memory.
 3. Copy data back from GPU memory to CPU memory.
 
 ![](./imgs/index/0a808afeeb997181c4aac400c.png)
-Figure: The serial code (as well as task parallel code) is executed on the host, while the parallel code is executed on the GPU device. 
+Figure: The serial code (as well as task parallel code) is executed on the host, while the parallel code is executed on the GPU device.
 
-The host code is written in ANSI C, and the device code is written using CUDA C. You can put all the code in a single source file, or you can use multiple source files to build your application or libraries. 
+The host code is written in ANSI C, and the device code is written using CUDA C. You can put all the code in a single source file, or you can use multiple source files to build your application or libraries.
 
 ![](./imgs/index/0a808afeeb997181c4aac400d.png)
 Figure: The NVIDIA C Compiler (nvcc) generates the executable code for both the host and device.
@@ -267,6 +277,7 @@ Instead of creating `.c` or `.cpp` files, you create `.cu` files for CUDA progra
 :::
 
 For example, in `hello.cu`:
+
 ```cpp
 #include <stdio.h>
 
@@ -280,21 +291,28 @@ int main(void) {
 }
 
 ```
+
 Compile it with `nvcc`:
+
 ```
 nvcc hello.cu -o hello
 ```
+
 Run the generated executable:
+
 ```
-hello 
+hello
 ```
+
 And you will see the expected output:
+
 ```
 Hello World from CPU !
 Hello World from GPU !
 ```
 
 A typical CUDA program structure consists of five main steps:
+
 1. Allocate GPU memories.
 2. Copy data from CPU memory to GPU memory.
 3. Invoke the CUDA kernel to perform program-specific computation.
@@ -326,14 +344,14 @@ A kernel function is the code to be executed on the device side. In a kernel fun
 
 :::danger
 A kernel function **must have a `void` return type**. Besides, The following restrictions apply for all kernels:
+
 - Access to device memory only
 - Must have void return type
 - No support for a variable number of arguments
 - No support for static variables
 - No support for function pointers
 - Exhibit an asynchronous behavior
-:::
-
+  :::
 
 2. `__device__`:
    - The `__device__` keyword is used to declare functions that can be called and executed on the GPU, similar to `__global__` functions. However, `__device__` functions **are not kernel functions and cannot be launched directly from the CPU**. Instead, they are typically called from `__global__` or other `__device__` functions.
@@ -346,12 +364,11 @@ A kernel function **must have a `void` return type**. Besides, The following res
      ```
    - `__device__` functions can be called from within `__global__` functions or other `__device__` functions.
 
-
-|  QUALIFIERS  |       EXECUTION        |                           CALLABLE                           |              NOTE              |
-| :----------: | :--------------------: | :----------------------------------------------------------: | :----------------------------: |
+|  QUALIFIERS  |       EXECUTION        |                                       CALLABLE                                       |              NOTE              |
+| :----------: | :--------------------: | :----------------------------------------------------------------------------------: | :----------------------------: |
 | `__global__` | Executed on the device | Callable from the host, Callable from the device for devices of compute capability 3 | Must have a `void` return type |
-| `__device__` | Executed on the device |                Callable from the device only                 |                                |
-|  `__host__`  |  Executed on the host  |                 Callable from the host only                  |       **Can be omitted**       |
+| `__device__` | Executed on the device |                            Callable from the device only                             |                                |
+|  `__host__`  |  Executed on the host  |                             Callable from the host only                              |       **Can be omitted**       |
 
 :::success
 The `__device__` and `__host__` qualifiers can be used together, in which case the function is compiled for both the host and the device.
@@ -384,6 +401,7 @@ There are two distinct sets of grid and block variables in a CUDA program: manua
 ### Launching a CUDA kernel
 
 You are familiar with the following C function call syntax:
+
 ```cpp
 function_name (argument list);
 ```
@@ -395,11 +413,13 @@ A grid effectively represents a kernel launch, i.e., it contains all the blocks 
 :::
 
 A CUDA kernel call is a direct extension to the C function syntax that adds a kernel’s execution configuration inside triple-angle-brackets:
+
 ```cpp
 kernel_name <<<grid, block>>>(argument list);
 ```
 
 Where:
+
 - `kernelFunction` is the name of the kernel function to be executed on the GPU.
 - `<<<gridDim, blockDim>>>` specifies the execution configuration.
 - `gridDim` defines the dimensions of the grid of thread blocks.
@@ -415,10 +435,12 @@ kernelFunction<<<dim3(gridDimX, gridDimY), dim3(blockDimX, blockDimY)>>>(args);
 Where `gridDimX` and `gridDimY` specify the number of blocks in the x and y dimensions of the grid, and `blockDimX` and `blockDimY` specify the number of threads per block in the x and y dimensions, respectively. The CUDA runtime system uses this information to schedule the execution of the kernel function across the available GPU resources. The actual number of threads and blocks that can be launched depends on the capabilities of the GPU device.
 
 As explained in the previous section, the CUDA programming model exposes the three-level hierarchy. With the execution configuration, you can specify how the threads will be scheduled to run on the GPU. The first value in the execution configuration is the grid dimension, the number of blocks to launch. The second value is the block dimension, the number of threads within each block. By specifying the grid and block dimensions, you configure:
+
 - The total number of threads for a kernel
 - The layout of the threads you want to employ for a kernel
-The threads within the same block can easily communicate with each other, and threads that belong to different blocks cannot cooperate. For a given problem, you can use a different grid and block layout to organize your threads. For example, suppose you have 32 data elements for a calculation.
-You can group 8 elements into each block, and launch four blocks as follows:
+  The threads within the same block can easily communicate with each other, and threads that belong to different blocks cannot cooperate. For a given problem, you can use a different grid and block layout to organize your threads. For example, suppose you have 32 data elements for a calculation.
+  You can group 8 elements into each block, and launch four blocks as follows:
+
 ```cpp
 kernel_name<<<4, 8>>>(argument list);
 ```
@@ -426,14 +448,15 @@ kernel_name<<<4, 8>>>(argument list);
 ![](./imgs/index/0a808afeeb997181c4aac4010.png)
 
 Terminologies and concepts here:
-- All threads spawned by a single kernel launch are collectively called a grid. All threads in a grid share the same global memory space. 
+
+- All threads spawned by a single kernel launch are collectively called a grid. All threads in a grid share the same global memory space.
 - A grid is made up of many thread blocks. A thread block is a group of threads that can cooperate with each other using:
-    - Block-local synchronization
-    - Block-local shared memory
+  - Block-local synchronization
+  - Block-local shared memory
 - Threads from different blocks cannot cooperate.
 - Threads rely on the following two unique coordinates to distinguish themselves from each other:
-    - blockIdx (block index within a grid)
-    - threadIdx (thread index within a block)
+  - blockIdx (block index within a grid)
+  - threadIdx (thread index within a block)
 
 CUDA organizes grids and blocks in three dimensions. When a kernel function is executed, the coordinate variables blockIdx and threadIdx are assigned to each thread by the CUDA runtime. **Based on the coordinates, you can assign portions of data to different threads**. The coordinate variable is of type uint3, a CUDA built-in vector type, derived from the basic integer type. It is a structure containing three unsigned integers, and the 1st, 2nd, and 3rd components are accessible through the fields x, y, and z respectively. You can get them through variables:
 
@@ -453,6 +476,7 @@ The dimensions of a grid and a block are specified by the following two built-in
 - `gridDim` (grid dimension, measured in blocks)
 
 Example code:
+
 ```cpp
 #include <cuda_runtime.h>
 #include <cstdio>
@@ -479,7 +503,9 @@ int main(int argc, char **argv) {
   return (0);
 }
 ```
+
 output:
+
 ```
 grid.x 2 grid.y 1 grid.z 1
 block.x 3 block.y 1 block.z 1
@@ -498,29 +524,37 @@ Remember,
 - The number of threads in a block is constant and specified when launching the kernel, with a maximum limit determined by the GPU architecture.
 
 Figure above shows a logical concept instead of a physical one. In CUDA programming, the size of a grid (i.e., the number of blocks in a grid) can vary depending on the problem being solved and the hardware constraints. When you launch a kernel in CUDA, you specify the dimensions of the grid using the `<<<...>>>` syntax, indicating the number of blocks in each dimension. For example:
+
 ```cpp
 dim3 gridDim(2, 3); // 2 blocks in the x-dimension, 3 blocks in the y-dimension
 kernel<<<gridDim, blockDim>>>(...);
 ```
+
 This code snippet launches a kernel with a grid of 2x3 blocks, resulting in a total of 6 blocks.
 
 The number of threads in a block is constant and is specified when launching the kernel. Each block can contain a maximum number of threads, which depends on the specific CUDA-capable GPU you are targeting. This maximum number is typically 512, **1024**, or 2048 threads per block, depending on the GPU architecture. You specify the number of threads per block when launching the kernel, like this:
+
 ```cpp
 dim3 blockDim(256); // 256 threads per block
 kernel<<<gridDim, blockDim>>>(...);
 ```
+
 In this example, each block contains 256 threads.
 :::
 
 :::warning
 It is important to distinguish between the host and device access of grid and block variables. For example, using a variable declared as block from the host, you define the coordinates and access them as follows:
+
 ```cpp
 block.x , block.y, block.z
 ```
-On the device side, you have pre-initialized, built-in block size variable available as: 
+
+On the device side, you have pre-initialized, built-in block size variable available as:
+
 ```cpp
 blockDim.x, blockDim.y, blockDim.z
 ```
+
 In summary, you define variables for grid and block on the host before launching a kernel, and access them there with the x, y and z fields of the vector structure from the host side. When the kernel is launched, you can use the pre-initialized, built-in variables within the kernel.
 :::
 
@@ -529,12 +563,14 @@ For more information about built-in variables in CUDA programming, please refer 
 :::
 
 :::danger
-Unlike a C function call, all CUDA kernel launches are asynchronous. Control returns to the CPU immediately after the CUDA kernel is invoked. A kernel call is asynchronous with respect to the host thread. After a kernel is invoked, control returns to the host side immediately. 
+Unlike a C function call, all CUDA kernel launches are asynchronous. Control returns to the CPU immediately after the CUDA kernel is invoked. A kernel call is asynchronous with respect to the host thread. After a kernel is invoked, control returns to the host side immediately.
 
 You can call the following function to force the host application to wait for all kernels to complete:
+
 ```cpp
 cudaError_t cudaDeviceSynchronize(void);
 ```
+
 Some CUDA runtime APIs perform an implicit synchronization between the host and the device. When you use cudaMemcpy to copy data between the host and device, implicit synchronization at the host side is performed and the host application must wait for the data copy to complete. It starts to copy after all previous kernel calls have completed. When the copy is finished, control returns to the host side immediately.
 :::
 
@@ -543,7 +579,6 @@ Some CUDA runtime APIs perform an implicit synchronization between the host and 
 In the GPU memory hierarchy, the two most important types of memory are global memory and shared memory. Global memory is analogous to CPU system memory, while shared memory is similar to the CPU cache. However, GPU shared memory can be directly controlled from a CUDA C kernel.
 
 ![](./imgs/index/0a808afeeb997181c4aac400e.png)
-
 
 The CUDA programming model assumes a system composed of a host and a device, each with its own separate memory. Kernels operate out of device memory. To allow you to have full control and achieve the best performance, the CUDA runtime provides functions to allocate device memory, release device memory, and transfer data between the host memory and device memory.
 
@@ -555,6 +590,7 @@ The CUDA programming model assumes a system composed of a host and a device, eac
 |         free         |     cudaFree     |
 
 This function copies the specified bytes from the source memory area, pointed to by src, to the destination memory area, pointed to by dst, with the direction specified by kind, where kind takes one of the following types:
+
 - cudaMemcpyHostToHost
 - cudaMemcpyHostToDevice
 - cudaMemcpyDeviceToHost
@@ -565,12 +601,14 @@ To help clearly designate the different memory spaces, example code in this page
 :::
 
 Because the data is stored linearly in global memory, you can use the built-in variables `blockIdx.x` and `threadIdx.x` to:
+
 - Identify a unique thread in the grid.
 - Establish a mapping between threads and data elements.
 
 Example:
 
 host code:
+
 ```cpp
 void sumArraysOnHost(float *A, float *B, float *C, const int N) {
     for (int i = 0; i < N; i++)
@@ -580,7 +618,9 @@ void sumArraysOnHost(float *A, float *B, float *C, const int N) {
 // call the function
 sumArraysOnHost(float *A, float *B, float *C, const int N);
 ```
+
 device code:
+
 ```cpp
 __global__ void sumArraysOnGPU(float *A, float *B, float *C) {
     int i = threadIdx.x;
@@ -599,13 +639,14 @@ kernel_name<<<4, 8>>>(argument list);
 
 ![](./imgs/index/0a808afeeb997181c4aac4010.png)
 
-Then you can access the correct data in kernel function via `blockDim` and `threadIdx`. 
+Then you can access the correct data in kernel function via `blockDim` and `threadIdx`.
 
 ## Example: Summing Matrices with a 1D Grid and 1D Blocks
 
 Here's an example CUDA code that demonstrates copying values of array `a` and `b` from CPU to GPU, performing an addition operation (`add`) on the GPU, and then copying the result `c` back from GPU to CPU and printing it to the console. In this example, we have 1000 values in array `a` and `b`, we use 1000 threads to calculate each of the sum of the elements from `a` and `b`:
 
 File `add-with-1d-grid-1d-block.cu`:
+
 ```cpp
 #include <stdio.h>
 
@@ -674,14 +715,19 @@ int main() {
 ### Run the code
 
 In terminal, move to your working directory, and type:
+
 ```bash
 nvcc add-with-1d-grid-1d-block.cu -o add
 ```
+
 Wait for `nvcc` complete, and run the generated executable:
+
 ```bash
 ./add
 ```
+
 The output should be:
+
 ```
 0 + 1000 = 1000
 1 + 999 = 1000
@@ -701,7 +747,7 @@ This code demonstrates:
 6. Printing the result to the console.
 
 :::info
-`cudaDeviceReset()` is a function provided by the CUDA runtime API which resets the current CUDA device. When you call `cudaDeviceReset()`, it cleans up and deallocates all resources associated with the current CUDA context, including memory allocations, streams, events, and any other runtime resources that may have been created. It also resets the device to its initial state. This function is particularly useful for cleaning up GPU resources at the end of a CUDA program. It's often called before the program exits to ensure that all resources are properly released. 
+`cudaDeviceReset()` is a function provided by the CUDA runtime API which resets the current CUDA device. When you call `cudaDeviceReset()`, it cleans up and deallocates all resources associated with the current CUDA context, including memory allocations, streams, events, and any other runtime resources that may have been created. It also resets the device to its initial state. This function is particularly useful for cleaning up GPU resources at the end of a CUDA program. It's often called before the program exits to ensure that all resources are properly released.
 It's important to note that after calling `cudaDeviceReset()`, any subsequent CUDA operations will require re-initialization of the CUDA context, such as device selection and memory allocation.
 :::
 :::danger
@@ -716,7 +762,7 @@ Among them, a Grid can contain multiple Blocks. The distribution mode of Blocks 
 
 ### How many thread do you need?
 
-Since you already know, in CUDA programming, data is divided into many parts, and each part is processed by a separate thread. So it is important that you know how many thread will it take to launch the kernel in order to perform computation on specific data. 
+Since you already know, in CUDA programming, data is divided into many parts, and each part is processed by a separate thread. So it is important that you know how many thread will it take to launch the kernel in order to perform computation on specific data.
 
 In the very first example at the top of this page, when doing matrix multiplication, CUDA programmers usually assign one thread on computing each of the value in the output. Each call to the CUDA kernel creates a new grid, and you launch a kernel every time you want to perform a calculation task. So you should know how many threads, as well as how many blocks in the grid do you need before launching the kernel.
 
@@ -732,13 +778,16 @@ sgemm_naive<<<gridDim, blockDim>>>(M, N, K, alpha, A, B, beta, C);
 ```
 
 **I'm trying to make the point that the number of thread you need depends on the number of element in your data**. You may assign different grid size and block size for a given data size, the general steps to determine the grid and block dimensions are:
+
 1. Decide the block size.
 2. Calculate the grid dimension based on the application data size and the block size.
-To determine the block dimension, you usually need to consider:
+   To determine the block dimension, you usually need to consider:
+
 - Performance characteristics of the kernel
 - Limitations on GPU resources
 
 Example:
+
 ```cpp
 #include <stdio.h>
 
@@ -766,6 +815,7 @@ int main(int argc, char **argv) {
   return (0);
 }
 ```
+
 Example above uses a 1D grid and 1D blocks to illustrate that when the block size is altered, the grid size will be changed accordingly.
 
 Each call to the CUDA kernel creates a new grid consisting of multiple blocks. Each block consists of up to 1024 individual threads. These constants can be found in the CUDA Programming Guide. Threads within the same block can access the same shared memory area (SMEM).
@@ -773,43 +823,55 @@ Each call to the CUDA kernel creates a new grid consisting of multiple blocks. E
 ### Thread ID with different Grid/Block Dimension
 
 You may have seen the code line to get the thread id:
+
 ```cpp
 const uint threadId = blockIdx.x * blockDim.x + threadIdx.x;
 ```
+
 The code assume that the units in Block and Grid here are organized in a one-dimensional form, so when calculating tid, we only need the built-in variables with the .x suffix.
 
 For two-dimensional and three-dimensional Block and Grid as well as other different sets of Block-Grid dimentions, the index of each thread is calculated as follows:
 
 - 1 dimentional Grid and 1 dimentional Block:
-```cpp
-int threadId = blockIdx.x *blockDim.x + threadIdx.x; 
-```
-- 1 dimentional Grid and 2 dimentional Block：
-```cpp
-int threadId = blockIdx.x * blockDim.x * blockDim.y + 
-              threadIdx.y * blockDim.x + threadIdx.x;  
-```
-- 1 dimentional Grid and 3 dimentional Block：
-```cpp
-int threadId = blockIdx.x * blockDim.x * blockDim.y * blockDim.z + 
-              threadIdx.z * blockDim.y * blockDim.x +
-              threadIdx.y * blockDim.x + threadIdx.x;  
-```
-- 2 dimentional Grid and 2 dimentional Block：
-```cpp
-int blockId = blockIdx.x + blockIdx.y * gridDim.x;  
-int threadId = blockId * (blockDim.x * blockDim.y)  
-                       + (threadIdx.y * blockDim.x) + threadIdx.x;  
-```
-- 3 dimentional Grid and 3 dimentional Block：
-```cpp
-int blockId = blockIdx.x + blockIdx.y * gridDim.x  
-             + gridDim.x * gridDim.y * blockIdx.z;  
 
-int threadId = blockId * (blockDim.x * blockDim.y * blockDim.z)  
-                       + (threadIdx.z * (blockDim.x * blockDim.y))  
-                       + (threadIdx.y * blockDim.x) + threadIdx.x;     
+```cpp
+int threadId = blockIdx.x *blockDim.x + threadIdx.x;
 ```
+
+- 1 dimentional Grid and 2 dimentional Block：
+
+```cpp
+int threadId = blockIdx.x * blockDim.x * blockDim.y +
+              threadIdx.y * blockDim.x + threadIdx.x;
+```
+
+- 1 dimentional Grid and 3 dimentional Block：
+
+```cpp
+int threadId = blockIdx.x * blockDim.x * blockDim.y * blockDim.z +
+              threadIdx.z * blockDim.y * blockDim.x +
+              threadIdx.y * blockDim.x + threadIdx.x;
+```
+
+- 2 dimentional Grid and 2 dimentional Block：
+
+```cpp
+int blockId = blockIdx.x + blockIdx.y * gridDim.x;
+int threadId = blockId * (blockDim.x * blockDim.y)
+                       + (threadIdx.y * blockDim.x) + threadIdx.x;
+```
+
+- 3 dimentional Grid and 3 dimentional Block：
+
+```cpp
+int blockId = blockIdx.x + blockIdx.y * gridDim.x
+             + gridDim.x * gridDim.y * blockIdx.z;
+
+int threadId = blockId * (blockDim.x * blockDim.y * blockDim.z)
+                       + (threadIdx.z * (blockDim.x * blockDim.y))
+                       + (threadIdx.y * blockDim.x) + threadIdx.x;
+```
+
 Those are only examples and you should calculate the thread id properly depending on your situation.
 
 ### Example: Summing Matrices with a 2D Grid and 2D Blocks
@@ -817,6 +879,7 @@ Those are only examples and you should calculate the thread id properly dependin
 In this section, you will write a matrix addition kernel that uses a 2D grid with 2D blocks.
 
 File `add-with-2d-grid-2d-block.cu`:
+
 ```cpp
 #include <cstdlib>
 #include <stdio.h>
@@ -913,12 +976,15 @@ int main(int argc, char **argv) {
 ```
 
 Have a look at those three lines:
+
 ```cpp
 int nx = 1 << 5; // 2^5 = 32
 int ny = 1 << 5; // 2^5 = 32
 int nxy = nx * ny; // Total number of elements in the matrix
 ```
+
 it defines that the size of the matrices is $32\times 32$. Therefore, when you run the program, the output would be:
+
 ```
 ...
 1021.000000 + 1021.000000 = 2042.000000
@@ -928,6 +994,7 @@ sumMatrixOnGPU2D <<<(1,1), (32,32)>>>
 ```
 
 If you change `nx` and `ny` from `1 << 5` to `1 << 6`, you're essentially increasing the size of the matrices from $32 \times 32$ to $64 \times 64$, and your output would be:
+
 ```
 ...
 4093.000000 + 4093.000000 = 8186.000000
@@ -949,10 +1016,12 @@ Here, `grid` represents the number of blocks in each dimension. The number of bl
 When `nx` and `ny` change from `1 << 5` to `1 << 6`, the total number of elements in each dimension doubles. Consequently, the number of blocks required to cover these elements also doubles in each dimension. Therefore, the `grid` dimensions change accordingly.
 
 Before the change (`1 << 5`):
+
 - Total elements in each dimension: \(32\)
 - Number of blocks needed in each dimension: \(1\)
 
 After the change (`1 << 6`):
+
 - Total elements in each dimension: \(64\)
 - Number of blocks needed in each dimension: \(2\)
 
@@ -963,6 +1032,7 @@ As a result, the `grid` configuration changes from `<<<(1,1), (32,32)>>>` to `<<
 So far we have already talked about the basics of operating data with CUDA. Now we are going to have another example of matrix multiplication.
 
 File name `matmul.cu`:
+
 ```cpp
 #include <cstddef>
 #include <stdio.h>
@@ -1037,6 +1107,7 @@ int main(int argc, char **argv) {
   return 0;
 }
 ```
+
 The output should be a $32\times 32$ float array.
 
 ### Breakdown the code of kernel function `matmal`
@@ -1116,12 +1187,15 @@ Since many CUDA calls are asynchronous, it may be difficult to identify which ro
     }                                                                          \
   }                                                                            \
 ```
+
 For example, you can use the macro on the following code:
+
 ```cpp
 CHECK(cudaMemcpy(d_C, gpuRef, nBytes, cudaMemcpyHostToDevice));
 ```
 
 If the memory copy or a previous asynchronous operation caused an error, the macro reports the error code, prints a human readable message, and then stops the program. It also can be used after a kernel invocation in the following way to check for kernel errors:
+
 ```cpp
 kernel_function<<<grid, block>>>(argument list);
 CHECK(cudaDeviceSynchronize());
@@ -1147,9 +1221,11 @@ CHECK(cudaSetDevice(dev));
 ```
 
 Since I'm using RTX 3090 at the time, my output is:
+
 ```
 Using Device 0: NVIDIA GeForce RTX 3090
 ```
+
 Your output could varies depending on the GPU model you are using. If your CUDA device(your NVIDIA GPU) is not `device 0`, you can change the value of `dev`, such as changing the line from `int dev = 0;` to `int dev = 1;` to check `device 1` until you get the valid result.
 
 :::success
@@ -1157,12 +1233,15 @@ You can always add those lines at the begining of your every CUDA program to ens
 :::
 
 Besides, NVIDIA provides several means by which you can query and manage GPU devices. You can use the Runtime API to query GPU information:
+
 ```cpp
 cudaError_t cudaGetDeviceProperties(cudaDeviceProp* prop, int device);
 ```
+
 The properties of the GPU device are returned in the [cudaDeviceProp](https://docs.nvidia.com/cuda/cuda-runtime-api/structcudaDeviceProp.html#structcudaDeviceProp) structure. Here is the example code to get your CUDA device information:
 
 File `check-device-info.cu`
+
 ```cpp
 #include <cuda_runtime.h>
 #include <stdio.h>
@@ -1236,7 +1315,9 @@ int main(int argc, char **argv) {
   exit(EXIT_SUCCESS);
 }
 ```
+
 Output on my computer:
+
 ```
 Detected 1 CUDA Capable device(s)
 Device 0: "NVIDIA GeForce RTX 3090"
@@ -1259,6 +1340,7 @@ Device 0: "NVIDIA GeForce RTX 3090"
  Maximum sizes of each dimension of a grid: 2147483647 x 65535 x 65535
  Maximum memory pitch: 2147483647 bytes
 ```
+
 You should get different output depending on the GPU model you are using.
 
 ### Verifying result of kernel function
@@ -1286,11 +1368,9 @@ void checkResult(float *hostRef, float *gpuRef, const int N) {
 
 Besides many useful debugging tools, you can also set the execution configuration to `<<<1,1>>>`, so you force the kernel to run with only one block and one thread. This emulates a sequential implementation. This is useful for debugging and verifying correct results. Also, this helps you verify that numeric results are bitwise exact from run-to-run if you encounter order of operations issues.
 
-## Timer and Analysis
+### Using a CPU timer
 
 Knowing how long a kernel takes to execute is helpful and critical during the performance turning of kernels. There are several ways to measure kernel performance.
-
-### Using a CPU timer
 
 The simplest method is to use a CPU timer to measure kernel executions from the host side.
 
@@ -1302,7 +1382,9 @@ double cpuSecond() {
   return ((double)tp.tv_sec + (double)tp.tv_usec * 1.e-6);
 }
 ```
+
 Code above allows you to get the time from CPU. Basically, you can measure running time of any code using a CPU timer:
+
 ```cpp
 double iStart = cpuSecond();
 ... things you want to measure
@@ -1310,12 +1392,14 @@ double iElaps = cpuSecond() - iStart;
 ```
 
 If you want to time a CUDA kernel launch, you can:
+
 ```cpp
 double iStart = cpuSecond();
 kernel_name<<<grid, block>>>(argument list);
 cudaDeviceSynchronize();
 double iElaps = cpuSecond() - iStart;
 ```
+
 :::danger
 Don't forget to add `cudaDeviceSynchronize()` when time it with a CPU timer. Although all GPU-related tasks placed in one stream (which is the default behavior) are executed sequentially on GPU side, CUDA kernel launches are asynchronous to CPU, so the code just goes to the next line when you start the kernel at the line `kernel_name<<<grid, block>>>(argument list);`. `cudaDeviceSynchronize()` ensures your CPU timer will record the right time running the kernel.
 :::
@@ -1331,62 +1415,14 @@ double iElaps = cpuSecond() - iStart;
 printf("Time used: %f", iElaps);
 ...
 ```
+
 My output is:
+
 ```
 Time used: 0.000072
 ```
+
 Your output should be a different value. Besides, if you want to measure time cost while doing memory copy between CPU and GPU, you should also include related code lines between `iStart` and `iElaps`.
-
-
-### The `nvprof` command
-
-`nvprof` is a command-line profiling tool provided by NVIDIA for analyzing the performance of CUDA applications. It provides detailed information about kernel execution times, memory operations, and other metrics related to GPU performance.
-
-:::danger
-If you have a GPU with [compute capability](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#compute-capabilities) 8.0 and higher, `nvprof` command won't work and you will get the error:
-```
-======== Warning: nvprof is not supported on devices with compute capability 8.0 and higher.
-                  Use NVIDIA Nsight Systems for GPU tracing and CPU sampling and NVIDIA Nsight Compute for GPU profiling.
-                  Refer https://developer.nvidia.com/tools-overview for more details.
-```
-If you see this error, It means that your CUDA device is pretty a new one, and you should use a more powerful tool called Nsight Compute to analyse your program. Hopefully I will include Nsight Compute in my next post.
-:::
-
-It's very simple to use `nvprof`, just type `nvprof your_program` and see the result. `your programm` should be an executable file compiled with `nvcc`. For example, using `nvprof` to measure an `add` kernel:
-
-```
-==33356== Profiling application: ./add
-==33356== Profiling result:
-            Type  Time(%)      Time     Calls       Avg       Min       Max  Name
- GPU activities:   92.23%  570.25ms         1  570.25ms  570.25ms  570.25ms  add_kernel(float*, float*, float*, int)
-                    4.79%  29.586ms         1  29.586ms  29.586ms  29.586ms  [CUDA memcpy DtoH]
-                    2.99%  18.459ms         2  9.2297ms  9.2245ms  9.2349ms  [CUDA memcpy HtoD]
-      API calls:   56.06%  619.64ms         3  206.55ms  9.4402ms  600.73ms  cudaMemcpy
-                   43.58%  481.72ms         3  160.57ms  359.50us  481.00ms  cudaMalloc
-                    0.16%  1.7937ms       101  17.759us     239ns  933.68us  cuDeviceGetAttribute
-                    0.09%  1.0061ms         3  335.36us  278.68us  444.81us  cudaFree
-                    0.09%  956.79us         1  956.79us  956.79us  956.79us  cuDeviceTotalMem
-                    0.01%  132.25us         1  132.25us  132.25us  132.25us  cuDeviceGetName
-                    0.00%  50.300us         1  50.300us  50.300us  50.300us  cudaLaunchKernel
-                    0.00%  14.994us         1  14.994us  14.994us  14.994us  cudaDeviceSynchronize
-                    0.00%  10.974us         1  10.974us  10.974us  10.974us  cuDeviceGetPCIBusId
-                    0.00%  3.0460us         3  1.0150us     421ns  2.1590us  cuDeviceGetCount
-                    0.00%  1.7330us         2     866ns     328ns  1.4050us  cuDeviceGet
-                    0.00%     543ns         1     543ns     543ns     543ns  cuDeviceGetUuid
-```
-
-Here's a basic guide on how to read `nvprof` output:
-
-1. **Kernel Execution Times**: `nvprof` typically displays kernel execution times, including the total time each kernel takes to execute on the GPU. Look for the kernel names and their corresponding execution times.
-2. **CUDA API Calls**: It also shows CUDA API calls made by the application, along with the time taken by each API call.
-3. **Memory Operations**: `nvprof` provides information about memory operations such as memory copies between host and device, memory allocations, and deallocations. This helps in identifying memory bottlenecks in your application.
-4. **Utilization Metrics**: It may include GPU utilization metrics, such as compute utilization, memory utilization, and PCIe utilization, which give insight into how efficiently the GPU resources are being utilized.
-5. **Memory Transfer Bandwidth**: You can also see the bandwidth of memory transfers between host and device. This helps in optimizing data transfer operations between CPU and GPU.
-6. **Concurrency Metrics**: `nvprof` may display information about concurrent kernel execution, memory copies, and compute activities. Understanding concurrency can help in maximizing GPU throughput.
-7. **Profiler Output Options**: `nvprof` provides various options to customize the output, such as selecting specific metrics to display, filtering results based on criteria like kernel name or CUDA API call, and exporting data to files for further analysis.
-
-When interpreting `nvprof` output, it's essential to focus on areas that are critical for optimizing your CUDA application's performance, such as identifying performance bottlenecks, improving memory access patterns, optimizing kernel configurations, and reducing unnecessary memory transfers. Additionally, comparing `nvprof` outputs before and after optimization efforts can help evaluate the effectiveness of performance improvements.
-
 
 ## Frequently Asked Questions
 
@@ -1396,4 +1432,4 @@ When interpreting `nvprof` output, it's essential to focus on areas that are cri
 
 https://www.cs.utexas.edu/~rossbach/cs380p/papers/cuda-programming.pdf  
 https://docs.nvidia.com/cuda/cuda-c-programming-guide  
-https://cuda.keter.top/prev_concept  
+https://cuda.keter.top/prev_concept
