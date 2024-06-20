@@ -58,10 +58,8 @@ function ComponentPersonalInfo(): JSX.Element {
         CUDA, Java, Kotlin, dotnet, React, PyTorch, and LaTeX.
       </p>
       <p style={{ marginBottom: "5px" }}>
-        My research topic mainly focuses on secured machine learning and
-        learning privacy, especially on Homomorphic Encryption for learning. My
-        research interests span the broad area of Computer Vision, Large
-        Language Models, Generative Models and Unsupervised Learning, as well as
+        My research topic mainly focuses on Large Language Models and Privacy Preserving AI Computing. 
+        My research interests span the broad area of Computer Vision, Generative Models and Unsupervised Learning, as well as
         fine-tuning and optimizing deep learning models into software systems.
       </p>
       <p style={{ marginBottom: "5px" }}>
