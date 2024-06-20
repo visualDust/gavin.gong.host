@@ -55,7 +55,7 @@ function ComponentPersonalInfo(): JSX.Element {
         </strong>
         . I taught myself computer vision and large language model related
         content during my undergraduate studies. I consist of Python, C#, C++,
-        CUDA, Java, Kotlin, Latex, dotnet, React, PyTorch, and LaTeX.
+        CUDA, Java, Kotlin, dotnet, React, PyTorch, and LaTeX.
       </p>
       <p style={{ marginBottom: "5px" }}>
         My research topic mainly focuses on secured machine learning and
