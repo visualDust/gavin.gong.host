@@ -1,0 +1,53 @@
+---
+title: proxychians 刚装上就拉了
+authors: [visualdust]
+tags: [linux]
+---
+
+疼逊云服务器打折忍不住买了五年，刚装上 proxychains 写好配置文件之后第一次用就出现 `ERROR: ld.so: object 'libproxychains.so.3' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored. Opening in existing browser session. ` 异常。看了一下 libproxychains.so.3 这个文件是在的：
+
+in:
+```bash
+whereis libproxychains.so.3
+```
+
+out:
+```bash
+libproxychains.so: /usr/lib/x86_64-linux-gnu/libproxychains.so.3
+```
+
+后来发现其实是 proxychains 启动脚本文件里写的文件位置是这样的：
+
+<!--truncate-->
+
+in:
+```bash
+sudo cat /usr/bin/proxychains
+```
+
+out:
+```bash
+#!/bin/sh
+echo "ProxyChains-3.1 (http://proxychains.sf.net)"
+if [ $# = 0 ] ; then
+        echo "  usage:"
+        echo "          proxychains <prog> [args]"
+        exit
+fi
+export LD_PRELOAD=libproxychains.so.3
+exec "$@"
+```
+
+有趣的是 libproxychains.so.3 所在的 `/usr/lib/x86_64-linux-gnu/` 似乎并不在 path 里。所以解决起来有两个办法，一个是对 `/usr/bin/proxychains` 文件内容进行修改：
+
+```
+export LD_PRELOAD=libproxychains.so.3
+```
+
+改为
+
+```
+export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libproxychains.so.3
+```
+
+另一种办法是将 `/usr/lib/x86_64-linux-gnu/` 塞进 path。这两种都work，改完了就可以正常用了。
