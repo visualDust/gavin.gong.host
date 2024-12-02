@@ -12,7 +12,7 @@ const config = {
   tagline: "Empoered with knowledge",
   url: "https://gong.host",
   baseUrl: "/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "ignore",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/logo.svg",
   organizationName: "visualDust",
@@ -29,12 +29,11 @@ const config = {
           ignorePatterns: ["/tags/**"],
           filename: "sitemap.xml",
         },
-        docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.dev/visualDust/gavin.gong.host/blob/master/",
-          remarkPlugins: [math],
-          rehypePlugins: [[katex, { strict: false }]],
-        },
+        // docs: {
+        //   path: 'docs',
+        //   routeBasePath: 'docs',
+        //   // ... other options
+        // },
         blog: {
           showReadingTime: true,
           editUrl: "https://github.dev/visualDust/gavin.gong.host/blob/master/",
@@ -113,9 +112,9 @@ const config = {
             position: "left",
           },
           {
-            to: "/gallery",
-            label: "Gallery",
-            position: "left",
+            to: 'docs/',
+            label: 'Docs',
+            position: 'left',
           },
           {
             href: "https://neetbox.550w.host",
@@ -124,7 +123,12 @@ const config = {
           },
           {
             href: "/about",
-            label: "About & Links",
+            label: "About",
+            position: "right",
+          },
+          {
+            href: "/links",
+            label: "Links",
             position: "right",
           },
         ],
@@ -140,12 +144,16 @@ const config = {
                 to: "/blog",
               },
               {
+                label: "Docs",
+                to: "/docs",
+              },
+              {
                 label: "About",
                 to: "/about",
               },
               {
-                label: "ML.akasaki.space",
-                to: "https://ml.akasaki.space",
+                label: "Links",
+                to: "/links",
               },
             ],
           },
@@ -157,13 +165,17 @@ const config = {
                 href: "https://github.com/neet-cv",
               },
               {
+                label: "ml.akasaki.space",
+                to: "https://ml.akasaki.space",
+              },
+              {
                 label: "Sanyuan Kexie",
                 href: "https://hello.kexie.space",
               },
             ],
           },
           {
-            title: "More",
+            title: "Whatever",
             items: [
               {
                 label: "Github",

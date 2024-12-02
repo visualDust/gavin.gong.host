@@ -4,9 +4,11 @@ authors: [visualdust]
 tags: [cuda, c, cpp]
 ---
 
+## Data transfer between host and device
+
 In CUDA programming, memory management functions are essential for optimizing data transfer between the host (CPU) and the device (GPU).
 
-## Copy from/to Pageable Memory
+### Copy from/to Pageable Memory
 
 ![copy from pageable memory](./imgs/image.png)
 
@@ -43,7 +45,7 @@ cudaFree(d_a);
 free(h_a);
 ```
 
-## Copy from/to Pinned Memory
+### Copy from/to Pinned Memory
 
 ![alt text](./imgs/image-1.png)
 
@@ -80,7 +82,7 @@ It's actually similar to how you copy from/to pageable memory, but you generally
 When you allocates non-pageable memory, it uses more physical memory because it cannot be paged out.
 ::::
 
-## Zero-Copy Memory
+### Zero-Copy Memory
 
 ![access via zero copy](./imgs/image-2.png)
 
@@ -104,7 +106,7 @@ In the code `cudaHostGetDevicePointer` gets the device pointer to the allocated 
 Zero-copy memory access can introduce overhead due to PCIe transactions, so its performance benefits depend on the specific use case
 :::
 
-## Unified Memory
+### Unified Memory
 
 With CUDA 6.0, a new feature called Unified Memory was introduced to simplify memory management in the CUDA programming model. Unified Memory creates a pool of managed memory, where each allocation from this memory pool is accessible on both the CPU and GPU with the same memory address.
 
@@ -131,10 +133,22 @@ cudaFree(data);
 - **Description**: Allocates managed memory that is automatically accessible by both the host and the device. The Unified Memory management system automatically migrates data between the host and device as needed.
 - **Use Case**: Simplifies memory management when you want to share data between the host and the device without manually copying data back and forth.
 
-## Summary
+### Summary
 
 Summary of used APIs
 
 - **`cudaMallocManaged`**: Easiest to use for sharing data between host and device with automatic management but may have performance overhead.
 - **`cudaMallocHost`**: Allocates pinned host memory for fast, reliable transfers, best for scenarios with frequent data movement between host and device.
 - **`cudaHostAlloc`**: Provides flexible memory allocation with multiple flags, suitable for advanced use cases like direct GPU access and multi-context scenarios.
+
+## On device memory hierarchy
+
+### L1 Cache and Shared Memory
+
+:::note
+The main difference between shared memory and the L1 is that the contents of shared memory are managed by your code explicitly, whereas the L1 cache is automatically managed.
+:::
+
+### L2 Cache
+
+### Global Memory

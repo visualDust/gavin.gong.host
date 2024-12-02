@@ -48,7 +48,7 @@ export default function NotFound() {
               </Translate>
             </p>
           </div>
-          <img src='/img/NotFound.png' style={{
+          <img src='/img/notfound_octopus.png' style={{
             borderRadius: "20px",
             marginTop:"20px"
           }} />
