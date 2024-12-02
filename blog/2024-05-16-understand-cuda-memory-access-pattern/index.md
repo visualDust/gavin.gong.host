@@ -5,3 +5,4 @@ draft: true
 tags: [cuda, c, cpp]
 ---
 
+<!-- truncate -->
