@@ -48,22 +48,17 @@ function ComponentPersonalInfo(): JSX.Element {
       <p style={{ marginBottom: "5px" }}>
         <strong>I'm a first year PhD student in Computer Science, {" "}
           <span style={{ color: "var(--ifm-color-primary)" }}>
-            NCSU (North Carolina State Uƒniversity)
+            NCSU (North Carolina State University)
           </span>
         </strong>, being an apprentice of <a href="https://wenwujie.github.io/">Dr. Wujie Wen</a>.
         I got my bachelors degree from{" "}
         <strong>
           <span style={{ color: "rgb(0, 59, 122)" }}>
-            GUET (Guilin University of Electronic Technology)
+            GUET (Guilin University of Electronic Technology).
           </span>
         </strong>{" "}
-        in 2024 summer. I taught myself computer vision and large language model things. I consist of Python, C#, C++,
-        CUDA, dotnet, PyTorch, Markdown, and LaTeX.
-      </p>
-      <p style={{ marginBottom: "5px" }}>
-        My research topic mainly focuses on Large Language Models and Privacy Preserving AI Computing.
-        My research interests span the broad area of Computer Vision, Generative Models and Unsupervised Learning, as well as
-        fine-tuning and optimizing deep learning models into software systems.
+        I was previously on computer vision, recently I'm on joint optimization on privacy preserving AI computing on large language model things. I consist of PyTorch,
+        CUDA, dotnet, and LaTeX.
       </p>
     </div>
   );
@@ -82,6 +77,7 @@ import { FaLink } from "react-icons/fa6";
 import { BsTelegram } from "react-icons/bs";
 import { TbDeviceDesktopCog } from "react-icons/tb";
 import { BiSolidSchool } from "react-icons/bi";
+import { MdViewTimeline } from "react-icons/md";
 import Link from "@docusaurus/Link";
 import clsx from "clsx";
 import CurrentlyMaintaining from "../components/project_badge/CurrentlyMaintaining";
@@ -92,11 +88,11 @@ const MyLinks: LinkProps[] = [
     text: "Email",
     icon: <IoMail />,
   },
-  {
-    url: "https://t.me/VisualDust",
-    text: "Telegram",
-    icon: <BsTelegram />,
-  },
+  // {
+  //   url: "https://t.me/????",
+  //   text: "Telegram",
+  //   icon: <BsTelegram />,
+  // },
   {
     url: "https://github.com/visualDust",
     text: "GitHub",
@@ -117,6 +113,11 @@ const MyLinks: LinkProps[] = [
     text: "GeekBench",
     icon: <TbDeviceDesktopCog />,
   },
+  {
+    url: "https://wakatime.com/@VisualDust",
+    text: "WakaTime",
+    icon: <MdViewTimeline />
+  }
 ];
 
 function ComponentLinkMobile(): JSX.Element {
@@ -156,7 +157,7 @@ function ComponentLinkMobile(): JSX.Element {
           >
             {props.icon && (
               <>
-                {props.icon}
+                {<div>{props.icon}</div>}
                 <span style={{ marginLeft: "5px" }}></span>
               </>
             )}
@@ -213,8 +214,8 @@ function ComponentNameDesktop(): JSX.Element {
   return (
     <div
       style={{
-        marginTop: "25px",
-        marginBottom: "25px",
+        marginTop: "20px",
+        // marginBottom: "0px",
       }}
     >
       <h1>Gavin Gong</h1>
@@ -247,6 +248,23 @@ function MyGitHubCalendar() {
   return <GitHubCalendar colorScheme={colorMode} username="VisualDust" />;
 }
 
+function MyWakaTimeCalendarBrowserOnly() {
+  return <BrowserOnly>{() => <MyWakaTimeCalendar />}</BrowserOnly>;
+}
+
+function MyWakaTimeCalendar() {
+  const colorMode = useColorMode().colorMode;
+  return (
+    <img
+      src={
+        colorMode == "dark"
+          ? "https://wakatime.com/share/@VisualDust/fddf11c2-e1f2-4b70-bfd6-1e2d3a7f4eb2.svg"
+          : "https://wakatime.com/share/@VisualDust/97c1e62f-45c9-4807-a553-08c3c505d9ba.svg"
+      }
+    />
+  );
+}
+
 function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
   return (
     <div // personal information and links
@@ -276,7 +294,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
           src="/img/visualdust.jpg"
         ></img>
         <ComponentNameDesktop />
-        <div style={{ display: "flex", justifyContent: "left" }}>
+        {/* <div style={{ display: "flex", justifyContent: "left" }}>
           <img
             style={{ width: "30%", paddingRight: "5%" }}
             src="/img/logo-ncsu.svg"
@@ -285,7 +303,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
             style={{ width: "30%", paddingRight: "5%" }}
             src="/img/logo-guet.svg"
           />
-        </div>
+        </div> */}
       </div>
       <div
         style={{
@@ -299,6 +317,7 @@ function ComponentPersonalInfoAndLinksDesktop(): JSX.Element {
         <ComponentPersonalInfo />
         <ComponentLinkDesktop />
         <MyGitHubCalendarBrowserOnly />
+        {/* <MyWakaTimeCalendarBrowserOnly /> */}
       </div>
     </div>
   );
@@ -339,7 +358,7 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
         </div>
       </div>
       <ComponentPersonalInfo></ComponentPersonalInfo>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      {/* <div style={{ display: "flex", justifyContent: "center" }}>
         <img
           style={{ width: "30%", paddingRight: "3%" }}
           src="/img/logo-ncsu.svg"
@@ -348,7 +367,7 @@ function ComponentPersonalInfoAndLinksMobile(): JSX.Element {
           style={{ width: "30%", paddingLeft: "3%" }}
           src="/img/logo-guet.svg"
         />
-      </div>
+      </div> */}
       <ComponentLinkMobile></ComponentLinkMobile>
     </div>
   );
@@ -376,6 +395,8 @@ function HomePageMobile(): JSX.Element {
         }}
       >
         <MyGitHubCalendarBrowserOnly />
+        {/* <div style={{ marginTop: "20px" }}></div>
+        <MyWakaTimeCalendarBrowserOnly /> */}
       </div>
       <AkasakFeaturesMobile />
       <CurrentlyMaintaining />

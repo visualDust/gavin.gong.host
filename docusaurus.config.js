@@ -9,13 +9,12 @@ const katex = require("rehype-katex");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Life that deepdive",
-  tagline: "Empoered with knowledge",
-  url: "https://gong.host",
+  url: "https://www.gong.host",
   baseUrl: "/",
   onBrokenLinks: "ignore",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/logo.svg",
-  organizationName: "visualDust",
+  organizationName: "NCSU",
   projectName: "blog.gong.host", // Usually your repo name.
 
   presets: [
@@ -30,8 +29,8 @@ const config = {
           filename: "sitemap.xml",
         },
         docs: {
-          path: 'docs',
-          routeBasePath: 'docs',
+          path: "docs",
+          routeBasePath: "docs",
         },
         blog: {
           showReadingTime: true,
@@ -72,7 +71,6 @@ const config = {
         // For Docs using Chinese, The `language` is recommended to set to:
         // ```
         language: ["en", "zh"],
-        
       },
     ],
     require.resolve("docusaurus-plugin-image-zoom"),
@@ -81,6 +79,20 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [
+        { name: "keywords", content: "visualdust, blog" },
+        { name: "og:site_name", content: "VisualDust's blogs" },
+        { name: "author", content: "Gavin Gong" },
+        {
+          name: "description",
+          content: "Where I share some writings and insights",
+        },
+        { name: "og:image", content: "https://gong.host/img/site_img.jpg" },
+        {
+          name: "og:description",
+          content: "Where I share some writings and insights",
+        },
+      ],
       navbar: {
         title: "Gavin Gong",
         logo: {
@@ -99,9 +111,9 @@ const config = {
             position: "left",
           },
           {
-            to: 'docs/',
-            label: 'Docs',
-            position: 'left',
+            to: "docs/",
+            label: "Docs",
+            position: "left",
           },
           {
             href: "https://neetbox.550w.host",

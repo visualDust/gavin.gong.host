@@ -4,24 +4,24 @@
  * work well for content-centric websites.
  */
 
-:root {
-  --ifm-color-primary: rgb(204, 0, 0);
-  --ifm-color-primary-dark: rgb(233, 33, 33);
-  --ifm-color-primary-darker: rgb(255, 105, 105);
-  --ifm-color-primary-darkest: rgb(255, 90, 95);
-  --ifm-color-primary-light: rgb(181, 0, 0);
-  --ifm-color-primary-lighter: rgb(255, 0, 111);
-  --ifm-color-primary-lightest: rgb(255, 106, 151);
-  --ifm-code-font-size: 95%;
-  --floating-card-background: rgb(240, 240, 240);
-  --ifm-navbar-background-color-desktop-only: rgba(255, 255, 255, 0.6);
-  scroll-behavior: smooth;
+ :root {
+  --ifm-color-primary: #ff6666;
+  --ifm-color-primary-dark: #ff4242;
+  --ifm-color-primary-darker: #ff3030;
+  --ifm-color-primary-darkest: #fa0000;
+  --ifm-color-primary-light: #ff8a8a;
+  --ifm-color-primary-lighter: #ff9c9c;
+  --ifm-color-primary-lightest: #ffd1d1;
 }
 
-html[data-theme="dark"] {
-  --ifm-color-primary: rgb(254, 126, 126);
-  --floating-card-background: rgb(53, 53, 53);
-  --ifm-navbar-background-color-desktop-only: rgba(36, 37, 38, 0.6);
+[data-theme='dark'] {
+  --ifm-color-primary: #ff9494;
+  --ifm-color-primary-dark: #ff6c6c;
+  --ifm-color-primary-darker: #ff5858;
+  --ifm-color-primary-darkest: #ff1b1b;
+  --ifm-color-primary-light: #ffbcbc;
+  --ifm-color-primary-lighter: #ffd0d0;
+  --ifm-color-primary-lightest: #ffffff;
 }
 
 ::selection {
