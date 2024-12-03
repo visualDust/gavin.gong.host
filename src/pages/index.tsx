@@ -109,13 +109,19 @@ function HomepageBackground() {
                                 onClick={() => {
                                     window.location.href = "/blog/";
                                 }}
-                            >blogs</button>
+                            >Blogs</button>
                             <button
                                 className={"button button--primary"}
                                 onClick={() => {
                                     window.location.href = "/docs/";
                                 }}
-                            >docs</button>
+                            >Docs</button>
+                            <button
+                                className={"button button--primary"}
+                                onClick={() => {
+                                    window.location.href = "/about/";
+                                }}
+                            >About</button>
                         </div>
                     </div>
                     <div
