@@ -1,5 +1,6 @@
 ---
 title: "Homework 1"
+id: Homework-1
 sidebar_position: 11
 tags:
   - lecture

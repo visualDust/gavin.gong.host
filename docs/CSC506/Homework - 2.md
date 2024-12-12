@@ -1,5 +1,6 @@
 ---
 title: "Homework 2"
+id: Homework-2
 sidebar_position: 18
 tags:
   - lecture
@@ -7,7 +8,7 @@ tags:
 
 ![Pasted image 20241104213141](./imgs/Pasted%20image%2020241104213141.png)
 
-Homework 2 form: [homework-2](homeworks/homework-2.pdf)
+Homework 2 form: [homework-2](pdfs/homework-2.pdf)
 
 T3 code:
 

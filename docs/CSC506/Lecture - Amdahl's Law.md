@@ -1,5 +1,6 @@
 ---
 title: "Amhdal's Law"
+id: Amdahls-Law
 sidebar_position: 2
 tags:
   - parallelism

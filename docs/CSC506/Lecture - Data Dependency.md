@@ -1,5 +1,6 @@
 ---
 title: "Data Dependency"
+id: Data-Dependency
 sidebar_position: 4
 tags:
   - parallelism

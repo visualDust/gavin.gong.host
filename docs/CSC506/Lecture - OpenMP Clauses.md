@@ -1,5 +1,6 @@
 ---
 title: "OpenMP Clauses"
+id: OpenMP-Clauses
 sidebar_position: 6
 tags:
   - parallelism

@@ -1,5 +1,6 @@
 ---
 title: "Consistency and Synchronization Problems"
+id: Consistency-and-Synchronization-Problems
 sidebar_position: 13
 tags:
   - lecture

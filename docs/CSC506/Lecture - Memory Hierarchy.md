@@ -1,5 +1,6 @@
 ---
 title: "Memory Hierarchy"
+id: Memory-Hierarchy
 sidebar_position: 7
 tags:
   - lecture

@@ -1,5 +1,6 @@
 ---
 title: "Midterm Exam Note"
+id: Midterm-Exam-Note
 sidebar_position: 12
 ---
 

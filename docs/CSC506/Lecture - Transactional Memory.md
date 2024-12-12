@@ -1,5 +1,6 @@
 ---
 title: "Transactional Memory"
+id: Transactional-Memory
 sidebar_position: 17
 tags:
   - lecture

@@ -1,5 +1,6 @@
 ---
 title: "Directory Coherence Protocol"
+id: Directory-Coherence-Protocol
 sidebar_position: 15
 tags:
   - lecture

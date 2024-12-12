@@ -1,5 +1,6 @@
 ---
 title: "Interconnection Network Architecture"
+id: Interconnection-Network-Architecture
 sidebar_position: 16
 tags:
   - lecture

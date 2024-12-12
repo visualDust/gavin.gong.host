@@ -1,5 +1,6 @@
 ---
 title: "Cache Coherence in Bus-Based Multiprocessor Systems"
+id: Cache-Coherence-in-Bus-Based-Multiprocessors
 sidebar_position: 10
 tags:
   - lecture

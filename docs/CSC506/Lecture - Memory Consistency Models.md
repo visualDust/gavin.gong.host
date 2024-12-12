@@ -1,5 +1,6 @@
 ---
 title: "Memory Consistency Models"
+id: Memory-Consistency-Models
 sidebar_position: 14
 tags:
   - parallelism

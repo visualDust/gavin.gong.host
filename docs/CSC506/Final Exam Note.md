@@ -1,5 +1,6 @@
 ---
 title: "Final Exam Note"
+id: Final-Exam-Note
 sidebar_position: 19
 tags:
   - lecture
@@ -171,7 +172,7 @@ Actions per request:
 > ![Pasted image 20240924230517](./imgs/Pasted%20image%2020240924230517.png)
 
 > [!NOTE]
-> From [homework-2](homeworks/homework-2.pdf) > ![Pasted image 20241207161535](./imgs/Pasted%20image%2020241207161535.png)
+> From [homework-2](pdfs/homework-2.pdf) > ![Pasted image 20241207161535](./imgs/Pasted%20image%2020241207161535.png)
 >
 > ![Pasted image 20241207162956](./imgs/Pasted%20image%2020241207162956.png)
 >

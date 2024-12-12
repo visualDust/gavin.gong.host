@@ -1,5 +1,6 @@
 ---
 title: "Cache Coherence Problem"
+id: Cache-Coherence-Problem
 sidebar_position: 9
 tags:
   - lecture

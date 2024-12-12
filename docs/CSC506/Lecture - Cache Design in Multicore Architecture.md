@@ -1,5 +1,6 @@
 ---
 title: "Cache Design in Multicore Architecture"
+id: Cache-Design-in-Multicore-Architecture
 sidebar_position: 8
 tags:
   - lecture

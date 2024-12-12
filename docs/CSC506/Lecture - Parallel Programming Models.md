@@ -1,5 +1,6 @@
 ---
 title: "Parallel Programming Models"
+id: Parallel-Programming-Models
 sidebar_position: 3
 tags:
   - parallelism
