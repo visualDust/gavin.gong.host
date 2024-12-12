@@ -1,19 +1,22 @@
 ---
 title: "Midterm Exam Note"
+sidebar_position: 12
 ---
 
-> [!danger]
+> [!CAUTION]
 > This note is written by someone(`Gavin Gong, zgong6@ncsu.edu`) attending this class, not by the instructor(`Dr.Greg Byrd, gbyrd@ncsu.edu`) of the course(`CSC506`). There might be errors.
 
-> [!info] Instructor said
+> [!NOTE] 
+> Instructor said
 > The exam will be closed-book and closed-notes, and no electronic devices are allowed. The material for the quiz comes from lectures and material covered in the text. In particular, all sections of the text listed in the Reading Assignments on Moodle will be the source of content for the exam.
 
 ---
 
-> [!question] Question 01
+> [!IMPORTANT]
+> Question 01
 > Given some sequential code and a description of how to execute the code on multiple processors, discuss how the parallel version would be implemented using the **shared memory** and **message passing** models, using pseudocode to express distribution of data, communication, and synchronization among threads.
 
-> [!cite]
+> [!NOTE]
 > For shared memory and message passing parallel programming model, see [Lecture - Parallel Programming Models](Lecture%20-%20Parallel%20Programming%20Models.md)
 
 Summary on this problem
@@ -74,10 +77,11 @@ int main(int argc, char** argv){
 
 ---
 
-> [!question] Question 02
+> [!IMPORTANT]
+> Question 02
 > Define and give examples of data dependences, including **true**, **anti**, and **output dependences**.
 
-> [!cite]
+> [!NOTE]
 > For detailed definition of above mentioned dependencies, see [Lecture - Data Dependency](Lecture%20-%20Data%20Dependency.md).
 
 They are:
@@ -115,10 +119,11 @@ It's $S_{1}\mathop{\to}^O S_{2}$
 
 ---
 
-> [!question] Question 03
+> [!IMPORTANT]
+> Question 03
 > Given sequential code, identify all data dependences between statements in the code. Distinguish between **loop-carried** and **loop-independent** dependences.
 
-> [!cite]
+> [!NOTE]
 > For details about loop-carried dependencies, see [Lecture - Data Dependency](Lecture%20-%20Data%20Dependency.md).
 
 Example code:
@@ -141,10 +146,11 @@ Loop-independent dependencies:
 
 ---
 
-> [!question] Question 04
+> [!IMPORTANT]
+> Question 04
 > Given sequential loop-based code, draw its **iteration-space traversal graph (ITG)** and/or its **loop-carried dependence graph (LDG)**.
 
-> [!cite]
+> [!NOTE]
 > For details about ITG and LDG, see [Lecture - Data Dependency](Lecture%20-%20Data%20Dependency.md).
 
 Example code
@@ -169,15 +175,16 @@ Loop-independent dependencies:
 
 ![CSC 506 Midterm Q4.excalidraw](./imgs/Snipaste_2024-12-12_10-39-35.png)
 
-> [!cite]
+> [!NOTE]
 > There is another example of this question in [Homework - 1](Homework%20-%201.md).
 
 ---
 
-> [!question] Question 05
+> [!IMPORTANT]
+> Question 05
 > Given sequential loop-based code, discuss an appropriate parallelization strategy to achieve parallel speedup. Consider **DOALL**, **DOACROSS**, **loop distribution**, and **DOPIPE** parallel strategies. If necessary, show how code would be transformed to achieve the desired parallelism. Estimate the potential speedup of different strategies.
 
-> [!cite]
+> [!NOTE]
 > For DOALL, DOACROSS, loop distribution, and DOPIPE parallel strategies, see [Lecture - Loop Level Parallelism](Lecture%20-%20Loop%20Level%20Parallelism.md).
 
 Their differences:
@@ -189,7 +196,8 @@ Their differences:
 
 Moreover, in order to avoid race condition, see also variable scope section in [Lecture - Loop Level Parallelism](Lecture%20-%20Loop%20Level%20Parallelism.md) and [Lecture - OpenMP Clauses](Lecture%20-%20OpenMP%20Clauses.md).
 
-> [!example] Example 1: Image Blurring
+> [!NOTE]
+> Example 1: Image Blurring
 >
 > ```cpp
 > // Sequential code for image blurring using a simple filter
@@ -231,7 +239,8 @@ void image_blur() {
 }
 ```
 
-> [!example] Example 2: Whatever data processing pipeline
+> [!NOTE]
+> Example 2: Whatever data processing pipeline
 >
 > ```cpp
 > // Sequential code for a data processing pipeline
@@ -275,7 +284,8 @@ void data_pipeline() {
 }
 ```
 
-> [!example] Example 3: Histogram Calculation
+> [!NOTE]
+> Example 3: Histogram Calculation
 >
 > ```cpp
 > #define N 100000
@@ -322,7 +332,8 @@ void calculate_histogram() {
 }
 ```
 
-> [!example] Example 4: Whatever loop with loop carried dependency
+> [!NOTE]
+> Example 4: Whatever loop with loop carried dependency
 >
 > ```cpp
 > #define N 1000
@@ -355,13 +366,15 @@ void dependent_loop() {
 
 ---
 
-> [!question] Question 06
+> [!IMPORTANT]
+> Question 06
 > Given sequential loop-based code, modify the code using OpenMP `pragmas` to express DOALL parallelism.
 
-> [!cite]
+> [!NOTE]
 > For OpenMP clauses, see [Lecture - OpenMP Clauses](Lecture%20-%20OpenMP%20Clauses.md).
 
-> [!example] Example 1: Matrix Multiplication
+> [!NOTE]
+> Example 1: Matrix Multiplication
 >
 > ```cpp
 > // Sequential code for matrix multiplication
@@ -401,10 +414,10 @@ void matrix_multiplication() {
 }
 ```
 
-> [!danger]
+> [!CAUTION]
 > You cannot apply `#pragma omp for reduction(+:sum)` on inner `k` loop. This nesting can lead to unexpected behavior because by default, OpenMP does not enable nested parallelism. The inner `#pragma omp for` will not create new threads; instead, it will run serially within each thread handling the `(i, j)` iteration.
 
-> [!tip]
+> [!TIP]
 > Although **not covered in this quiz**, but using `#pragma omp simd` can do vectorization on the inner `k` loop:
 >
 > ```cpp
@@ -423,10 +436,11 @@ void matrix_multiplication() {
 
 ---
 
-> [!question] Question 07
+> [!IMPORTANT]
+> Question 07
 > Define the following aspects of thread scheduling in OpenMP: **static**, **dynamic**, **chunk size**.
 
-> [!cite]
+> [!NOTE]
 > For OpenMP scheduling aspects, see [Lecture - OpenMP Clauses](Lecture%20-%20OpenMP%20Clauses.md).
 
 Static scheduling, dynamic scheduling, and chunk size:
@@ -437,10 +451,11 @@ Static scheduling, dynamic scheduling, and chunk size:
 
 ---
 
-> [!question] Question 08
+> [!IMPORTANT]
+> Question 08
 > Given sequential loop-based code, determine which variables should be **shared** and which should be **private** to achieve the best parallel execution. Describe how private variables can be implemented in a shared-memory multiprocessor system.
 
-> [!cite]
+> [!NOTE]
 > To distinguish which variables should be shared and which should be private, commonly seen variable usage in code with loops please refer to variable scope section in [Lecture - Loop Level Parallelism](Lecture%20-%20Loop%20Level%20Parallelism.md).
 
 Commonly seen variable usage in loop codes are:
@@ -456,7 +471,7 @@ In a shared memory system, all threads have access to the same global memory spa
 
 To achieve private variable in high level programming perspective, OpenMP runtime can creates copies of private variables for each thread, or do reduction after parallel execution. Please also read [Lecture - OpenMP Clauses](Lecture%20-%20OpenMP%20Clauses.md).
 
-> [!example]
+> [!NOTE]
 >
 > ```cpp
 > float sum = 0.0;
@@ -483,15 +498,16 @@ To achieve private variable in high level programming perspective, OpenMP runtim
 > • `i`: Loop index; should be private.
 > • `temp`: Temporary variable; should be private.
 
-> [!cite]
+> [!NOTE]
 > There is another example on this question in [Homework - 1](Homework%20-%201.md).
 
 ---
 
-> [!question] Question 09
+> [!IMPORTANT]
+> Question 09
 > Define the following terms related to **cache memories**: cache block, cache line, set, associativity, hit, miss, replacement policy, LRU, write allocation policy, multi-level, inclusion, dirty, write-back, write-through.
 
-> [!cite]
+> [!NOTE]
 > For cache size, cache block, cache line, set, associativity, block size, and things related to **cache organization**, see [Lecture - Memory Hierarchy](Lecture%20-%20Memory%20Hierarchy.md).
 
 Cache block and cache line:
@@ -522,7 +538,8 @@ To determine how to split an address into **Tag**, **Index**, and **Block Offset
 2. **Determine the number of Index bits** based on the number of cache sets.
 3. **Calculate the number of Tag bits** by subtracting the sum of Index and Block Offset bits from the total address bits.
 
-> [!question] Question 9 Example 1 by ChatGPT
+> [!IMPORTANT]
+> Question 9 Example 1 by ChatGPT
 >
 > - **Total Address Bits**: 32 bits (typical for a 32-bit address space)
 > - **Cache Size**: 16 KB (16,384 bytes)
@@ -536,7 +553,7 @@ To determine how to split an address into **Tag**, **Index**, and **Block Offset
    - Therefore, the index takes $\log_{2}(64)=6$ bits
 3. Determine tag bits: given total address bits 32, tag bits takes $32-6-6=20$ bits
 
-> [!cite]
+> [!NOTE]
 > For **replacement policy**(basically LRU), **write policy**(includes write back, write through), and **inclusion policy**, see [Lecture - Memory Hierarchy](Lecture%20-%20Memory%20Hierarchy.md).
 
 Write policy:
@@ -558,13 +575,13 @@ LRU replacement policy can be simulated with a LRU matrix with size `num_ways * 
 Approach 1: LRU matrix (for each set)
 ![Pasted image 20240903121140](./imgs/Pasted%20image%2020240903121140.png)
 
-> [!example]
+> [!NOTE]
 >
 > Approach 2: LRU Stack
 >
 > ![Pasted image 20241009130024](./imgs/Pasted%20image%2020241009130024.png)
 
-> [!cite]
+> [!NOTE]
 > There is another example of LRU working procedure listed in [Homework - 1](Homework%20-%201.md).
 
 Inclusion:
@@ -572,13 +589,13 @@ Inclusion:
 - inclusive: any cache line present in L1 cache will also be present in L2 cache
 - exclusive: any cache line may either present in L1 cache or L2 cache, but not both.
 
-> [!tip]
+> [!TIP]
 > For multi level cache, inclusion policy is strongly related to coherence issue, typically due to write propagation. For example, for a 2 level cache(has L1 and L2, and memory) system, when L2 snooped some bus request that will invalidate a block:
 >
 > - with inclusive, L2 can directly determine wether or not to evict and notify L1 to do the same
 > - with exclusive, L2 have to store extra tags to check if the target block is in L1
 
-> [!cite]
+> [!NOTE]
 > For **cache miss**, **cache performance matrix**(AAT, CPI), see [Lecture - Memory Hierarchy](Lecture%20-%20Memory%20Hierarchy.md).
 
 Cache miss happens when:
@@ -605,7 +622,7 @@ $$
 - $T_{L1}, T_{L2}, T_{Mem}$ denote the access time of the $L1, L2$ cache and memory.
 - $M_{L1},M_{L2}$ are the cache miss rates of the $L1$ and $L2$ cache
 
-> [!cite]
+> [!NOTE]
 > There is another example of AAT listed in [Homework - 1](Homework%20-%201.md).
 
 **Cycles per Instruction (CPI)** is calculated by:
@@ -620,13 +637,15 @@ $$
 
 ---
 
-> [!question] Question 10
+> [!IMPORTANT]
+> Question 10
 > Given a **sequence of processor requests** (loads/reads, stores/writes) in a uniprocessor system, and a description of the memory hierarchy (cache organization, policies, latencies), show the action taken and the latency required to satisfy each request, including the state of the cache after each transaction is completed.
 
-> [!cite]
+> [!NOTE]
 > There is another example of this question listed in [Homework - 1](Homework%20-%201.md).
 
-> [!question] Question 10 Example 1 by ChatGPT
+> [!IMPORTANT]
+> Question 10 Example 1 by ChatGPT
 > Cache Configuration:
 >
 > - Cache Type: Direct-mapped cache with 8 cache lines.
@@ -670,10 +689,11 @@ Actions per request:
 
 ---
 
-> [!question] Question 11
+> [!IMPORTANT]
+> Question 11
 > Discuss the differences between **logical and physical cache organizations**, including physically united, physically distributed, logically shared, and logically private.
 
-> [!cite]
+> [!NOTE]
 > Cache organization see [Lecture - Cache Design in Multicore Architecture](Lecture%20-%20Cache%20Design%20in%20Multicore%20Architecture.md).
 
 **Physical cache organization**
@@ -704,10 +724,11 @@ The most commonly used scheme in modern multiprocessor systems is physically dis
 
 ---
 
-> [!question] Question 12
+> [!IMPORTANT]
+> Question 12
 > Discuss the **cache coherence problem**, and the properties required to guarantee that a cache system is coherent.
 
-> [!cite]
+> [!NOTE]
 > For cache coherence issue, see [Lecture - Cache Coherence](Lecture%20-%20Cache%20Coherence.md).
 
 As mentioned in previous question, cache coherence problem occurs when using a physically distributed, logically shared cache organization. In this case there might be multiple copy of the same memory address, if some of the processor change the value of such an address in it's (physically private) cache, then other processors should be notified.
@@ -716,7 +737,8 @@ Two properties are required for maintaining coherence, they are **write propagat
 
 ---
 
-> [!question] Question 13
+> [!IMPORTANT]
+> Question 13
 > Define the following terms related to cache coherence: **write propagation**, **transaction serialization**.
 
 Write propagation and transaction serialization are used to make sure multiple processors are reading from and writing to the same memory locations concurrently.
@@ -726,25 +748,28 @@ Write propagation and transaction serialization are used to make sure multiple p
 
 ---
 
-> [!question] Question 14
+> [!IMPORTANT]
+> Question 14
 > Discuss how cache coherence is maintained in a bus-based multiprocessor system using the following protocols: **write-through**, **MSI**, **MESI**, **MOESI**, **Dragon**. Draw the state diagram for each protocol.
 
-> [!question] Question 15
+> [!IMPORTANT]
+> Question 15
 > Define the following terms related to **bus-based coherent caches**: intervention, invalidation, upgrade, downgrade, arbitration, clean sharing, dirty sharing, snoop, snoop response.
 
-> [!note]
+> [!NOTE]
 > Some extra notes for snooping, since both processor side and bus side need access to tags, one way to achieve that is to duplicate the tags(this requires coordination when tag change); while another solution is to filter snoops(e.g. keep track of recent snoop misses).
 
 |                                  Regular                                   |                                 Duplicated                                 |                                  Filtered                                  |
 | :------------------------------------------------------------------------: | :------------------------------------------------------------------------: | :------------------------------------------------------------------------: |
 | ![Pasted image 20241008235502](./imgs/Pasted%20image%2020241008235502.png) | ![Pasted image 20241008235510](./imgs/Pasted%20image%2020241008235510.png) | ![Pasted image 20241008235516](./imgs/Pasted%20image%2020241008235516.png) |
 
-> [!question] Question 17
+> [!IMPORTANT]
+> Question 17
 > Given a **proposed change/optimization** for one of the protocols, draw the new state diagram and analyze the change in performance achieved, compared to the original protocol.
 
 Question 14, 15 and 17 are strongly related, they are discussed at once.
 
-> [!cite]
+> [!NOTE]
 > For cache coherence issue in bus based systems, see [Lecture - Cache Coherence in Bus-based Multiprocessors](Lecture%20-%20Cache%20Coherence%20in%20Bus-based%20Multiprocessors.md).
 
 Basically, in a multiprocessor system, with some level of cache that is physically distributed and logically shared, their might be multiple copies of same memory address. All the processor that holds a copy should be notified when some of the processor changed the value of the memory location. This is achieved by bus requests in bus based systems. Each cache has its own states, and the states can be changed by request from processor or request from bus.
@@ -765,7 +790,7 @@ If the processor already has the block, then put the data on the bus is not nece
 
 ![Pasted image 20240924220438](./imgs/Pasted%20image%2020240924220438.png)
 
-> [!note]
+> [!NOTE]
 > There will be no `BusUpgr` snooped when the cache is held in `M` state since there should not be other valid copies.
 
 There is still two more things to be improved. (1) A `BusUpgr` has to be sent, even if there is no other copies (the reason here is that the processor does not know if there are or are not other copies). (2) Write propagation is expensive on limited memory bandwidth, but the memory will be written every time `Flush` happens (which can be avoided by dirty sharing).
@@ -781,21 +806,21 @@ The FSM of **MOESI** protocol:
 
 ![Pasted image 20241006153419](./imgs/Pasted%20image%2020241006153419.png)
 
-> [!note]
+> [!NOTE]
 > Who will own the block? Here we assume that the last processor who writes to the address will own the block.
 
 MSI, MESI, MOESI has made a lot of improvement compared to baseline write-through protocol. However, they are all invalidate based protocol and they suffer from a high number of coherence misses. Each read to a block that has been invalidated incurs a cache miss, and the latency to serve the miss can be quite high.
 
 Therefore, we can overcome the overhead by removing the `I` state. The **Dragon** protocol which is a update-based protocol, does not have a `I` state.
 
-> [!cite]
+> [!NOTE]
 > For Dragon protocol, please read [Lecture - Cache Coherence in Bus-based Multiprocessors](Lecture%20-%20Cache%20Coherence%20in%20Bus-based%20Multiprocessors.md), it's a little bit long to put it here.
 
 The FSM diagram of Dragon protocol:
 
 ![Pasted image 20241006160916](./imgs/Pasted%20image%2020241006160916.png)
 
-> [!note]
+> [!NOTE]
 >
 > - Note that there is no invalid state. Hence, an arrow that goes from nowhere to a state represents a newly loaded block.
 > - Since only `PrRdMiss` will cause a `BusRd` being posted on bus, therefore the entire block is needed to be put on bus when a `BusRd` is snooped.
@@ -805,37 +830,44 @@ The FSM diagram of Dragon protocol:
 
 ---
 
-> [!question] Question 16
+> [!IMPORTANT]
+> Question 16
 > Given a sequence of processor requests in a multiprocessor system using one of the bus-based coherence protocols above, and a description of the memory hierarchy (cache organization, policies, latencies), show the action taken and the latency required to satisfy each request, including the state of all caches after each transaction is completed.
 
 This question is strongly related to question 14 and 15.
 
-> [!cite]
+> [!NOTE]
 > For cache coherence issue in bus based systems, see [Lecture - Cache Coherence in Bus-based Multiprocessors](Lecture%20-%20Cache%20Coherence%20in%20Bus-based%20Multiprocessors.md).
 
-> [!example] > ![Pasted image 20240924214634](./imgs/Pasted%20image%2020240924214634.png)
+> [!NOTE]
+> ![Pasted image 20240924214634](./imgs/Pasted%20image%2020240924214634.png)
 
-> [!note]
+> [!NOTE]
 > Note that on step 3, the `BusRd` from `P3` is snooped by `P1`, both `P1` and memory will try to provide the block, but the `Flush` from `P1` is snooped by memory so the memory will cancel the fetch attempt. Memory will also pick the `Flush` request and update the memory.
 > Therefore, the data supplier of step 3 is `P1's cache`.
 
-> [!example] > ![Pasted image 20240924220228](./imgs/Pasted%20image%2020240924220228.png)
+> [!NOTE]
+> ![Pasted image 20240924220228](./imgs/Pasted%20image%2020240924220228.png)
 
-> [!example] > ![Pasted image 20240924230333](./imgs/Pasted%20image%2020240924230333.png)
+> [!NOTE]
+> ![Pasted image 20240924230333](./imgs/Pasted%20image%2020240924230333.png)
 
-> [!note]
+> [!NOTE]
 > Note that since we introduced cache-to-cache transfer and `FlushOpt` in MESI protocol, all the share holders of the block will try to supply the block, and one of them wins and supplies the block eventually. Since it's hard to know who will win, then the data supplier is `P1/P3`'s cache in the last request of this example.
 
-> [!example] > ![Pasted image 20241006155850](./imgs/Pasted%20image%2020241006155850.png)
+> [!NOTE]
+> ![Pasted image 20241006155850](./imgs/Pasted%20image%2020241006155850.png)
 
-> [!example] > ![Pasted image 20240924230517](./imgs/Pasted%20image%2020240924230517.png)
+> [!NOTE]
+> ![Pasted image 20240924230517](./imgs/Pasted%20image%2020240924230517.png)
 
 ---
 
-> [!question] Question 18
+> [!IMPORTANT]
+> Question 18
 > Discuss how **multi-level caches** maintain coherence in a bus-based multiprocessor.
 
-> [!cite]
+> [!NOTE]
 > For coherence in multi-level cache, see [Lecture - Cache Coherence in Bus-based Multiprocessors](Lecture%20-%20Cache%20Coherence%20in%20Bus-based%20Multiprocessors.md)
 
 Write propagation must be performed downstream (towards outer memory, going out of private cache) and also upstream (snooped cache state change, update with inner cache).
@@ -847,10 +879,11 @@ Write propagation must be performed downstream (towards outer memory, going out 
 
 ---
 
-> [!question] Question 19
+> [!IMPORTANT]
+> Question 19
 > Discuss how **snoopy coherence protocols can be implemented in systems that do not use a centralized bus interconnect**. (Specific consideration for ring-based interconnection topologies will not be included on this exam.) Reason about how the requirements for cache coherence can be satisfied. Given a proposed coherence protocol (high-level, not specific state diagrams), explain how the proposal does or does not achieve coherence.
 
-> [!cite]
+> [!NOTE]
 > Broadcast protocol with P2P interconnect, see [Lecture - Cache Coherence in Bus-based Multiprocessors](Lecture%20-%20Cache%20Coherence%20in%20Bus-based%20Multiprocessors.md)
 
 To maintain transaction serialization and write propagation:
@@ -858,7 +891,8 @@ To maintain transaction serialization and write propagation:
 - Interconnect are used to propagate data from one processor to another.
 - A sequencer is responsible for managing the service ordering of upcoming requests.
 
-> [!example] Example: 6-node system P2P interconnected, simultaneous write
+> [!NOTE]
+> Example: 6-node system P2P interconnected, simultaneous write
 >
 > Assume each node to have a processor/core and a cache. Now suppose that node A and B simultaneously want to write to a block that they already cached in a clean state. Suppose that node S is assigned the role of sequencing requests for the block.
 >
@@ -874,7 +908,8 @@ To maintain transaction serialization and write propagation:
 > - (e) After receiving all invalidation acknowledgement messages, A knows it is safe to transition the block state to modifed, and to write to the block. It then sends a notice of completion to the sequencer S
 > - (f) Upon S receiving the notice from A, the sequencer knows the write by A is completed, it then proceed next to the request from B.
 
-> [!example] Example: 6-node system P2P interconnected, simultaneous read
+> [!NOTE]
+> Example: 6-node system P2P interconnected, simultaneous read
 >
 > Suppose that node A and B simultaneously want to read to a block that they do not fnd in their local caches.
 > This situation is unique since it does not involve a write request, therefore we are not dealing with two different versions (or values) for the data block. Thus, **it is possible to overlap the processing of the two requests**.

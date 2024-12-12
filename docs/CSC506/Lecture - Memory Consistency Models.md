@@ -1,5 +1,6 @@
 ---
 title: "Memory Consistency Models"
+sidebar_position: 14
 tags:
   - parallelism
   - lecture
@@ -7,19 +8,21 @@ tags:
 
 ## Sequential Consistency (SC)
 
-> [!important] Concept: Sequential Consistency (SC)
+> [!IMPORTANT]
+> Concept: Sequential Consistency (SC)
 > Memory operations from a processor should be performed in program order, and each should be performed atomically. This model is called **Sequential Consistency (SC)**.
 
 ![Pasted image 20241007155231](./imgs/Pasted%20image%2020241007155231.png)
 ![Pasted image 20241007155239](./imgs/Pasted%20image%2020241007155239.png)
 
-> [!important] Definition: Lamport's Definition of Sequential Consistency
+> [!IMPORTANT]
+> Definition: Lamport's Definition of Sequential Consistency
 > A multiprocessor is sequentially consistent if the **result of any execution** is the same as if the operations of all the processors were executed in some sequential order, and the operations of each individual processor occur in this sequence in the order specified by its program.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241007155822](./imgs/Pasted%20image%2020241007155822.png)
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241007155833](./imgs/Pasted%20image%2020241007155833.png)
 
 ## Relaxed Memory Consistency
@@ -38,10 +41,10 @@ Recall types of consistency in [Lecture - Consistency and Synchronization Proble
 - **Load fence/barrier**: If the fence only applies to loads, in which case it imposes ordering only between loads that precede it and loads that follow it, and it is referred to as load fence/barrier.
 - **Full fence/barrier**: applies on both loads and stores
 
-> [!note]
+> [!NOTE]
 > Note that fence instruction will not directly stall the processor, it only prevents load and stores.
 
-> [!example]
+> [!NOTE]
 > Thread 1:
 >
 > ```c
@@ -89,11 +92,11 @@ Rules:
 - Before synchronization operation can be issued to memory, all previous memory ops must be performed.
 - No later memory operations can be issued to memory until synchronization operation is performed.
 
-> [!tip]
+> [!TIP]
 > Weak ordering is a kind of Fence Instruction combined with load and store.
 > You can put two fences both before and after the target instruction to achieve same effect as weak ordering.
 
-> [!example]
+> [!NOTE]
 > For `P0`, S1 must be executed before S2; For `P1`, things after S1 are not allowed to happen before S1 is executed.
 > ![Pasted image 20241210140736](./imgs/Pasted%20image%2020241210140736.png)
 
@@ -106,7 +109,7 @@ Release consistency is controlled by two types of synchronization events: `relea
 - **`release`**: prior memory operations must be complete. (can't move LD/ST downward, past release point)
 - **`acquire`**: later memory operations should not be issued. (can't move LD/St upward, prior to acquire point)
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241210140920](./imgs/Pasted%20image%2020241210140920.png)
 
 ![Pasted image 20241210141021](./imgs/Pasted%20image%2020241210141021.png)

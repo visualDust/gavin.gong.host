@@ -1,5 +1,6 @@
 ---
 title: "Memory Hierarchy"
+sidebar_position: 7
 tags:
   - lecture
   - parallelism
@@ -7,7 +8,8 @@ tags:
 
 Cache is the intermediate architecture that loads/stores things between CPU and main memory.
 
-> [!example] > ![Pasted image 20240903105534](./imgs/Pasted%20image%2020240903105534.png)
+> [!NOTE]
+> ![Pasted image 20240903105534](./imgs/Pasted%20image%2020240903105534.png)
 > This is an example of memory hierarchy configuration in a multi core system
 
 If CPU asks for some address not in cache, a **miss** occurs. There are two kinds of miss:
@@ -23,14 +25,15 @@ Factors of how cache is organized: **Cache Size**, **Associativity**, **Block Si
 
 ![Pasted image 20240903103846](./imgs/Pasted%20image%2020240903103846.png)
 
-> [!note]
+> [!NOTE]
 > Cache Line(Cache Block) is the minimal unit to read from / write to cache(typically a fixed number of bytes, such as 64 bytes in many modern processors)
 > Strictly speaking, they are not the same concept. Strictly cache block refers to specifically the chunk of data, while cache line refers to not only the data but also the metadata (storage location, tag, valid or dirty bits) needed for cache management.
 
-> [!note] About conflict miss
+> [!NOTE] 
+> About conflict miss
 > Conflict miss is a type of cache miss. **Conflict** occurs you try to push something into a cache set when it is already full.
 
-> [!tip]
+> [!TIP]
 > Since memory is much larger than memory, multiple blocks in memory will share the same position in cache, there will be conflicts and situations to deal with. Besides, the final purpose of writing to cache is to store back to memory.
 > Therefore, main topics to care about are:
 > **Placement Policy**: where to place the memory block in cache
@@ -62,7 +65,7 @@ To determine how to split an address into **Tag**, **Index**, and **Block Offset
 2. **Determine the number of Index bits** based on the number of cache sets.
 3. **Calculate the number of Tag bits** by subtracting the sum of Index and Block Offset bits from the total address bits.
 
-> [!example]
+> [!NOTE]
 >
 > Given:
 >
@@ -89,7 +92,7 @@ To determine how to split an address into **Tag**, **Index**, and **Block Offset
   - Instead, it **checks all ways in parallel** by comparing the tag bits.
   - The first way (if any) that matches the tag indicates a cache hit.
 
-> [!note]
+> [!NOTE]
 > Therefore, to decide the format of address(that is to split the address into `Tag` bits, `Index` bits, and `Block Offset` bits correctly), simple steps are:
 >
 > 1. Decide the length of `Block Offset` bits according to the given block size.
@@ -100,7 +103,7 @@ To determine how to split an address into **Tag**, **Index**, and **Block Offset
 >
 > ![Pasted image 20240903115823](./imgs/Pasted%20image%2020240903115823.png)
 
-> [!question] > ![Pasted image 20240903104641](./imgs/Pasted%20image%2020240903104641.png)
+> [!IMPORTANT] > ![Pasted image 20240903104641](./imgs/Pasted%20image%2020240903104641.png)
 > Suppose a cache has a capacity of 64K bytes, and a block size of 256 bytes:
 >
 > - What is the capacity within a block?
@@ -110,19 +113,22 @@ To determine how to split an address into **Tag**, **Index**, and **Block Offset
 >   - What is the set index?
 >   - What is the tag?
 
-> [!example] Example: Direct Mapped Cache
+> [!NOTE]
+> Example: Direct Mapped Cache
 > ![Pasted image 20240903120209](./imgs/Pasted%20image%2020240903120209.png)
 > A real example:
 > ![Pasted image 20240909151430](./imgs/Pasted%20image%2020240909151430.png)
 > Notice that each `double` variable takes $8$ bytes in memory, there will be $2$ elements per block. In column major access pattern, they will be mapped to the same block position in cache.
 
-> [!tip]
+> [!TIP]
 > One possible way to avoid things happens above is that you can append some empty elements after each line of the array so that the first element of each line won't line up to the same cache position.
 
-> [!example] Example: Set-Associative Cache
+> [!NOTE]
+> Example: Set-Associative Cache
 > ![Pasted image 20240903120239](./imgs/Pasted%20image%2020240903120239.png)
 
-> [!example] Example: Fully Associative Cache
+> [!NOTE]
+> Example: Fully Associative Cache
 > ![Pasted image 20240903120228](./imgs/Pasted%20image%2020240903120228.png)
 
 ---
@@ -136,7 +142,8 @@ LRU approach via LRU matrix:
 - Accessing way $i$ will sets the $i$th row bits to $1$ and $i$th column bits to $0$ in LRU matrix.
 - Find the row with least number of $1$'s, which is the least recent used block.
 
-> [!example] > ![Pasted image 20240903121140](./imgs/Pasted%20image%2020240903121140.png)
+> [!NOTE]
+> ![Pasted image 20240903121140](./imgs/Pasted%20image%2020240903121140.png)
 >
 > 1. An access to B (which resides in way 1), sets the second row bits to 1, and then the second column bits to 0.
 > 2. An access to C (which resides in way 2), sets the third row bits to 1, and then the third column bits to 0.
@@ -144,7 +151,7 @@ LRU approach via LRU matrix:
 > 4. Finally, an access to D (which resides in way 3), sets the fourth row bits to 1, and then the fourth column bits to 0.
 > 5. Suppose that at this time a replacement needs to be made. By scanning the rows, we discover that way 1 (containing block B) has the least number of 1’s (it has none), hence B is the least recently used block that should be selected for eviction.
 
-> [!warning]
+> [!WARNING]
 > For LRU approach using LRU matrix, there is one matrix for each set of the cache, hence it is cheap to implement for small associativities but becomes expensive to implement for a highly associative cache(that is large num of ways, or large set).
 
 ---
@@ -156,7 +163,7 @@ Mainly talks about the strategy of writing cache back to the outer level memory 
 - **Write through policy**: any bytes written by a single write event in the cache are immediately propagated to the outer level memory hierarchy component.
 - **Write back policy**: the change is allowed to occur at the cache block without being propagated to the outer level memory hierarchy component. Only when the block is evicted, is the block “written back” or propagated, and it overwrites the stale version at the outer level.
 
-> [!note]
+> [!NOTE]
 > Comparing the write through versus write back policies, the write back policy tends to conserve bandwidth usage between the cache and its outer level memory hierarchy component because there are often multiple writes to a cache block during the time the cache block resides in the cache. In the write through policy, each write propagates its value down so it consumes bandwidth on each write. As a result, the outermost level cache in a processor chip typically uses a write back policy since off-chip pin bandwidth is a limited resource. However, the choice incurs less penalty for on-chip bandwidth which tends to be much higher. For example, the L1 cache is usually backed up by an outer level L2 cache, and both of them are on-chip. The bandwidth between the L1 cache and L2 cache is quite high compared to the off-chip bandwidth.
 
 Another aspect of the write policy is whether the block that contains the byte or word to be written needs to be brought into the cache if it is not already in the cache:
@@ -182,7 +189,7 @@ Another aspect of the write policy is whether the block that contains the byte o
 - **Split cache**: distinct contents can be split into different caches. For instance, the L1 cache is typically split into the instruction cache and the data cache in most processors today. Instruction fetches are issued by the fetch unit of the processor, while data fetches are issued by the load/store unit of the processor.
 - **Multi-banked cache**: an alternative organization, rather than distinguishing types of data held in the split caches, splitting the cache over different addresses in an interleaved manner. In a multi-banked cache, multiple accesses to different banks can be performed in parallel, while accesses to the same bank result in conflict and are sequentialized.
 
-> [!note]
+> [!NOTE]
 > For the most part, load/store instructions do not fetch data from the code region, unless in special cases such as self-modifying code or just-in-time compilation.
 
 ---
@@ -195,7 +202,7 @@ In a virtual memory system, a program (and its compiler) can assume that the ent
 
 **Each process’ page table maintains a mapping between the virtual address space that the process sees and the actual physical memory available in the system.** The page table is a data structure that translates the **virtual address (VA)** of the application to the **physical address (PA)** in the physical memory.
 
-> [!warning]
+> [!WARNING]
 > The mapping between the same virtual page address (of different processes) to physical page address is different in different processes. Thus, a virtually-addressed cache cannot be shared by multiple processes
 
 Concepts:
@@ -204,10 +211,11 @@ Concepts:
 - The **granularity of pages**: the basic unit of how OS manages VA to PA mapping, typically 4KB)
 - The **translation look aside buffer**: a cache that stores most recently used page table entries for reducing the access time. For requiring page table access for each memory access (a load or store instruction) to get the physical address to supply to the cache will cause the cache access time to be very high.
 
-> [!note]
+> [!NOTE]
 > Translation Lookaside Buffer is mostly the same as cache on structure, but there are subtle differences. For example, 16 entries in the TLB cover 16 × 4 = 64KB of memory, which is as much memory as covered by a large L1 data cache. Thus, a TLB can get by with fewer entries compared to the L1 cache or L2 cache.
 
-> [!note] > ![Pasted image 20240903153453](./imgs/Pasted%20image%2020240903153453.png)
+> [!NOTE]
+> ![Pasted image 20240903153453](./imgs/Pasted%20image%2020240903153453.png)
 >
 > - **Virtual addressing** (top left): index the cache using the index bits from virtual address, and store tag bits of the virtual address in the cache's tag array
 > - **Physical addressing**(right): index the cache using index bits of the physical address, and store tag bits of the physical address in the cache's tag array
@@ -231,7 +239,7 @@ Cache performance is measured by **cache hits** versus **cache miss**. There are
 - **Coherence miss**: misses that occur due to the need to keep the cache coherent in shared memory multiprocessor systems.
 - **System related misses**: when a process is suspended due to an interrupt, system call, or context switch, the new running thread loads different memory which perturbs current cache state, when the process resumes execution, it will suffer from new cache misses restoring cache state that has been perturbed.
 
-> [!note]
+> [!NOTE]
 > Clod misses are measured by the number of times new blocks are fetched into the cache, therefore they are affected by the cache block size.
 
 How cache parameters affect the different types of misses:
@@ -242,10 +250,10 @@ How cache parameters affect the different types of misses:
 |  $\uparrow$ block size   | $\downarrow$ | $\downarrow$ / $\uparrow$ | $\downarrow$ / $\uparrow$ | not directly related |
 | $\uparrow$ associativity |      -       |       $\downarrow$        |             -             | not directly related |
 
-> [!note]
+> [!NOTE]
 > Increasing block size, the num of variables that can be stored in one cache block is increased, thus one load will cause more variable being in cache, which reduces cold miss in programs with locality.
 
-> [!caution]
+> [!CAUTION]
 > Intuitively, increasing the cache size reduces the number of capacity misses, while increasing cache associativity reduces the number of conflict misses. However, capacity misses and conflict misses are sometimes intermingled.
 > Increasing the cache size while keeping cache associativity constant (hence increasing the number of sets) changes the way blocks in memory map to sets in the cache. Such a change in mapping often influences the number of conflict misses, either increasing or decreasing it
 

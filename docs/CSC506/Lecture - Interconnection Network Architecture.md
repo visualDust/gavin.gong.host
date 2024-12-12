@@ -1,5 +1,6 @@
 ---
 title: "Interconnection Network Architecture"
+sidebar_position: 16
 tags:
   - lecture
 ---
@@ -13,13 +14,15 @@ The requirements of interconnection fabric performance stands for:
 - messages are generated frequently, since each read or write miss potentially generates coherence messages involving several nodes
 - message is generated due to a processor read or write event, the ability of the processor to hide the message communication delay is relatively low
 
-> [!important] Concept: Link and phit
+> [!IMPORTANT]
+> Concept: Link and phit
 > A **link** is a set of wires that connect two nodes. The minimum amount of data that can be transmitted in one cycle is called a **phit**. A **phit** is typically determined by the width of the link.
 > The maximum rate at which a packet can be streamed through a link is referred to as the **link bandwidth**.
 
 ![Pasted image 20241104134926](./imgs/Pasted%20image%2020241104134926.png)
 
-> [!important] Concept: Packet
+> [!IMPORTANT]
+> Concept: Packet
 > Large message is fragmented and encapsulated into **packets**. Each part of the message becomes a packet **payload**, which is encapsulated by a **header**(h) and **trailer**(t). The fragmentation allows a message to be transmitted in parts independently of one another, and the header and trailer ensure reliable delivery of the message and contain sufficient information to reassemble the packets into the original message at the **destination**.
 > If the packet header is designed to ft the size of a fit, the fit that contains the header is referred to as the header fit, the same for trailer fit. The packet payload is broken into body fits.
 
@@ -32,14 +35,16 @@ Lossy and lossless network:
 - In a lossy network, overflowing a buffer results in fits being dropped and the dropped fits require retransmission in the future.
 - For latency reasons, a lossless network is preferred, in which fits should not be dropped and retransmitted.
 
-> [!example] stop/go protocol
+> [!NOTE]
+> stop/go protocol
 > A sender router sends fits of a packet to a receiver router as long as the receiver asserts a “go” signal:
 >
 > ![Pasted image 20241201121014](./imgs/Pasted%20image%2020241201121014.png)
 >
 > The stop/go threshold is determined by the round-trip latency between sender and receiver, such that there is no risk of overflowing the buffer.
 
-> [!example] credit-based protocol
+> [!NOTE]
+> credit-based protocol
 > credit-based flow control requires the receiver to send out the precise number of entries available in its buffer. The sender uses this number to decide whether to send more fits or not.
 
 ## Message Latency
@@ -121,7 +126,7 @@ Where the first bit has to travel through $H$ hops and each hop incurs a routing
 
 Key benefit of cut-through or wormhole routing is lower packet transmission latency.
 
-> [!note]
+> [!NOTE]
 > The high level view of cut-through and wormhole policy is quite the same, but they are difference when down to the granularity of their flow control unit.
 >
 > - In a cut-through routing, the fow control works on a packet size granularity
@@ -154,7 +159,7 @@ Routing options:
 
 ## Deadlock Avoiding
 
-> [!note]
+> [!NOTE]
 > Content below is not included in final exam
 
 ### By Avoiding Closed Loops in Routing Path
@@ -184,5 +189,5 @@ In order to send flits to the next router, header flit will be processed with:
 
 ![Pasted image 20241106150728](./imgs/Pasted%20image%2020241106150728.png)
 
-> [!note]
+> [!NOTE]
 > Compared to packet switching, circuit switching can be more efficient for long distance routing.

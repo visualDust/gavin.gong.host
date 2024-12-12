@@ -1,10 +1,12 @@
 ---
 title: "Homework 1"
+sidebar_position: 11
 tags:
   - lecture
 ---
 
-> [!question] Q1 Loop-carried dependences
+> [!IMPORTANT]
+> Q1 Loop-carried dependences
 > For this question, we will describe a loop-carried dependence as coming from some statement in iteration `(i,j)` to some other iteration `(x,y)`, where `x` and `y` are written as expressions involving `i` and `j` (e.g., `(i,j+1)`). For example, there could be a loop-carried dependence from **`S4(i,j)`** to **`S5(i+1,j)`**. Note that the first statement must come before the second statement in program order.
 > Consider the code below, where all variables have been previously declared.
 >
@@ -31,7 +33,8 @@ Thinking
   - $S_{3}[i,j]\mathop{\to}^T S_{1}[i+1,j]$
   - $S_{3}[i-1,j]\mathop{\to}^T S_{2}[i+1,j]$, normalized to $S_{3}[i,j]\mathop{\to}^T S_{2}[i+2,j]$
 
-> [!question] Q1.1 LDG
+> [!IMPORTANT]
+> Q1.1 LDG
 > Draw LDG for this loop nest
 
 LDG does not reflect loop-independent dependency, each node in LDG represents all statements in a particular iteration. Therefore, only dependencies across iterations should be included:
@@ -39,13 +42,14 @@ LDG does not reflect loop-independent dependency, each node in LDG represents al
 ![CSC 506 HW1 Q1.excalidraw](./imgs/Snipaste_2024-12-12_10-36-57.png)
 Figure: LDG of Q1
 
-> [!danger]
+> [!CAUTION]
 > Notice that the loop variable `j <= i`, therefore, there are no data dependences below the diagonal of the graph.
 
 > [!success] Answer from TA
 > ![Pasted image 20241008190149](./imgs/Pasted%20image%2020241008190149.png)
 
-> [!question] Q2 Variable scope analysis
+> [!IMPORTANT]
+> Q2 Variable scope analysis
 > Consider the code below. All matrices have dimension $N\times N$, all vectors have dimension $N$, and assume that $N$ is divisible by $2$.
 >
 > ```cpp
@@ -59,7 +63,8 @@ Figure: LDG of Q1
 > ...
 > ```
 
-> [!question] Q2.1 $i$-loop
+> [!IMPORTANT]
+> Q2.1 $i$-loop
 > By default, all variables are shared. If the $i$-loop is converted to a parallel loop, indicate which variables should be private.
 
 Thinking:
@@ -73,7 +78,8 @@ Applying parallelism on $i$ loop, $i$ should be private to each thread, and thin
 - $C$: its read only, can be shared.
   Therefore, $i$, $j$, $k$ are private.
 
-> [!question] Q2.2 $j$-loop
+> [!IMPORTANT]
+> Q2.2 $j$-loop
 > By default, all variables are shared. If the $j$-loop is converted to a parallel loop, indicate which variables should be private.
 
 Thinking:
@@ -87,17 +93,20 @@ Applying parallelism on $j$ loop, $j$ should be private to each thread, and thin
 - $C$: its read only, can be shared.
   Therefore, $j$ is private.
 
-> [!question] Q3 Average access latency
+> [!IMPORTANT]
+> Q3 Average access latency
 > Suppose you have a one-level (L1) cache. The L1 latency is 2 cycles, and memory latency is 80 cycles.
 
-> [!question] Q3.1 Calculate AAT
+> [!IMPORTANT]
+> Q3.1 Calculate AAT
 > If the L1 miss rate is 0.05, what is the average latency for a memory operation?
 
 $$
 AAT = T_{L_{1}} + M_{L_{1}}\cdot T_{Mem} = 2+0.05\times 80 = 6 (cycles)
 $$
 
-> [!question] Q3.2 Calculate miss rate
+> [!IMPORTANT]
+> Q3.2 Calculate miss rate
 > What must the miss rate be in order to achieve an average access latency of 10 cycles?
 
 $$
@@ -108,10 +117,12 @@ M_{L_{1}} = \frac{10-2}{80} = 0.1
 \end{align}
 $$
 
-> [!question]  Q4 Average access latency (two-level)
+> [!IMPORTANT]
+> Q4 Average access latency (two-level)
 > Suppose you have a two-level cache. The L1 access latency is 2 cycles. The L2 access latency is 10 cycles. The memory access latency is 80 cycles.
 
-> [!question] Q4.1 Calculate AAT
+> [!IMPORTANT]
+> Q4.1 Calculate AAT
 > If the L1 miss rate is 0.1, and the L2 miss rate is 0.5, what is the average access latency?
 
 $$
@@ -122,7 +133,8 @@ ATT &= T_{L_{1}} + M_{L_{1}} \cdot T_{L_{2}} + M_{L_{1}}\cdot M_{L_{2}} \cdot T_
 \end{align}
 $$
 
-> [!question] Q4.2 Calculate L2 miss rate
+> [!IMPORTANT]
+> Q4.2 Calculate L2 miss rate
 > If the L1 miss rate is 0.05, what must the L2 miss rate be to achieve an average access latency of 4 cycles?
 
 $$
@@ -133,7 +145,8 @@ M_{L_{2}}&=\frac{4-2-0.05\times 10}{80\times 0.05}=0.375
 \end{align}
 $$
 
-> [!question] Q5 Replacement policy
+> [!IMPORTANT]
+> Q5 Replacement policy
 > You have a fully-associative cache with a capacity of four blocks. Blocks are stored in positions 0, 1, 2, 3 in the set, from left to right in the figure. To write the content of the cache, list the block addresses in left-to-right order, and use a single hypen (-) to denote a block position that does not contain a valid block.
 > ![Pasted image 20240921215725](./imgs/Pasted%20image%2020240921215725.png)
 > Empty blocks are filled from left to right. As shown, the initial cache state is **A,-,-,-**.

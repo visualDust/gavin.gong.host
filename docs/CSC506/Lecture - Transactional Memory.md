@@ -1,12 +1,14 @@
 ---
 title: "Transactional Memory"
+sidebar_position: 17
 tags:
   - lecture
 ---
 
 ## Transactional Memory
 
-> [!important] Definition: Transactional Memory
+> [!IMPORTANT] 
+> Definition: Transactional Memory
 > **Transactional memory** allows a group of statements(memory operations) to be atomic and serializable without using locks. Transactional memory is:
 >
 > - **Atomic**: either all these memory operations are performed and become visible, or none of them. A transaction is committed if its memory operations are performed.
@@ -72,7 +74,8 @@ Transactional memory provides a different perspective on atomicity and has diffe
 
 Instead of acquiring a lock, the hardware tracks memory reads and writes in the cache (or transactional buffers). Usually, hardware transactional memory marks the address as being read or written usually by adding read bit and write bit to the address.
 
-> [!example] Example: one possible implementation on hardware
+> [!NOTE]
+Example: one possible implementation on hardware
 > ![Pasted image 20241111155113](./imgs/Pasted%20image%2020241111155113.png)
 
 ### Conflict Detection and Aborting
@@ -101,7 +104,7 @@ On committing and aborting transactions:
   - Signal ABORT to processor, which must rollback execution
 - On retry, new transaction will load non-speculative data as needed.
 
-> [!example]
+> [!NOTE]
 > Consider two threads performing operations on a shared variable `x` using a lock.
 >
 > Pseudo-Code:

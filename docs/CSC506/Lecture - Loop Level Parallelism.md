@@ -1,5 +1,6 @@
 ---
 title: "Loop Level Parallelism"
+sidebar_position: 5
 tags:
   - parallelism
   - lecture
@@ -11,17 +12,18 @@ tags:
 
 ### DOALL Parallelism
 
-> [!important] concept
+> [!IMPORTANT]
+> Concept: DOALL
 > In Do-All parallelism, all tasks are independent of each other and can be executed simultaneously. Each task does not depend on the outcome or results of any other task.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20240828150814](./imgs/Pasted%20image%2020240828150814.png)
 
-> [!note]
+> [!NOTE]
 > do-all is kind of data parallelism because data is split into parts for each $i$.
 > It's great for loops without dependency. For the code above it has no dependency on the first level $i$ loop.
 
-> [!example]
+> [!NOTE]
 >
 > ```cpp
 > for(size_t i=1; i<N; i++){
@@ -31,27 +33,30 @@ tags:
 
 ### DOACROSS Parallelism
 
-> [!important] Concept: DOACROSS
+> [!IMPORTANT]
+> Concept: DOACROSS
 > DOACROSS parallelism is a technique used to parallelize loops that have loop-carried dependencies (i.e., an iteration depends on the result of a previous iteration). It allows iterations to execute in parallel but introduces synchronization mechanisms to ensure correct execution order where dependencies exist.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241003220723](./imgs/Pasted%20image%2020241003220723.png)
 > In do-across, some parts are parallel, but tasks need to wait on each other.
 
 ### DOPIPE Parallelism
 
-> [!important] Concept: DOPIPE
+> [!IMPORTANT]
+> Concept: DOPIPE
 > Do-Pipe (or Pipeline Parallelism) involves breaking a task into a series of stages, where each stage can be executed in parallel, often using a pipeline architecture. Each stage passes its result to the next stage.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20240902112431](./imgs/Pasted%20image%2020240902112431.png)
 
 ### Loop-Distribution Parallelism
 
-> [!important] Concept: Loop Distribution
+> [!IMPORTANT]
+> Concept: Loop Distribution
 > Loop distribution (also known as loop fission) involves splitting a loop into multiple loops over the same index range but with non-dependent computations separated. This technique exposes parallelism by isolating independent operations, allowing them to be parallelized using DOALL parallelism (where iterations are independent).
 
-> [!example]
+> [!NOTE]
 >
 > ```cpp
 > // Original loop with independent operations
@@ -77,7 +82,7 @@ tags:
 > }
 > ```
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20240902113626](./imgs/Pasted%20image%2020240902113626.png)
 
 ## Variable Scopes and Synchronization
@@ -93,7 +98,7 @@ Commonly seen variable usage in code with loops:
 | Modified Shared Variable with Proper Data Parallel | Variables (usually elements inside array) that are assigned to threads, each thread only access a specific part of the data. Each thread will only access their own parts, and will not access element assigned to other threads.                                                                         | Shared (Data Parallel)     | Array elements `A[i]` being written in `for (i = 0; i < N; i++)`.             |
 |             Modified Shared Variables              | Variables that are written by multiple threads and need to maintain a consistent state across threads should generally be avoided or protected using synchronization mechanisms (like critical sections or atomic operations). If possible, redesign the algorithm to minimize shared writable variables. | Private (Critical Section) | Shared data structures that threads need to update                            |
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20240828153029](./imgs/Pasted%20image%2020240828153029.png)
 > Explained:
 >

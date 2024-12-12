@@ -1,5 +1,6 @@
 ---
 title: "Directory Coherence Protocol"
+sidebar_position: 15
 tags:
   - lecture
 ---
@@ -13,7 +14,7 @@ Physically the directory can be on chip, in cache, but logically directory is no
 - which cache(s) keeps a copy of the block
 - in what state the block is cached.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241020212313](./imgs/Pasted%20image%2020241020212313.png)
 
 ## Basic Directory Cache Coherence Protocol
@@ -52,10 +53,10 @@ The requester will send a `ReadX`(for `PrWr`) to directory. Then the directory c
 1. if the block is in shared `S` state, the directory sends invalidation request `Inv` to shared holders, and update the record to indicate that the requester has the block in `M` state.
 2. if the block in modified `M` state, the directory also send invalidation, but the target cache will do a write-back if applicable, or forward it to the requester, then all other copies will be invalidated.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241022212823](./imgs/Pasted%20image%2020241022212823.png)
 
-> [!example]
+> [!NOTE]
 > Assume a 3-processor multiprocessor system with directorybased coherence protocol. Assume that the cost of a network transaction is solely determined by the number of sequential protocol hops involved in the transaction. Each hop takes 50 cycles to complete, while a cache hit costs 1 cycle. Furthermore, ignore NACK traffc and speculative replies. The caches keep MESI states, while the directory keep EM (exclusive or modifed), S (shared), and U (uncached) states. Display the state transition of all the 3 caches, the directory content and its state, and the network messages generated for the reference stream shown in the tables.
 >
 > ![Pasted image 20241210225816](./imgs/Pasted%20image%2020241210225816.png)
@@ -78,14 +79,14 @@ Transaction serialization is achieved by making sure that all requests appear to
 The directory maintains a bit-vector for each memory block. Each bit in the vector corresponds to a cache, indicating whether that cache holds the block.
 On cache states updates, it updates corresponding bit of the block to 0 or 1 according to the new state
 
-> [!example]
+> [!NOTE]
 > If there are `p` caches, each block in memory then requires `p` bits of information. The ratio of directory storage overhead to the storage for a data block grows linearly with the number of caches.
 >
 > ![Pasted image 20241208153752](./imgs/Pasted%20image%2020241208153752.png)
 >
 > Assuming a cache block size of 64 bytes, when there are 64 caches, the storage overhead ratio is $\frac{64}{64*8}=12.5\%$
 
-> [!caution]
+> [!CAUTION]
 > Its simple and precise; supports any number of sharers, but the space overhead grows linearly with the number of caches. The overhead can be quite high for a larger machine.
 
 ### Coarse Bit Vector Directory Format
@@ -94,11 +95,11 @@ Caches are grouped into clusters or regions. The directory tracks which clusters
 If any cache in a group has a copy of a block, the bit value corresponding to the group is set to `1`. If the block is not cached anywhere in the group, the bit value is set to `0`.
 This format reduces storage overhead by tracking clusters rather than individual caches.
 
-> [!example]
+> [!NOTE]
 >
 > ![Pasted image 20241208153810](./imgs/Pasted%20image%2020241208153810.png)
 
-> [!caution]
+> [!CAUTION]
 > Traffic increases compared to the full bit vector approach. Since the information is kept per group, when there is an invalidation, the invalidation must be sent to all caches in the group, even when only one cache in the group has the block.
 
 ### Limited Pointer Format
@@ -110,15 +111,15 @@ This strategy provides a tradeoff that improves performance when space is availa
 - If space is available, the directory adds the requesting cache to the list of pointers.
 - If the list is full, it transitions to a broadcast-based invalidation mechanism.
 
-> [!example]
+> [!NOTE]
 >
 > ![Pasted image 20241208153827](./imgs/Pasted%20image%2020241208153827.png)
 
-> [!note]
+> [!NOTE]
 > One question is in the rare case in which the number of sharers is larger than the number of pointers.
 > One strategy is to not allow the case to occur: when there is a cache which wants to keep a copy of a block, the directory sends an invalidation to a cache that currently keeps a copy of a block to make a room to store the ID of the new cache.
 
-> [!caution]
+> [!CAUTION]
 > This strategy can backfire when the reason that there are many sharers of a block is because the block contains data used for global synchronization, such as a centralized barrier.
 > Other strategies, such as reverting to broadcast when the number of sharers exceeds the number of pointers, suffers from a similar problem.
 
@@ -129,7 +130,7 @@ On read miss, if an entry exists for the block, the directory updates it to incl
 
 The storage overhead is relatively low compared to full bit one, it only active blocks require directory entries.
 
-> [!caution]
+> [!CAUTION]
 > There is a risk of overflow. This is because a clean block may be replaced silently from the cache, without notifying the directory cache. Thus, the directory cache may still keep the directory entry for the block, preventing the entry from being used for a block that may actually be cached.
 
 | **Scheme**       | **Granularity**  | **Storage Overhead** | **Update Complexity** | **Scalability**        |
@@ -139,7 +140,8 @@ The storage overhead is relatively low compared to full bit one, it only active 
 | Limited Pointer  | Fixed Number     | Low to Moderate      | Moderate to High      | Good for few sharers   |
 | Sparse Directory | Per Active Block | Low                  | Moderate to High      | Excellent              |
 
-> [!example] > **Storage overheads**
+> [!NOTE]
+> **Storage overheads**
 > Suppose we have a directory coherence protocol keeping caches coherent. The caches use a 64-byte cache block. Each block requires 2 bits to encode coherence states in the directory. How many bits are required and what is the overhead ratio (number of directory bits divided by block size) to keep the directory information for each block, for full-bit vector, coarse vector with 4 processors/bit, limited pointers with 4 pointers per block? Consider 16, 64, 256, and 1024 caches in the system.
 >
 > ![Pasted image 20241210224311](./imgs/Pasted%20image%2020241210224311.png)
@@ -148,7 +150,8 @@ The storage overhead is relatively low compared to full bit one, it only active 
 
 A centralized directory is simple to design. However, anything centralized at some point becomes a bottleneck to scalability: all cache miss requests will go to the same place and all invalidations have to be sent out from the same place. Thus, a scalable implementation of a directory requires a distributed organization.
 
-> [!example] Example: Possible Directory Locations
+> [!NOTE]
+Example: Possible Directory Locations
 > ![Pasted image 20241020222618](./imgs/Pasted%20image%2020241020222618.png)
 
 ## Implementation Correctness and Race Conditions
@@ -164,12 +167,13 @@ In real systems, both assumptions do not necessarily apply. This results in vari
 
 Sometimes the directory having an inconsistent view of the cache states. Cache states can get out of sync is because they are not updated in lock step, and some events in the caches are never seen by the directory state.
 
-> [!note]
+> [!NOTE]
 > One way to avoid this naively is to let the cache notify the directory when it is going to evict something, however, this will generate traffic, when there are a lot of eviction, the overall performance will also be reduced.
 
 A directory state can become out-of-date **if a cache line is silently evicted** (e.g., due to cache replacement policies) without notifying the directory. One major situations here is that the directory thinks the block is shared / exclusively shared / modified in some node, but the node has already evicted it silently(maybe due to capacity).
 
-> [!example] Example of out-of-date information caused by silent eviction
+> [!NOTE]
+Example of out-of-date information caused by silent eviction
 >
 > 1. Initial State:
 >    - Cache C1 and C2 hold a shared copy of a memory block `X`.
@@ -192,19 +196,20 @@ A directory state can become out-of-date **if a cache line is silently evicted**
 >    - The directory receives acknowledgments from all relevant caches.
 >    - It updates the sharer list to remove C2 and marks C3 as the exclusive owner.
 
-> [!example] How to handle silent eviction
+> [!NOTE] 
+> How to handle silent eviction
 >
 > - **Robust Acknowledgment Mechanism**: The directory relies on acknowledgments from caches to confirm the invalidation. If a cache no longer has the block, it can signal this with a "not-present" or similar response.
 > - **Lazy Updates**: If caches do not inform the directory of silent evictions immediately, these are resolved during subsequent operations (e.g., writes or further invalidations).
 > - **Periodic Cleanup (Optional)**: Some systems include mechanisms for periodic reconciliation between cache states and the directory to proactively correct stale information.
 
-> [!example]
+> [!NOTE]
 > Another situation is when the directory thinks a node is already a sharer of a block, but the directory receives a read request from the node. This situation occurs because the node that kept the block in its cache has silently evicted the block, while the directory still thinks the node is a sharer. When the node wants to read from the block, it suffers a read miss, and as a result, a read request is sent to the directory. Handling this case is also simple. The directory can reply with data to the requester and keep the sharing bit vector unchanged, since the bit vector already refects the node as a sharer.
 
-> [!example]
+> [!NOTE]
 > A `Read` or `ReadX` request may arrive at the directory from a node that the directory thinks as caching the block exclusively (in exclusive or modified state). In this case, apparently the node that owns the block has evicted the block. If the block was clean, no write back (or flush) had occurred, whereas if the block was dirty, the flush message has yet to reach the directory. The directory cannot just reply with data since it may not have the latest data. In contrast to the case in which the directory state is shared, with an EM state, the directory cannot reply with data just yet. However, it cannot just wait for the flushed block to arrive either because it may never come (the block might be clean and was evicted silently by the requester while it was in the exclusive state).
 
-> [!caution]
+> [!CAUTION]
 > The question mentioned in last example **is not a problem that can be solved just by the protocol at the directory alone, the coherence controller at each processor node must also participate**.
 
 When the processor evicts a dirty block and flushes the block to the main memory at the home node:
@@ -217,7 +222,7 @@ This way, the directory will never see a Read/ReadX request to a block from a no
 
 ![Pasted image 20241022224917](./imgs/Pasted%20image%2020241022224917.png)
 
-> [!note]
+> [!NOTE]
 > This state machine is for per entry on the directory. Recall that in full bit vector format, it means that each
 
 In the figure,
@@ -230,7 +235,8 @@ In the figure,
 
 When messages that correspond to a request do not happen instantaneously, then it is possible for messages from two different requests to be overlapped.
 
-> [!example] Example: Early Invalidation Race
+> [!NOTE]
+Example: Early Invalidation Race
 > A processor may try to read from a block and another processor may try to write to the block. Both the read and read exclusive requests to the same block may occur simultaneously in the system:
 >
 > ![Pasted image 20241022230233](./imgs/Pasted%20image%2020241022230233.png)
@@ -242,10 +248,10 @@ To solve overlapping requests,
 - **Home Centric Approach**: Let the directory (home node) determine when the operation is complete, by receiving `Ack`s from the requester. It must **defer or nack** other requests to the same block before the current operation complete.
 - **Requestor Assisted Approach**: Let the cache controller to track ongoing requests, and **only handle conflicting incoming requests after the request is complete**. This allows the directory to finish the request earlier because it does not wait for `Ack`.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241022230752](./imgs/Pasted%20image%2020241022230752.png)
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241022230801](./imgs/Pasted%20image%2020241022230801.png)
 
 A more complete directory state finite state coherence protocol diagram:

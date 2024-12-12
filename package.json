@@ -15,7 +15,6 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-
     "@docusaurus/core": "^3.6.3",
     "@docusaurus/plugin-content-blog": "^3.2.0",
     "@docusaurus/preset-classic": "^3.6.3",
@@ -54,6 +53,7 @@
     "react-responsive": "10.0.0",
     "react-responsive-carousel": "3.2.23",
     "rehype-katex": "^7.0.0",
+    "remark-github-admonitions-to-directives": "^2.1.0",
     "remark-math": "^6.0.0",
     "swiper": "^7.2.0",
     "url-loader": "^4.1.1",

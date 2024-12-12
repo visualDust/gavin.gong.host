@@ -1,5 +1,6 @@
 ---
 title: "Cache Coherence Problem"
+sidebar_position: 9
 tags:
   - lecture
 ---
@@ -22,7 +23,7 @@ Figure: three different ways that multi-processors are connected. They differ in
 
 Compared to **shared cache system**, **symmetric multi-processor** architecture allows better scaling, and a fast cache access time to the local cache, but the programming will be more complex due to the need for data locality in caches. **Distributed shared memory** in which memories are interconnected, is the most scalable.
 
-> [!tip]
+> [!TIP]
 > An increase in the access time to main memory makes a smaller impact on the overall performance than the same amount of increase in the access time to caches.
 > Adding extra few tens or hundreds of nanoseconds in latency to access remote memories only increase the overall latency by less than an order of magnitude. In contrast, adding tens to hundreds of nanoseconds to the access time of some segments of the cache that are remote will significantly reduce the overall cache performance.
 
@@ -33,7 +34,7 @@ Compared to **shared cache system**, **symmetric multi-processor** architecture 
 | Disadvantages       | Not scalable. Distance to cache. Access latency of cache increases as number of cores increases.               |                                                                                                        |                                                                            |
 | Note                | Heavy load on interconnection                                                                                  | Reduced pressure on interconnect, only cache misses.                                                   | Reduced pressure on interconnect, some misses handled by local memory.     |
 
-> [!question]
+> [!IMPORTANT]
 > Does interconnect support broadcast/snooping in symmetric multi-processor system?
 
 For a multi-processor system, two requirements maintaining cache coherence are:
@@ -41,18 +42,19 @@ For a multi-processor system, two requirements maintaining cache coherence are:
 - **Write propagation**: propagate changes in one cache to other caches, namely, the requirement.
 - **Transaction serialization**: multiple operations (reads or writes) to a single memory location are seen in the same order by all processors.
 
-> [!caution]
+> [!CAUTION]
 > Write through policy (see [Lecture - Memory Hierarchy](Lecture%20-%20Memory%20Hierarchy.md)) is not a solution for write propagation, in the worst case variable `x` is stored in memory, cache of processor $1$ and cache of processor $2$, any changes to `x` made by processor $1$ will also be updated back to memory, but not updated in cache of processor $2$. The problem still exists.
 
 We often refer to a write operation as a **write transaction** and a read operation as a **read transaction**, implying that **each operation has to be atomic with respect to one another**. Note, however, that serialization between two read operations is not required because in the absence of writes, as long as the value is coherent initially, the reads will return the same value. **Serialization between writes, as well as serialization between reads and writes, are required in order for all processors to have a coherent view of cached values.**
 
-> [!example] Example without transaction serialization
+> [!NOTE]
+Example without transaction serialization
 > ![Pasted image 20240915201446](./imgs/Pasted%20image%2020240915201446.png) > ![Pasted image 20240915201515](./imgs/Pasted%20image%2020240915201515.png)
 > Figure: need for transaction serialization between writes (a) and between a write and a read (b).
 
 ## Cache Coherence in Bus-Based Multiprocessors
 
-> [!cite]
+> [!NOTE]
 > Please refer to [Lecture - Cache Coherence in Bus-based Multiprocessors](Lecture%20-%20Cache%20Coherence%20in%20Bus-based%20Multiprocessors.md)
 
 ## Coherence without a Bus: Broadcast Protocol with Point-to-Point Interconnect
@@ -82,10 +84,11 @@ Here we use the first approach, all requests are sent to the **sequencer**, and 
 - A read request that arrives at the sequencer will also be broadcast to all processors, so that it can be determined where the block may be cached. If a cache holds the block in a dirty state, it will supply the block. When the requester obtains the block, it sends acknowledgment to the sequencer, which then considers the request processing complete.
 - During the time request processing has started but has not completed, new requests that arrive at the sequencer will be rejected or serviced at a later time when the current request is complete.
 
-> [!note]
+> [!NOTE]
 > This approach locks up the sequencer for the block address until the current request is fully processed. Such an approach reduces concurrency for request processing, but may be acceptable if the number of caches is relatively small.
 
-> [!example] Example: 6-node system P2P interconnected, simultaneous write
+> [!NOTE]
+Example: 6-node system P2P interconnected, simultaneous write
 >
 > Assume each node to have a processor/core and a cache. Now suppose that node A and B simultaneously want to write to a block that they already cached in a clean state. Suppose that node S is assigned the role of sequencing requests for the block.
 >
@@ -101,7 +104,8 @@ Here we use the first approach, all requests are sent to the **sequencer**, and 
 > - (e) After receiving all invalidation acknowledgement messages, A knows it is safe to transition the block state to modifed, and to write to the block. It then sends a notice of completion to the sequencer S
 > - (f) Upon S receiving the notice from A, the sequencer knows the write by A is completed, it then proceed next to the request from B.
 
-> [!example] Example: 6-node system P2P interconnected, simultaneous read
+> [!NOTE]
+Example: 6-node system P2P interconnected, simultaneous read
 >
 > Suppose that node A and B simultaneously want to read to a block that they do not fnd in their local caches.
 > This situation is unique since it does not involve a write request, therefore we are not dealing with two different versions (or values) for the data block. Thus, **it is possible to overlap the processing of the two requests**.
@@ -116,5 +120,5 @@ Here we use the first approach, all requests are sent to the **sequencer**, and 
 
 ## Directory Coherence Protocol
 
-> [!cite]
+> [!NOTE]
 > Please refer to [Lecture - Directory Coherence Protocol](Lecture%20-%20Directory%20Coherence%20Protocol.md)

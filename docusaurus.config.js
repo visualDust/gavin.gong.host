@@ -1,5 +1,6 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
+import remarkGithubAdmonitionsToDirectives from "remark-github-admonitions-to-directives";
 
 const lightCodeTheme = require("prism-react-renderer").themes.nightOwlLight;
 const darkCodeTheme = require("prism-react-renderer").themes.nightOwl;
@@ -8,7 +9,7 @@ const katex = require("rehype-katex");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "VisualDust::Blog(\"Think and Do\")",
+  title: 'VisualDust::Blog("Think and Do")',
   url: "https://www.gong.host",
   baseUrl: "/",
   onBrokenLinks: "ignore",
@@ -18,7 +19,7 @@ const config = {
   projectName: "blog.gong.host", // Usually your repo name.
 
   markdown: {
-    format: 'detect',
+    format: "detect",
   }, // let md compile as md
 
   presets: [
@@ -34,6 +35,9 @@ const config = {
         },
         docs: {
           path: "docs",
+          beforeDefaultRemarkPlugins: [remarkGithubAdmonitionsToDirectives],
+          remarkPlugins: [math],
+          rehypePlugins: [[katex, { strict: false }]],
           routeBasePath: "docs",
         },
         blog: {

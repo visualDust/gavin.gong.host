@@ -1,5 +1,6 @@
 ---
 title: "Parallel Programming Models"
+sidebar_position: 3
 tags:
   - parallelism
   - lecture
@@ -10,7 +11,7 @@ aliases:
 
 ![Pasted image 20241009093649](./imgs/Pasted%20image%2020241009093649.png)
 
-> [!note]
+> [!NOTE]
 > in the figure above shared memory mechanism takes place in user space, while the message passing sends messages via a channel in kernel space(only send and recv are handled in user space).
 
 |     Scheme      | Data Distribution                                                                                                    | Communication                                                                                         | Synchronization                                                                                                     |
@@ -22,7 +23,7 @@ aliases:
 
 ![Pasted image 20240820113936](./imgs/Pasted%20image%2020240820113936.png)
 
-> [!note]
+> [!NOTE]
 > **Pros:**
 >
 > 1. Fast Communication:
@@ -57,13 +58,13 @@ aliases:
 
 ![Pasted image 20240825194949](./imgs/Pasted%20image%2020240825194949.png)
 
-> [!note]
+> [!NOTE]
 > in message-passing schemes:
 >
 > - **Send** can be either blocking or non-blocking.
 > - **Recv** is required to actually receive the data sent, but send operations do not necessarily need recv to be called immediately, especially in non-blocking modes.
 
-> [!note]
+> [!NOTE]
 > **Pros:**
 >
 > 1. **Scalability:**
@@ -98,7 +99,7 @@ aliases:
 > 4. **Increased Programming Effort:**
 >    - Designing a system around message passing can be more complex as it requires explicitly defining the communication protocols and handling message errors or losses.
 
-> [!note]
+> [!NOTE]
 > The difference:
 >
 > - **Shared memory** is faster and simpler for intra-machine communication but requires careful synchronization and is limited to single systems.

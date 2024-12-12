@@ -1,5 +1,6 @@
 ---
 title: "Cache Design in Multicore Architecture"
+sidebar_position: 8
 tags:
   - lecture
 ---
@@ -58,7 +59,7 @@ Different organizations based on different physical architecture:
 |     **Cost**     |                                                Cost scales with the square of the number of processors                                                 |                                                                            |                                                                                    Cost scales linearly with the number of processors(lower incremental cost than cross bar switch)                                                                                     | Cost depends on the number of stages and the width of each stage. The number of stages depends on the number of processors and memories.              |
 | **Shortcomings** | When the number of processors scales up, the costs of the cross bar switch becomes the big component of the whole system, which is not cost effective. |                                                                            | Latency lager than uniprocessor, but bus could become bandwidth bottleneck when the number of processors becomes large. When the bus is being used by another process, one process could stay waiting and trying to access to the bus which could cause huge overheads. | It has the same shortcomings as the two before, and its not easy to be scaled up too.                                                                 |
 
-> [!caution]
+> [!CAUTION]
 > caches in crossbar configuration is not necessarily called banked cache. It could be banked in logical manner.
 
 ## United Cache Organization
@@ -67,7 +68,7 @@ In the IBM Power4 chip, a crossbar is used to interconnect cores with cache bank
 
 ![Pasted image 20240908215623](./imgs/Pasted%20image%2020240908215623.png)
 
-> [!caution]
+> [!CAUTION]
 > Crossbar allows cores to access different banks simultaneously. Only when two cores access the same bank, their accesses collide and have to be serialized. However, it allows concurrent access from multiple processors to separate cache banks.
 > The performance of applications improves when the cache is broken into smaller banks, allowing the applications to access cache banks that are close by with a low access latency; only accesses to far-away cache banks incur a high access latency.
 
@@ -82,24 +83,24 @@ a convenient and logical way to scale a multiprocessor system is to move the int
 Cores are logically connected to cache tiles in some way, and they are actually physically connected(via interconnection network etc.)
 The important concept here is **distance locality**, which is feeble for a large multicore system (since it's quite far away from the core to the farthest cache tile)
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20240910231054](./imgs/Pasted%20image%2020240910231054.png)
 > For a $4\times 4$ tiled multicore, a hash function determines which tile the address maps to.
 > In the figure, if the core that accesses a data block is core $0$, and the data block maps to tile $15$, the network distance (assuming a two-dimensional mesh) is $6$ hops. To get a message across, each router likely introduces at least a 3-cycle delay, corresponding to the number of pipeline stages implemented in the router.
 
-> [!tip]
+> [!TIP]
 > Higher associativity can be introduced to improve distance locality. For the example above, using a $2$-tiled associated cache with tile $0$ and tile $10$ in a set, tile $1$ and tile $15$ in a set etc., which makes the average distance between the core and cache tile closer.
 
-> [!caution]
+> [!CAUTION]
 > However, there are drawbacks to tile associativity. The higher the associativity, the more tiles must be checked simultaneously to locate a data block. This consumes additional power, as well as incurs a higher network traffic compared to a single tile-associativity.
 
-> [!tip]
+> [!TIP]
 > Such drawbacks can be mitigated to some extent by requiring a core to look up the closest tile in a tile set first, and look up farther tiles only when the block is not found on the closest tile.
 
 ![Pasted image 20240910233205](./imgs/Pasted%20image%2020240910233205.png)
 Figure: Hybrid private and shared configuration, a tradeoff between distance locality and capacity. Cores closed to each other are grouped to use shared organization and cores between groups are privately managed.
 
-> [!tip]
+> [!TIP]
 > Another way to think about this is to consider cores in a group share cache with associativity. For the figure on the left consider each group of cores share a 4 ways cache and there are 4 sets. While this is not accurate, it provides somewhat insights understanding the tradeoff.
 
 ![Pasted image 20240910233252](./imgs/Pasted%20image%2020240910233252.png)
@@ -133,7 +134,7 @@ Some techniques that improve upon the shared configuration:
 
 **Capacity sharing** allows blocks evicted from the local cache tile to be allocated to a remote cache tile. Later, when the processor requests for the block again, it can find it in a remote cache tile rather than having to fetch it from an outer memory hierarchy level.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20240911153805](./imgs/Pasted%20image%2020240911153805.png)
 > On IBM Power7:
 >

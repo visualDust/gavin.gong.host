@@ -1,5 +1,6 @@
 ---
 title: "Consistency and Synchronization Problems"
+sidebar_position: 13
 tags:
   - lecture
 ---
@@ -23,7 +24,7 @@ Mutual exclusion is not a problem that is unique to multiprocessor systems. In a
 In single core: disabling all interrupts ensure that the thread that is executing will not be context switched or interrupted by the OS. This is costly.
 In multi-core: disabling interrupts does not achieve mutual exclusion because other threads in different processors still execute simultaneously.
 
-> [!tip]
+> [!TIP]
 > What is a spin lock:
 > It is a lock that causes a thread trying to acquire it to simply wait in a loop ("spin") while repeatedly checking whether the lock is available.
 
@@ -31,24 +32,26 @@ In multi-core: disabling interrupts does not achieve mutual exclusion because ot
 
 A simple example for this requirement is point-to-point(a.k.a. producer-consumer) shared memory program. **Producer-Consumer (Events, Post-Wait)** coordinates execution between threads where one (the producer) generates data, and another (the consumer) processes it. Synchronization ensures proper sequencing between production and consumption.
 
-> [!example] Producer-Consumer-style synchronization
+> [!NOTE]
+> Producer-Consumer-style synchronization
 > `P1` wait for thread `P0` to pass some value to it through the memory:
 > ![Pasted image 20240930151331](./imgs/Pasted%20image%2020240930151331.png)
 
-> [!caution]
+> [!CAUTION]
 > In the above example, if the wait is achieved by a while loop as shown in code above, this can be incorrect because **`S2` may happen before `S1`**, because in that case `P1` will continue to print `datum` before it has the value `5`.
 
-> [!important] Concept: Program Order
+> [!IMPORTANT]
+> Concept: Program Order
 > S1 should happen before S2 as it is logically written in your program is called program order.
 
-> [!note]
+> [!NOTE]
 > In C language, if a variable is marked as **volatile**, the compiler will ensure the sequence order of different access to this variable.
 
 Another problem here is that **`S2` may propagates faster than `S1`**, and `P1` will first see `S2`'s value than `S1`.
 
 The two problems mentioned above, `S2` may happen before `S1`, and `S2` may propagates faster than `S1`, are **memory consistency problems**. The consistency deal with the ordering of all memory operations to different memory locations.
 
-> [!note]
+> [!NOTE]
 > The strongest consistency is **Sequential Consistency** model, it guarantees that all loads/stores are the same as the sequential execution of the program.
 
 ---
@@ -87,7 +90,8 @@ There is a software approach "Peterson’s algorithm" can deal with dual-thread 
 
 ## Atomic Instructions
 
-> [!important] Concept: Atomic Instruction
+> [!IMPORTANT]
+> Concept: Atomic Instruction
 > **Atomic instruction** implies that (1) either the whole sequence is executed entirely, or none of it appears to have executed. (2) only one such instruction from any processor can be executed at any given time.
 
 For commonly used atomic instructions, consider register `Rx` and `Ry`, and memory location `M`, common atomic instruction includes:
@@ -118,7 +122,7 @@ Summary:
 
 ![Pasted image 20241001224301](./imgs/Pasted%20image%2020241001224301.png)
 
-> [!note]
+> [!NOTE]
 > I think remember every implementation in detail(how the assembly code looks like) is not the key, understand why these operations must be done as atomic(e.g. test and set) is the key.
 
 ### Test-and-set (TSL) Lock
@@ -127,7 +131,7 @@ Summary:
 
 ![Pasted image 20240930155943](./imgs/Pasted%20image%2020240930155943.png)
 
-> [!note]
+> [!NOTE]
 > The instruction **`bnz`** stands for **Branch if Not Zero**. The operation of `bnz` is straightforward: it checks the value of a specified register or memory location, and if the value is **not zero**, it causes the program to jump to a specified target label or memory address.
 
 **Lock**:
@@ -139,10 +143,10 @@ Summary:
     **Unlock**:
 - The thread that holds the lock resets `lock` to `0`, allowing other threads to acquire it.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20240930155952](./imgs/Pasted%20image%2020240930155952.png)
 
-> [!caution] Problems of test-and-set lock
+> [!CAUTION] Problems of test-and-set lock
 >
 > - Bus traffic: high when contending for the lock
 > - Fairness: all processors have an equal chance (assuming a global bus)
@@ -150,12 +154,13 @@ Summary:
 
 Regarding the **bus traffic**, the problem is because each lock acquisition attempt causes invalidation of all cached copies, regardless of whether the acquisition is successful or not:
 
-> [!example]
+> [!NOTE]
 > Assume there are 3 threads competing for this lock, the memory coherence and state changes will looks like:
 >
 > ![Pasted image 20240930160006](./imgs/Pasted%20image%2020240930160006.png)
 
-> [!question] Why it is a `BusRdX`?
+> [!IMPORTANT]
+> Why it is a `BusRdX`?
 > According to the example, whether the acquisition is successful or not, the bus request is a `BusRdX` since the atomic `test-and-set` **will try to write**(if lock obtain success) after the read.
 
 ### Test-and-test-and-set (TTSL) Lock
@@ -170,7 +175,7 @@ Recall that in test-and-set lock, there is a bus traffic problem. to reduce the 
 - advantage: significantly reduce bus traffic by replacing `BusRdX` with `BusRd` in contending situation.
 - disadvantage: uncontended latency is higher than `test-and-set` lock caused by one more load and branch instruction.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20240930160928](./imgs/Pasted%20image%2020240930160928.png)
 
 ### Load Linked and Store Conditional Lock (LL/SC)
@@ -183,7 +188,8 @@ The TS(test-and-set) lock and its improved implementation TTS(test-and-test-and-
 
 **Load Linked and Store Conditional Lock introduces another perspective of illusion of atomicity** and can achieve atomicity without special bus line. Iit does not assume the existence of a special bus line so it can work with other interconnects as well
 
-> [!note] Illusion of Atomicity
+> [!NOTE] 
+> Illusion of Atomicity
 > An illusion of atomicity can be built on a sequence of instructions, which means either none or all of the instructions appear to have executed, or it can be built on true instruction atomicity, that is a hardware level atomicity.
 >
 > From the first point of view, the lock acquisition essentially consists of:
@@ -194,10 +200,12 @@ The TS(test-and-set) lock and its improved implementation TTS(test-and-test-and-
 >
 > But only store is logically visible to other processors (for example, because it causes a `BusWr` that broadcast to other processors). Therefore, the instruction that is critical to the illusion of atomicity is the store instruction. If it is executed, its effect is visible to other processors. If it is not executed, its effect is not visible to other processors.
 
-> [!note] Load Locked (a.k.a. Load Linked)
+> [!NOTE] 
+> Load Locked (a.k.a. Load Linked)
 > The load that requires a block address to be monitored from being stolen (i.e., invalidated) is known as a **load linked or load locked (LL)**. The LL/SC pair turns out to be a very powerful mechanism on which many different atomic operations can be built. The pair ensures the illusion of atomicity without requiring an exclusive ownership of a cache block.
 
-> [!note] Store Conditional (SC)
+> [!NOTE] 
+> Store Conditional (SC)
 > In order to give the illusion of atomicity to the sequence of instructions, we need to ensure that the store fails (or gets canceled) if between the load and the store, something has happened that potentially violates the illusion of atomicity (for example, context switch, a `busRdX`, a `Flush` or something like that).
 > If, however, the block remains valid in the cache by the time the store executes, then the entire load-branch-store sequence can appear to have executed atomically. The illusion of atomicity requires that the store instruction is executed conditionally upon detected events that may break the illusion of atomicity. Such a store is well known as a **store conditional (SC)**.
 
@@ -211,7 +219,7 @@ As an example:
 - If a read happens during this procedure, that is, it snooped a `BusRd` on the same address, nothing will happen on this lock, the linked register will not clear
 - But if a `BusWr` or something cause the cache to be invalid, the lock will fail and the linked register will clear.
 
-> [!tip]
+> [!TIP]
 > So the key to identify if some snooped bus behavior will cause a fail on the lock, check if the action will invalidate the cache state.
 
 For the implementation, `bezq` provides a jump if SC fails:
@@ -219,16 +227,16 @@ For the implementation, `bezq` provides a jump if SC fails:
 
 If it fails, the store will not happen, and rest of the system cannot see the store and will not even know if it happened. If it is success, other processors will know because the store propagate to the rest of the system.
 
-> [!example]
+> [!NOTE]
 > Suppose that each processor needs to get the lock exactly once. Initially, no one holds the lock. The sequence of bus transactions generated is identical to ones in the TTSL implementation, except that the LL replaces the regular load, and SC replaces the test-and-set instruction.
 > ![Pasted image 20241001215533](./imgs/Pasted%20image%2020241001215533.png)
 
-> [!note]
+> [!NOTE]
 > Performance-wise, the LL/SC lock implementation performs similarly to a TTSL.
 > Minor difference: when multiple processors simultaneously perform SCs, only one bus transaction occurs in LL/SC (due to the successful SC), whereas in the TTSL, there will be multiple bus transactions corresponding test-and-set instruction execution.
 > However, this is a quite rare event since there are only a few instructions between a load and a store in an atomic sequence, so the probability of multiple processors executing the same sequence at the same time is small.
 
-> [!tip]
+> [!TIP]
 > LL/SC is a general and simple idea, it can be used to implement many atomic instructions, such as test-and-set, compare-and-swap, etc. Hence, it can be thought of as a lower level primitive than atomic instructions.
 
 ### Lock with Fairness
@@ -237,7 +245,8 @@ If it fails, the store will not happen, and rest of the system cannot see the st
 
 It's a lock implementation that attempts to **provide fairness in lock acquisition** using **queue**.
 
-> [!important] Concept: Notion of Fairness
+> [!IMPORTANT]
+> Concept: Notion of Fairness
 > The notion of fairness deals with whether the order in which threads first attempt to acquire a lock corresponds to the order in which threads acquire the lock successfully
 
 Each thread that attempts to acquire a lock is given a ticket number in the queue, and the order in which lock acquisition is granted is based on the ticket numbers, with a thread holding the lowest ticket number is given the lock next.
@@ -245,7 +254,7 @@ Each thread that attempts to acquire a lock is given a ticket number in the queu
 Note that the code above shows the implementation in a high-level language, assuming that there is only one lock (so a lock’s name is not shown) and fetch the atomic primitive fetch and inc() is supported. Such primitive can be implemented easily using a pair of LL and SC.
 ![Pasted image 20241001220718](./imgs/Pasted%20image%2020241001220718.png)
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241001220850](./imgs/Pasted%20image%2020241001220850.png)
 > If some of the process holds the `my_ticket` matches `now_serving`, it will enter the critical section.
 
@@ -260,10 +269,10 @@ The way to do it: threads can wait and spin on unique memory locations rather th
 ![Pasted image 20241209162355](./imgs/Pasted%20image%2020241209162355.png)
 ![Pasted image 20241001223446](./imgs/Pasted%20image%2020241001223446.png)
 
-> [!tip]
+> [!TIP]
 > Here we assume that `fetch_and_inc` is a atomic operation and two thread calling acquire simultaneously will not get the same ticket number.
 
-> [!example]
+> [!NOTE]
 > ![Pasted image 20241001223523](./imgs/Pasted%20image%2020241001223523.png)
 
 Regarding the traffic, the write only invalidates one cache block, only $\mathop{O}(1)$ traffic is generated, there are $\mathop{O}(p)$ number of acquisition and releases, so the total traffic scales on the order of $\mathop{O}(p)$.
@@ -281,7 +290,7 @@ Regarding the traffic, the write only invalidates one cache block, only $\mathop
 
 ## Barrier Implementation
 
-> [!note]
+> [!NOTE]
 > Barrier implementations are not included in the final exam
 
 When there is a barrier, multiple threads must reach the same point before any may continue.
@@ -310,7 +319,7 @@ Software barriers are based on locks, since there will be critical sections in o
 
 #### Butterfly Barrier
 
-> [!cite]
+> [!NOTE]
 > From a paper, E. Brooks III, _Intl. J. Parallel Programming_, 15(4), 1986.
 
 ![Pasted image 20241007153817](./imgs/Pasted%20image%2020241007153817.png)
@@ -324,14 +333,14 @@ Software barriers are based on locks, since there will be critical sections in o
 
 ## Load / Store Implementation
 
-> [!note]
+> [!NOTE]
 > Load/Store implementations are not included in the final exam
 
 ### Load and Store in Sequential Consistency (SC)
 
 ![Pasted image 20241016150903](./imgs/Pasted%20image%2020241016150903.png)
 
-> [!note]
+> [!NOTE]
 > Load must wait for store buffer to be empty before issuing to memory.
 
 ### Improving SC Performance
@@ -342,17 +351,17 @@ Recall prefetching mentioned in [Lecture - Cache Coherence in Bus-based Multipro
 
 ![Pasted image 20241016152308](./imgs/Pasted%20image%2020241016152308.png)
 
-> [!note]
+> [!NOTE]
 > Prefetching is not a real load, its like a hint issued to cache. Prefetching means that the processor thinks it is a good idea to fetch the address now, but its not a real load from processor, the processor may loads it later or may not. On the real load happen, the processor will still issues a load, if it is prefetched, there will be no cache miss which improves performance..
 
-> [!caution]
+> [!CAUTION]
 > Prefetching may hurt performance, read section related to prefetching in [Lecture - Cache Coherence in Bus-based Multiprocessors](Lecture%20-%20Cache%20Coherence%20in%20Bus-based%20Multiprocessors.md) for more information.
 
 #### Speculated Load
 
 ![Pasted image 20241016152259](./imgs/Pasted%20image%2020241016152259.png)
 
-> [!note]
+> [!NOTE]
 > The big difference between speculated load and prefetching is that prefetching is not a real load, but speculated load is a real load.
 
 ### Other Memory Optimizations
@@ -363,7 +372,7 @@ Recall prefetching mentioned in [Lecture - Cache Coherence in Bus-based Multipro
 
 Load bypassing execute(typically in uniprocessors) load operation without waiting for store to finish when the target load and stores are on different address.
 
-> [!caution]
+> [!CAUTION]
 > Load bypassing typically works in uniprocessor system, but when there is a multi-threading program running on multiprocessor system, the situation will not be same.
 > For example, the following code is not allowed by SC:
 >
@@ -373,5 +382,5 @@ Load bypassing execute(typically in uniprocessors) load operation without waitin
 
 ![Pasted image 20241016153053](./imgs/Pasted%20image%2020241016153053.png)
 
-> [!caution]
+> [!CAUTION]
 > If store to `X` happens from another processor, loading old `X` will be a consistent interleaving or program order(e.g. load could have hit in cache just before intervention).
