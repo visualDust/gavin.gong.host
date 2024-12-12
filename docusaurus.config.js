@@ -17,6 +17,10 @@ const config = {
   organizationName: "NCSU",
   projectName: "blog.gong.host", // Usually your repo name.
 
+  markdown: {
+    format: 'detect',
+  }, // let md compile as md
+
   presets: [
     [
       "@docusaurus/preset-classic",

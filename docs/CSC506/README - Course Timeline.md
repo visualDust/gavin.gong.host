@@ -1,0 +1,39 @@
+---
+title: "Course Timeline"
+tags:
+  - lecture
+---
+
+> [!danger]
+> This note is written by someone(`Gavin Gong, zgong6@ncsu.edu`) attending this class, not by the instructor(`Dr.Greg Byrd, gbyrd@ncsu.edu`) of the course(`CSC506`). There might be errors.
+
+- Amdahl's Law and Gustafson's Law (calculating speed up caused by adding new processors), read [Lecture - Amdahl's Law](Lecture%20-%20Amdahl's%20Law.md)
+- Shared memory and message passing, communication/synchronization method used in multiprocessors, read [Lecture - Parallel Programming Models](Lecture%20-%20Parallel%20Programming%20Models.md)
+- Data dependency, loop-carried dependency (includes LDG and ITG), read [Lecture - Data Dependency](Lecture%20-%20Data%20Dependency.md)
+- Loop parallelism(includes DO-ALL, DO-PIPE, DO-ACROSS, Loop-Distribution), see [Lecture - Loop Level Parallelism](Lecture%20-%20Loop%20Level%20Parallelism.md)
+- Scheduling in OpenMP, and corresponding clauses, see [Lecture - OpenMP Clauses](Lecture%20-%20OpenMP%20Clauses.md)
+- Cache organization (including direct-mapped, fully associative, set-associative), performance, cache placement and replacement (LRU and FIFO) policies, cache write policies (including write through, write back), cache inclusion Policy, see [Lecture - Memory Hierarchy](Lecture%20-%20Memory%20Hierarchy.md)
+- Physical and logical cache organization (private and shared and hybrid cache) for multicore architecture, see [Lecture - Cache Design in Multicore Architecture](Lecture%20-%20Cache%20Design%20in%20Multicore%20Architecture.md)
+- Cache coherence problem, cache coherence protocols (bus based cache coherence, coherence on none-bus system, broadcast protocol with p2p Interconnect), see [Lecture - Cache Coherence](Lecture%20-%20Cache%20Coherence.md)
+- Coherence protocols in bus based multi-processor system (invalidate based and update based coherence protocol, write through coherence protocol, MSI, MOE, MOESI), see [Lecture - Cache Coherence in Bus-based Multiprocessors](Lecture%20-%20Cache%20Coherence%20in%20Bus-based%20Multiprocessors.md)
+
+---
+
+Homework 1 Happens here, see [Homework - 1](Homework%20-%201.md)
+Midterm exam happens here, see [Midterm Exam Note](Midterm%20Exam%20Note.md)
+
+---
+
+- The consistency problem, consistency model, atomic instructions, lock implementations (test and set locks, and variants), atomic instruction implementations (load linked, load locked, illustration of atomicity, store conditional), barrier implementations see [Lecture - Consistency and Synchronization Problems](Lecture%20-%20Consistency%20and%20Synchronization%20Problems.md)
+- Memory consistency model, strongest consistency model(sequential consistency), weak consistency model, relaxed consistency model, see [Lecture - Memory Consistency Models](Lecture%20-%20Memory%20Consistency%20Models.md)
+- Directory Coherence Protocol, it's pros and cons, see [Lecture - Directory Coherence Protocol](Lecture%20-%20Directory%20Coherence%20Protocol.md)
+- Interconnection network architecture, topology, message granularity(Packet Switching and Circuit Switching), routing policy and latency, see [Lecture - Interconnection Network Architecture](Lecture%20-%20Interconnection%20Network%20Architecture.md)
+- Transactional Memory, new illusion on atomicity(compared to locks), conflict detection, Hardware Transactional Memory and speculative locks see [Lecture - Transactional Memory](Lecture%20-%20Transactional%20Memory.md)
+- SIMD programming model (kernel level programming) and execution model(warp execution), see [Get Started With CUDA Programming Model](https://www.gong.host/blog/2024/02/18/understand-cuda-programming-model) and [Get Started With CUDA Execution Model](https://www.gong.host/blog/2024/02/22/understand-cuda-excution-model)
+
+---
+
+Homework 2 Happens here, see [Homework - 2](Homework%20-%202.md)
+Final exam happens here, see [Final Exam Note](Final%20Exam%20Note.md)
+
+---
