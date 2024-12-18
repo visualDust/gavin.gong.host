@@ -195,7 +195,7 @@ const config = {
             ],
           },
         ],
-        copyright: `@VisualDust ${new Date().getFullYear()} all rights reserved | <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2021025239号</a>`,
+        copyright: `@VisualDust ${new Date().getFullYear()} all rights reserved`,
       },
       prism: {
         theme: lightCodeTheme,
